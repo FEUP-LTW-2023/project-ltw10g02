@@ -131,8 +131,8 @@ VALUES
     ('Billing Inquiry', 'Need clarification on a charge', 'Open', 'Low', 2, 2, 4, NULL, NULL),
     ('Jeans sizing', 'Are these jeans true to size?', 'Open', 'Medium', 1, 1, 3, NULL, 2),
     ('How do I change my password?', 'I would like to change my password but I don''t know how', 'Open', 'Low', 3, 1, NULL, 1, NULL),
-    ('Wrong size product', 'My shirt does not fit me', 'Open', 'High', 3, 3, 1, 3, 4),
-    ('Refund request', 'I would like to request a refund for my recent purchase', 'Open', 'Medium', 2, 2, 1, NULL, 2);
+    ('Wrong size product', 'My shirt does not fit me', 'Open', 'High', 4, 3, 1, 3, 4),
+    ('Refund request', 'I would like to request a refund for my recent purchase', 'Open', 'Medium', 4, 2, 1, NULL, 2);
 
 
 -- Insert hashtags
