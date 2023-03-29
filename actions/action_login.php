@@ -1,5 +1,6 @@
 <?php
-    session_start();
+    require_once(__DIR__ . '/../utils/session.php');
+    $session = new Session();
 
     require_once(__DIR__ . '/../database/database_connection.php');
 
@@ -7,10 +8,11 @@
 
     $db = getDatabaseConnection();
 
-    $user = User::getUser($db, $_POST['username'], $_POST['password']);
+    $user = User::getUser($db, $_POST['login'], $_POST['password']);
 
     if ($user)
-        $_SESSION['username'] = $_POST['username']; 
+        $session->setId($user->getId());
+        $session->setName($user->getName());
     
     header('Location:' . $_SERVER['HTTP_REFERER']);         // redirect to the page we came from
 ?>

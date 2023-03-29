@@ -1,9 +1,8 @@
 <?php
-    #session_start();
     declare(strict_types = 1);
 
-    // require_once(__DIR__ . '/../utils/session.php');
-    //   $session = new Session();
+    require_once(__DIR__ . '/../utils/session.php');
+    $session = new Session();
 
     require_once __DIR__ . '/../database/database_connection.php';
     require_once __DIR__ . '/../database/classes/department.php';
@@ -21,7 +20,7 @@
 
 
     // Display the tickets in an HTML table
-    drawHeader();
+    drawHeader($session);
     drawTickets($tickets, $db);
     drawFooter();
 

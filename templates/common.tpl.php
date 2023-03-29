@@ -1,6 +1,6 @@
 <?php 
   declare(strict_types = 1); 
-  function drawHeader(): void { ?>
+  function drawHeader(Session $session): void { ?>
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -15,7 +15,7 @@
         <h1>My Tickets</header>
 
         <div id="signup">
-          <?php if(isset($_SESSION['username'])): ?>
+          <?php if($session->isLoggedIn()): ?>
             <a href="../actions/action_logout.php">Logout</a>
           <?php else: ?>
             <a href="../pages/register.php">Register</a>
@@ -41,7 +41,7 @@
     <h1>Login</h1>
     <form>
       <label>
-        Username <input type="text" name="username">
+        Username/Email <input type="text" name="login">
       </label>
       <label>
         Password <input type="password" name="password">
@@ -56,7 +56,7 @@
       <h1>Register</h1>
       <form>
         <label>
-          Name <input type="text" name="name" pattern="[A-Za-z]+" title = "Only letters" required>
+          Name <input type="text" name="name" pattern="[A-Za-z ]+" title = "Only letters" required>
         </label>
         <label>
           Username <input type="text" name="username" required>
@@ -65,7 +65,7 @@
           Password <input type="password" name="password" required>
         </label>
         <label>
-          Email <input type="email" name="email" title = "Invalid email" required>
+          Email <input type="email" name="email" required>
         </label>
         <button formaction= '/../actions/action_register.php' formmethod="post">Register</button>
       </form>

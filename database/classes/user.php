@@ -42,11 +42,20 @@ class User {
     return $this->category;
   }
 
-  static function getUser(PDO $db, $username, $password): ?User {
-    $stmt = $db->prepare('SELECT *
+  static function getUser(PDO $db, $login, $password): ?User {
+
+    if (filter_var($login, FILTER_VALIDATE_EMAIL)) { 
+      $stmt = $db->prepare('SELECT *
+                          FROM users
+                          WHERE email = ? and pass = ?');
+      
+    } else {
+      $stmt = $db->prepare('SELECT *
                           FROM users
                           WHERE username = ? and pass = ?');
-    $stmt->execute(array($username, sha1($password)));
+    }
+
+    $stmt->execute(array($login, sha1($password))); 
 
     if ($user = $stmt->fetch()) {
       return new User(
