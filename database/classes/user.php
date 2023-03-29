@@ -41,5 +41,28 @@ class User {
   public function getCategory(): string {
     return $this->category;
   }
+
+  static function getUser(PDO $db, $username, $password): ?User {
+    $stmt = $db->prepare('SELECT *
+                          FROM users
+                          WHERE username = ? and pass = ?');
+    $stmt->execute(array($username, sha1($password)));
+
+    if ($user = $stmt->fetch()) {
+      return new User(
+        $user['id'],
+        $user['name'],
+        $user['username'],
+        $user['pass'],
+        $user['email'],
+        $user['category']
+      );
+    } else return null;
+  }
+
+  static function addUser(PDO $db, $name, $username, $password, $email, $category) {
+    $stmt = $db->prepare('INSERT INTO users (name, username, pass, email, category) VALUES(?, ?, ?, ?, ?)');
+    $stmt->execute(array($name, $username, sha1($password), strtolower($email), $category));
+  }
 }
 ?>
