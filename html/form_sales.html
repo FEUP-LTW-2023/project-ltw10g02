@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Create ticket sales</title>
+        <meta charset="utf-8">
+    </head>
+    <a href="form_sales.php"></a>
+    <form>
+        <header>
+            <h1>FEUP Style</h1>
+        </header>
+        <h2>Trouble Ticket - Sales</h2>
+        <h3>Problem</h3>
+        <label>Department:
+            <select name="department" required>
+                <option value="">&mdash;</option>
+            </select>
+        </label>
+        <label>
+            Description:
+            <textarea name="description"></textarea>
+        </label>
+        <button type="submit" formmethod="post" formaction="form_sales.php">Create</button>
+    </form>
+</html>
