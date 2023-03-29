@@ -51,23 +51,26 @@
   </section>
 <?php } ?>
 
-<?php function drawRegisterForm(){ ?>
+<?php function drawRegisterForm(Session $session){ ?>
     <section id="register">
       <h1>Register</h1>
       <form>
         <label>
-          Name <input type="text" name="name" pattern="[A-Za-z ]+" title = "Only letters" required>
+          Name <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title = "Only letters" value="<?= $session->getMessages()[1]['text'] ?>" required>
         </label>
         <label>
-          Username <input type="text" name="username" required>
+          Username <input type="text" name="username"  value="<?= $session->getMessages()[2]['text'] ?>"required>
         </label>
         <label>
           Password <input type="password" name="password" required>
         </label>
         <label>
-          Email <input type="email" name="email" required>
+          Email <input type="email" name="email" value="<?= $session->getMessages()[3]['text'] ?>" required>
         </label>
         <button formaction= '/../actions/action_register.php' formmethod="post">Register</button>
       </form>
+        <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+          <p><?= $session->getMessages()[0]['text'] ?></p>
+        <?php endif; ?>
     </section>
 <?php } ?>

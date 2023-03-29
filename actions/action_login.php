@@ -10,9 +10,12 @@
 
     $user = User::getUser($db, $_POST['login'], $_POST['password']);
 
-    if ($user)
+    if ($user){
         $session->setId($user->getId());
         $session->setName($user->getName());
-    
-    header('Location:' . $_SERVER['HTTP_REFERER']);         // redirect to the page we came from
+        header('Location:' . $_SERVER['HTTP_REFERER']);         // redirect to the page we came from
+    }
+    else{
+        header('Location:' . $_SERVER['HTTP_REFERER']); 
+    }
 ?>

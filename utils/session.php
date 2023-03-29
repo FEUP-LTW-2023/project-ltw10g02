@@ -17,6 +17,10 @@
       session_destroy();
     }
 
+    public function unset() {
+        unset($_SESSION['messages']);
+      }
+
     public function getId() : ?int {
       return isset($_SESSION['id']) ? $_SESSION['id'] : null;    
     }
