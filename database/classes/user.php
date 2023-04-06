@@ -42,6 +42,26 @@ class User {
     return $this->category;
   }
 
+  static function getUserInfosById(PDO $db, $id): ?User {
+
+      $stmt = $db->prepare('SELECT *
+                          FROM users
+                          WHERE id = ?');
+
+    $stmt->execute(array($id)); 
+
+    if ($user = $stmt->fetch()) {
+      return new User(
+        $user['id'],
+        $user['name'],
+        $user['username'],
+        $user['pass'],
+        $user['email'],
+        $user['category']
+      );
+    } else return null;
+  }
+
   static function getUser(PDO $db, $login, $password): ?User {
 
     if (filter_var($login, FILTER_VALIDATE_EMAIL)) { 

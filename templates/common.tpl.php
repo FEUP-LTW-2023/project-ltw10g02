@@ -24,7 +24,7 @@
                 <span id = "icon-menu-user"></span>
               </label>
               <ul class="menu-user-itens">
-                <li><a href="#">Profile</a></li>
+                <li><a href="../pages/profile.php">Profile</a></li>
                 <li><a href="#">My tickets</a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
               </ul>
