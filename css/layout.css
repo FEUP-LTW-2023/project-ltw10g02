@@ -1,0 +1,44 @@
+.menu-user {
+    position: relative;
+}
+
+.menu-toggle-user {
+    display: none;
+}
+.menu-user-itens {
+    position: absolute;
+    right: -10px;
+    z-index: 1;
+    display: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.menu-toggle-user:checked + label + .menu-user-itens {
+    background-color: #333;
+    padding: 5px;
+    display: block;
+    width: 120px;
+} 
+
+.menu-user li {
+    list-style-type: none;
+    background-color: rgba(255, 255, 255, 0.745);
+    border: 2px solid rgba(0, 0, 0, 0.64);
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.menu-user a {
+    text-decoration: none;
+    color: white;
+}
+
+#icon-menu-user {
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 38px;
+    background-size: 28px 28px;
+    background-image: url('../images/icons/circle-user-solid.svg');
+}

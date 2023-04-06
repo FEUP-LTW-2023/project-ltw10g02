@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="../css/layout.css">
   </head>
   <body>
     <header>
@@ -17,8 +18,19 @@
 
         <div id="signup">
           <?php if($session->isLoggedIn()): ?>
-            <a href="../pages/profile.php"><span id = "icon-menu-user"></span></a>
-            <a href="../actions/action_logout.php">Logout</a>
+            <nav class="menu-user">
+              <input type="checkbox" class="menu-toggle-user" id="menu-toggle-user">
+              <label for="menu-toggle-user">
+                <span id = "icon-menu-user"></span>
+              </label>
+              <ul class="menu-user-itens">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">My tickets</a></li>
+                <li><a href="../actions/action_logout.php">Logout</a></li>
+              </ul>
+            </nav>
+            <!-- <a href="../pages/profile.php"><span id = "icon-menu-user"></span></a>
+            <a href="../actions/action_logout.php">Logout</a> -->
           <?php else: ?>
             <a href="../pages/register.php">Register</a>
             <a href="../pages/login.php">Login</a>

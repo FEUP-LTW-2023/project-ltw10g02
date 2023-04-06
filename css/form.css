@@ -18,18 +18,18 @@ section > form > button{
     margin: 10px auto 0px auto;
     background-color: rgb(168, 161, 161);
     border: 2px solid darkslategray;
-    border-radius: 5px; /* Adicione bordas arredondadas ao input */
+    border-radius: 5px; 
 }
 
 section > form > input{
     margin-bottom: 3px;
     display: flex;
-    padding: 10px 30px; /* Adicione um preenchimento para melhorar a aparência do input */
+    padding: 10px 30px; 
     border: 2px solid darkslategray;
-    border-radius: 5px; /* Adicione bordas arredondadas ao input */
+    border-radius: 5px; 
 }
 
-input, #icon-menu-user {
+input{
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: 4px;
@@ -49,13 +49,4 @@ input[name = "password"] {
 
 input[name = "email"] {
     background-image: url('../images/icons/envelope-solid.svg');
-}
-
-#icon-menu-user {
-    display: inline-block;
-    background-size: 28px 28px;
-    width: 40px;
-    height: 28px;
-    margin-top: 10px;
-    background-image: url('../images/icons/circle-user-solid.svg');
 }
