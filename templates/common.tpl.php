@@ -9,13 +9,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/form.css">
   </head>
   <body>
     <header>
-        <h1>My Tickets</header>
+        <h1><a href="../index.php">My Tickets</a></h1>
 
         <div id="signup">
           <?php if($session->isLoggedIn()): ?>
+            <a href="../pages/profile.php"><span id = "icon-menu-user"></span></a>
             <a href="../actions/action_logout.php">Logout</a>
           <?php else: ?>
             <a href="../pages/register.php">Register</a>
@@ -40,37 +42,27 @@
   <section id="login">
     <h1>Login</h1>
     <form>
-      <label>
-        Username/Email <input type="text" name="login">
-      </label>
-      <label>
-        Password <input type="password" name="password">
-      </label>
+      <input type="text" name="login" placeholder="Username/Email">
+      <input type="password" name="password" placeholder="Password">
       <button formaction= '/../actions/action_login.php' formmethod="post">Login</button>
     </form>
   </section>
-<?php } ?>
+<?php } ?> 
 
 <?php function drawRegisterForm(Session $session){ ?>
-    <section id="register">
-      <h1>Register</h1>
-      <form>
-        <label>
-          Name <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title = "Only letters" value="<?= $session->getMessages()[1]['text'] ?>" required>
-        </label>
-        <label>
-          Username <input type="text" name="username"  value="<?= $session->getMessages()[2]['text'] ?>"required>
-        </label>
-        <label>
-          Password <input type="password" name="password" required>
-        </label>
-        <label>
-          Email <input type="email" name="email" value="<?= $session->getMessages()[3]['text'] ?>" required>
-        </label>
-        <button formaction= '/../actions/action_register.php' formmethod="post">Register</button>
-      </form>
-        <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
-          <p><?= $session->getMessages()[0]['text'] ?></p>
-        <?php endif; ?>
-    </section>
+  <section id="register">
+    <h1>Create a new account</h1>
+    <form>
+      <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getMessages()[1]['text'] ?>" placeholder="Name" required>
+      <input type="text" name="username" value="<?= $session->getMessages()[2]['text'] ?>" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="email" name="email" value="<?= $session->getMessages()[3]['text'] ?>" placeholder="Email" required>
+      <button formaction="/../actions/action_register.php" formmethod="post">Register</button>
+    </form>
+    <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+      <span class="error">
+        <p><?= $session->getMessages()[0]['text'] ?></p>
+      </span>
+    <?php endif; ?>
+  </section>
 <?php } ?>

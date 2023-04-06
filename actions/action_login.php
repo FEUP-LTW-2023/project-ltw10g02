@@ -13,7 +13,7 @@
     if ($user){
         $session->setId($user->getId());
         $session->setName($user->getName());
-        header('Location:' . $_SERVER['HTTP_REFERER']);         // redirect to the page we came from
+        header('Location: ../index.php');  
     }
     else{
         header('Location:' . $_SERVER['HTTP_REFERER']); 

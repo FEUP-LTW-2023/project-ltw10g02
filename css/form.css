@@ -1,0 +1,61 @@
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 60px auto;  
+}
+
+section > h1{
+    font-size: 2em;  
+    padding-bottom: 5px;
+}
+
+
+section > form > button{
+    display: block;
+    margin: 10px auto 0px auto;
+    background-color: rgb(168, 161, 161);
+    border: 2px solid darkslategray;
+    border-radius: 5px; /* Adicione bordas arredondadas ao input */
+}
+
+section > form > input{
+    margin-bottom: 3px;
+    display: flex;
+    padding: 10px 30px; /* Adicione um preenchimento para melhorar a aparência do input */
+    border: 2px solid darkslategray;
+    border-radius: 5px; /* Adicione bordas arredondadas ao input */
+}
+
+input, #icon-menu-user {
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: 4px;
+}
+
+input[name = "name"], input[name = "login"] {
+    background-image: url('../images/icons/user-solid.svg');
+}
+
+input[name = "username"] {
+    background-image: url('../images/icons/user-ninja-solid.svg');
+}
+
+input[name = "password"] {
+    background-image: url('../images/icons/key-solid.svg');
+}
+
+input[name = "email"] {
+    background-image: url('../images/icons/envelope-solid.svg');
+}
+
+#icon-menu-user {
+    display: inline-block;
+    background-size: 28px 28px;
+    width: 40px;
+    height: 28px;
+    margin-top: 10px;
+    background-image: url('../images/icons/circle-user-solid.svg');
+}
