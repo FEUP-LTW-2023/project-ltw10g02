@@ -110,11 +110,11 @@ INSERT INTO departments (name, description) VALUES
 
 -- Insert users
 INSERT INTO users (name, username, pass, email, category) VALUES
-  ('Maria Rabelo', 'mariaarabelo', 'password1', 'maria@example.com', 'client'),
-  ('Matheus Utino', 'utino', 'password2', 'mateus@example.com', 'client'),
-  ('Sofia Sousa', 'ssousa', 'password3', 'sofia@example.com', 'agent'),
-  ('Devezas', 'devezas', 'password4', 'devezas@example.com', 'agent'),
-  ('Andre Restivo', 'arestivo', 'password4', 'restivo@example.com', 'admin');
+  ('Maria Rabelo', 'mariaarabelo', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'maria@example.com', 'client'),
+  ('Matheus Utino', 'utino', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'matheus@example.com', 'client'),
+  ('Sofia Sousa', 'ssousa', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'sofia@example.com', 'agent'),
+  ('Devezas', 'devezas', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'devezas@example.com', 'agent'),
+  ('Andre Restivo', 'arestivo', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'restivo@example.com', 'admin');
 
 -- Insert FAQs
 INSERT INTO faqs (question, answer) VALUES

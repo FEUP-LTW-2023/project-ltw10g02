@@ -42,7 +42,7 @@ class User {
     return $this->category;
   }
 
-  static function getUserInfosById(PDO $db, $id): ?User {
+  static function getUserById(PDO $db, $id): ?User {
 
       $stmt = $db->prepare('SELECT *
                           FROM users
@@ -87,6 +87,15 @@ class User {
         $user['category']
       );
     } else return null;
+  }
+
+  static function updateUser(PDO $db): void {
+    $stmt = $db->prepare('
+        UPDATE User SET FirstName = ?, LastName = ?
+        WHERE CustomerId = ?
+      ');
+
+    $stmt->execute(array($this->firstName, $this->lastName, $this->id));
   }
 
   static function addUser(PDO $db, Session $session, $name, $username, $password, $email, $category){

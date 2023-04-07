@@ -28,51 +28,78 @@ class Ticket {
     $this->updated_at = $updated_at;
   }
 
-  public function getId() {
+  public function getId(): int {
     return $this->id;
   }
 
-  public function getSubject() {
+  public function getSubject(): string {
     return $this->subject;
   }
 
-  public function getDescription() {
+  public function getDescription(): string {
     return $this->description;
   }
 
-  public function getStatus() {
+  public function getStatus(): string {
     return $this->status;
   }
 
-  public function getPriority() {
+  public function getPriority(): string {
     return $this->priority;
   }
 
-  public function getDepartmentId() {
+  public function getDepartmentId(): int {
     return $this->department_id;
   }
 
-  public function getClientId() {
+  public function getClientId(): int {
     return $this->client_id;
   }
 
-  public function getAgentId() {
+  public function getAgentId(): int {
     return $this->agent_id;
   }
 
-  public function getFaqId() {
+  public function getFaqId(): int {
     return $this->faq_id;
   }
 
-  public function getCreatedAt() {
+  public function getCreatedAt(): string {
     return $this->created_at;
   }
 
-  public function getUpdatedAt() {
+  public function getUpdatedAt(): string {
     return $this->updated_at;
   }
 
-  public static function getAll($db) {
+  public static function getTicketsByUser(PDO $db, $id, $numberTickets = -1): array {
+    $tickets = array();
+    $query = 'SELECT * FROM tickets WHERE client_id = ?';
+    if ($numberTickets > 0) {
+        $query .= ' LIMIT '.$numberTickets;
+    }
+    $stmt = $db->prepare($query);
+    $stmt->execute(array($id));
+    foreach ($stmt as $ticket) {
+        $ticket = new Ticket(
+            $ticket['id'],
+            $ticket['subject'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $ticket['department_id'],
+            $ticket['client_id'],
+            $ticket['agent_id'],
+            $ticket['faq_id'],
+            $ticket['created_at'],
+            $ticket['updated_at']
+        );
+        $tickets[] = $ticket;
+    }
+    return $tickets;
+  }
+
+  public static function getAll(PDO $db): array {
 
     $tickets = array();
     $rows = $db->query('SELECT * FROM tickets');

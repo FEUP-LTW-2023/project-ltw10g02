@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-require_once __DIR__ . '/../database_connection.php';
-
 class FAQ {
   private $id;
   private $question;
@@ -14,8 +12,7 @@ class FAQ {
     $this->answer = $answer;
   }
 
-  public static function getById(int $id): ?self {
-    $db = getDatabaseConnection();
+  public static function getById(PDO $db, int $id): ?self {
     $stmt = $db->prepare('SELECT * FROM faqs WHERE id = ?');
     $stmt->execute([$id]);
     $result = $stmt->fetch();
@@ -27,8 +24,7 @@ class FAQ {
     return new self($result['question'], $result['answer'], $result['id']);
   }
 
-  public static function getAll(): array {
-    $db = getDatabaseConnection();
+  public static function getAll(PDO $db): array {
     $stmt = $db->prepare('SELECT * FROM faqs');
     $stmt->execute();
     $results = $stmt->fetchAll();
@@ -41,9 +37,7 @@ class FAQ {
     return $faqs;
   }
 
-  public function save(): void {
-    $db = getDatabaseConnection();
-
+  public function save(PDO $db): void {
     if ($this->id) {
       $stmt = $db->prepare('UPDATE faqs SET question = ?, answer = ? WHERE id = ?');
       $stmt->execute([$this->question, $this->answer, $this->id]);
