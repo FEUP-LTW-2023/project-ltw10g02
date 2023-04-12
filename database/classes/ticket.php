@@ -29,7 +29,7 @@ class Ticket {
   }
 
   public function getId(): int {
-    return $this->id;
+    return intval($this->id);
   }
 
   public function getSubject(): string {
@@ -49,9 +49,9 @@ class Ticket {
   }
 
   public function getDepartmentId(): int {
-    return $this->department_id;
+    return intval($this->department_id);
   }
-
+  
   public function getClientId(): int {
     return $this->client_id;
   }
