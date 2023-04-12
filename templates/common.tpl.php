@@ -44,7 +44,7 @@
     </main>
 
     <footer>
-      Clothing Store Tickets &copy; 2023
+      FEUP Style &copy; 2023
     </footer>
   </body>
 </html>
