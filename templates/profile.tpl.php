@@ -1,29 +1,18 @@
 
+<?php
+    require_once(__DIR__ . '/../templates/tickets.tpl.php');
+
+?>
+
+
 <?php function drawInfosProfile(PDO $db, User $user, $tickets): void { ?>
     <section class = "user_info">
         <h1>Profile Page</h1>
+
         <article class = "user_tickets">
             <h2>Last Tickets</h2>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Subject</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($tickets as $ticket): ?>
-                        <tr>
-                        <td><?= $ticket->getId() ?></td>
-                        <td><?= $ticket->getSubject() ?></td>
-                        <td><?= $ticket->getStatus() ?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
-            <button formaction="/../pages/tickets.php" formmethod="post">Show all tickets</button>
+            <?php drawTickets($db, $tickets) ?>
+            <a href="../pages/tickets.php">Show all tickets</a>
         </article>
 
         <article class ="user_basic_infos">

@@ -35,11 +35,11 @@ input{
     background-position: 4px;
 }
 
-input[name = "name"], input[name = "login"] {
+input[name = "name"], input[name = "login"]{
     background-image: url('../images/icons/user-solid.svg');
 }
 
-input[name = "username"] {
+input[name="username"]{
     background-image: url('../images/icons/user-ninja-solid.svg');
 }
 
