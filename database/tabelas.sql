@@ -1,11 +1,16 @@
+.headers on
+.mode columns
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tickets;
 DROP TABLE IF EXISTS ticket_hashtags;
+DROP TABLE IF EXISTS ticket_departments;
 DROP TABLE IF EXISTS hashtags;
 DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS faqs;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS comments;
 
 -- Users table stores information about registered users
 CREATE TABLE users (
@@ -54,15 +59,12 @@ CREATE TABLE tickets (
   subject TEXT NOT NULL,
   description TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'Open',
-  priority TEXT NOT NULL DEFAULT 'Low',
-  department_id INTEGER NOT NULL,
+  priority TEXT,
   client_id INTEGER NOT NULL,
   agent_id INTEGER,
   faq_id INTEGER,
   product_id INTEGER,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (department_id) REFERENCES departments(id),
   FOREIGN KEY (client_id) REFERENCES users(id),
   FOREIGN KEY (agent_id) REFERENCES users(id),
   FOREIGN KEY (faq_id) REFERENCES faqs(id),
@@ -82,6 +84,26 @@ CREATE TABLE ticket_hashtags (
   PRIMARY KEY (ticket_id, hashtag_id),
   FOREIGN KEY (ticket_id) REFERENCES tickets(id),
   FOREIGN KEY (hashtag_id) REFERENCES hashtags(id)
+);
+
+-- Ticket_departments table stores the relationship between tickets and departments
+CREATE TABLE ticket_departments (
+  ticket_id INTEGER NOT NULL,
+  department_id INTEGER NOT NULL,
+  PRIMARY KEY (ticket_id, department_id),
+  FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+  FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+-- Comments table
+CREATE TABLE comments (
+  id INTEGER PRIMARY KEY, 
+  ticket_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  body TEXT NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Insert sample data for categories table
@@ -125,14 +147,14 @@ INSERT INTO faqs (question, answer) VALUES
     ('How do I change my email address?', 'You can change your email address by editing your profile information.');
 
 -- Insert tickets
-INSERT INTO tickets (subject, description, status, priority, department_id, client_id, agent_id, faq_id, product_id)
+INSERT INTO tickets (subject, description, client_id, agent_id, faq_id, product_id)
 VALUES
-    ('Defective T-shirt', 'Received a t-shirt with a hole in it', 'Open', 'High', 1, 1, 3, NULL, 1),
-    ('Billing Inquiry', 'Need clarification on a charge', 'Open', 'Low', 2, 2, 4, NULL, NULL),
-    ('Jeans sizing', 'Are these jeans true to size?', 'Open', 'Medium', 1, 1, 3, NULL, 2),
-    ('How do I change my password?', 'I would like to change my password but I don''t know how', 'Open', 'Low', 3, 1, NULL, 1, NULL),
-    ('Wrong size product', 'My shirt does not fit me', 'Open', 'High', 4, 3, 1, 3, 4),
-    ('Refund request', 'I would like to request a refund for my recent purchase', 'Open', 'Medium', 4, 2, 1, NULL, 2);
+    ('Defective T-shirt', 'Received a t-shirt with a hole in it', 1, 3, NULL, 1),
+    ('Billing Inquiry', 'Need clarification on a charge', 2, 4, NULL, NULL),
+    ('Jeans sizing', 'Are these jeans true to size?', 1, 3, NULL, 2),
+    ('How do I change my password?', 'I would like to change my password but I don''t know how', 1, NULL, 1, NULL),
+    ('Wrong size product', 'My shirt does not fit me',  3, 1, 3, 4),
+    ('Refund request', 'I would like to request a refund for my recent purchase', 2, 1, NULL, 2);
 
 
 -- Insert hashtags
@@ -155,3 +177,17 @@ VALUES
   (5, 7),
   (6, 2);
 
+INSERT INTO ticket_departments (ticket_id, department_id)
+VALUES
+  (1, 4),
+  (2, 1),
+  (2, 2),
+  (2, 4),
+  (3, 4),
+  (4, 3),
+  (5, 4),
+  (6, 4);
+
+INSERT INTO comments (ticket_id, user_id, body)
+VALUES
+  (6, 1, 'Can someone help me with my refund?');
