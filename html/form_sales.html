@@ -4,22 +4,27 @@
         <title>Create ticket sales</title>
         <meta charset="utf-8">
     </head>
-    <a href="form_sales.php"></a>
-    <form>
-        <header>
-            <h1>FEUP Style</h1>
-        </header>
-        <h2>Trouble Ticket - Sales</h2>
-        <h3>Problem</h3>
-        <label>Department:
-            <select name="department" required>
-                <option value="">&mdash;</option>
-            </select>
-        </label>
-        <label>
-            Description:
-            <textarea name="description"></textarea>
-        </label>
-        <button type="submit" formmethod="post" formaction="form_sales.php">Create</button>
-    </form>
+    <body>
+        <form action="form_sales.php" method="post">
+            <header>
+                <h1>FEUP Style</h1>
+            </header>
+            <h2>Trouble Ticket - Sales</h2>
+            <h3>Problem</h3>
+            <label>Department:
+                <select name="department" required>
+                    <option value="">&mdash;</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Billing">Billing</option>
+                    <option value="Technical Support">Technical Support</option>
+                    <option value="Exchanges and Returns">Exchanges and Returns</option>
+                </select>
+            </label><br>
+            <label>
+                Description:
+                <textarea name="description"></textarea>
+            </label><br>
+            <button type="submit">Create</button>
+        </form>
+    </body>
 </html>
