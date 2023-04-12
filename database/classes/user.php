@@ -89,13 +89,39 @@ class User {
     } else return null;
   }
 
-  static function updateUser(PDO $db): void {
+  function updateName(PDO $db): void {
     $stmt = $db->prepare('
-        UPDATE User SET FirstName = ?, LastName = ?
-        WHERE CustomerId = ?
+        UPDATE User SET name = ?
+        WHERE id = ?
       ');
 
-    $stmt->execute(array($this->firstName, $this->lastName, $this->id));
+    $stmt->execute(array($this->name, $this->id));
+  }
+
+  function updateUserame(PDO $db): void {
+    $stmt = $db->prepare('
+        UPDATE User SET username = ?
+        WHERE id = ?
+      ');
+
+    $stmt->execute(array($this->username, $this->id));
+  }
+  function updateEmail(PDO $db): void {
+    $stmt = $db->prepare('
+        UPDATE User SET email = ?
+        WHERE id = ?
+      ');
+
+    $stmt->execute(array($this->email, $this->id));
+  }
+
+  function updatePass(PDO $db): void {
+    $stmt = $db->prepare('
+        UPDATE User SET pass = ?
+        WHERE id = ?
+      ');
+
+    $stmt->execute(array($this->pass, $this->id));
   }
 
   static function addUser(PDO $db, Session $session, $name, $username, $password, $email, $category){
