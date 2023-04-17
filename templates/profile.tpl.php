@@ -25,3 +25,18 @@
         </article>
     </section>
 <?php } ?>
+
+<?php function drawEditProfileForm(PDO $db, User $user, $tickets): void { ?>
+    <section class = "edit_profile">
+        <h1>Edit your profile page</h1>
+
+        <article class ="user_basic_infos">
+            <h2>My infos</h2>
+            <p>Name : <?= $user->getName()?></p>
+            <p>Username : <?= $user->getUsername()?></p>
+            <p>Email : <?= $user->getEmail()?></p>
+            <p>Category : <?= $user->getCategory()?></p>
+            <button formaction="/../actions/action_update_profile.php" formmethod="post">Edit your profile</button>
+        </article>
+    </section>
+<?php } ?>

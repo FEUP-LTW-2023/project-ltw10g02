@@ -67,8 +67,9 @@
     <form>
       <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getMessages()[1]['text'] ?>" placeholder="Name" required>
       <input type="text" name="username" value="<?= $session->getMessages()[2]['text'] ?>" placeholder="Username" required>
-      <input type="password" name="password" placeholder="Password" required>
       <input type="email" name="email" value="<?= $session->getMessages()[3]['text'] ?>" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="password_repeated" placeholder="Repeat password" required>
       <button formaction="/../actions/action_register.php" formmethod="post">Register</button>
     </form>
     <?php if ($session->getMessages()[0]['type'] === 'error'): ?>

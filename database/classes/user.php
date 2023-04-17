@@ -124,7 +124,7 @@ class User {
     $stmt->execute(array($this->pass, $this->id));
   }
 
-  static function addUser(PDO $db, Session $session, $name, $username, $password, $email, $category){
+  static function addUser(PDO $db, Session $session, $name, $username, $password, $password_repeated, $email, $category){
     //Check whether username already exist
     $stmt = $db->prepare('SELECT COUNT(*) FROM users WHERE username = ?');
     $stmt->execute(array($username));
@@ -136,10 +136,15 @@ class User {
     $countEmail = $stmt->fetchColumn();
 
     //Whether both don't exist then we insert in database
-    if($countUsername == 0 &&  $countEmail == 0){
-      $stmt = $db->prepare('INSERT INTO users (name, username, pass, email, category) VALUES(?, ?, ?, ?, ?)');
-      $stmt->execute(array($name, $username, sha1($password), strtolower($email), $category));
-      $session->addMessage('success', 'User inserted in the database');
+    if($countUsername === 0 &&  $countEmail === 0){
+      if($password === $password_repeated){
+        $stmt = $db->prepare('INSERT INTO users (name, username, pass, email, category) VALUES(?, ?, ?, ?, ?)');
+        $stmt->execute(array($name, $username, sha1($password), strtolower($email), $category));
+        $session->addMessage('success', 'User inserted in the database');
+      }
+      else{
+        $session->addMessage('error', 'Passwords do not match');
+      }
     }
     elseif($countUsername != 0 && $countEmail == 0){
       $session->addMessage('error', 'Username already exist in the database');
@@ -150,6 +155,6 @@ class User {
     else{
       $session->addMessage('error', 'Username and email already exist in the database');
     }
-}
+  }
 }
 ?>
