@@ -10,14 +10,23 @@
 
     $db = getDatabaseConnection();
 
-    $user = User::getUser($db, $_POST['login'], $_POST['password']);
+    list($user, $error) = User::getUser($db, $_POST['login'], $_POST['password']);
 
     if ($user){
         $session->setId($user->getId());
         $session->setName($user->getName());
-        header('Location: ../index.php');  
+        $session->addMessage('success', 'Login successful');
+        header('Location: ../pages/profile.php'); 
+        exit; 
     }
     else{
+        if ($error){
+            $session->addMessage('error', $error);
+        }
+        else {
+            $session->addMessage('error', 'idk what kind of error it is');
+        }
         header('Location:' . $_SERVER['HTTP_REFERER']); 
+        exit;
     }
 ?>
