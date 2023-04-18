@@ -50,13 +50,25 @@
 </html>
 <?php } ?>
 
-<?php function drawLoginForm(){ ?>
+<?php function drawLoginForm($session){ ?>
   <section id="login">
     <h1>Login</h1>
+    <?php if (count($session->getMessages())>0) { ?>
+      <div class="error-message">
+        <?php
+          // display session messages if they exist
+          foreach ($session->getMessages() as $message) { ?>
+            <article class="<?$message['type']?>">
+              <?=$message['text']?>
+            </article>
+          <?php } 
+        ?>
+      </div>  
+    <?php } ?>
     <form>
       <input type="text" name="login" placeholder="Username/Email">
       <input type="password" name="password" placeholder="Password">
-      <button formaction= '/../actions/action_login.php' formmethod="post">Login</button>
+      <button formaction= '../actions/action_login.php' formmethod="post">Login</button>
     </form>
   </section>
 <?php } ?> 
