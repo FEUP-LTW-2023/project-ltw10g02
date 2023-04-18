@@ -49,3 +49,15 @@ footer {
   margin-right: 4px;
 }
   
+/* Style for all links */
+a {
+  color: white; /* Sets the link color */
+  text-decoration: none; /* Removes the default underline */
+  font-weight: bold; /* Makes the link bold */
+}
+
+/* Style for hovered links */
+a:hover {
+  text-decoration: underline; /* Adds underline on hover */
+}
+
