@@ -11,11 +11,11 @@
     $db = getDatabaseConnection();
 
     $user = User::getUser($db, $_POST['login'], $_POST['password']);
-
+    
     if ($user){
         $session->setId($user->getId());
         $session->setName($user->getName());
-        header('Location: ../index.php');  
+        header('Location: ../index.php'); 
     }
     else{
         header('Location:' . $_SERVER['HTTP_REFERER']); 
