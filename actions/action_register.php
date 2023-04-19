@@ -12,14 +12,15 @@
 
     User::addUser($db, $session, $_POST['name'], $_POST['username'], $_POST['password'], $_POST['password_repeated'], $_POST['email'], "client");
 
-    if($session->getMessages()['type'] === 'sucess')
-        header('Location: /../pages/profile.php' );  // redirect to the page we came from
+    
+    if($session->getMessages()['type'] === 'success'){
+        header('Location: /../pages/login.php');  // redirect to the page we came from
+    }
     else{
         $session->addMessage('data', $_POST['name']);
         $session->addMessage('data', $_POST['username']);
         $session->addMessage('data', $_POST['email']);
         header('Location: /../pages/register.php');
-
     }
 
 ?>

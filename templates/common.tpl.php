@@ -59,6 +59,7 @@
           // display session messages if they exist
           foreach ($session->getMessages() as $message) { ?>
             <article class="<?$message['type']?>">
+              <?=$message['type']?>
               <?=$message['text']?>
             </article>
           <?php } 

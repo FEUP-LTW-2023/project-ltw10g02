@@ -145,10 +145,10 @@ class User {
         $session->addMessage('error', 'Passwords do not match');
       }
     }
-    elseif($countUsername != 0 && $countEmail == 0){
+    elseif($countUsername !== 0 && $countEmail === 0){
       $session->addMessage('error', 'Username already exist in the database');
     }
-    elseif($countEmail != 0 && $countUsername == 0){
+    elseif($countEmail !== 0 && $countUsername === 0){
       $session->addMessage('error', 'Email already exist in the database');
     }
     else{
