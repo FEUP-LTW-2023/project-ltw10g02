@@ -18,12 +18,6 @@
         header('Location: ../index.php');  
     }
     else{
-        if ($error){
-            $session->addMessage('error', $error);
-        }
-        else {
-            $session->addMessage('error', 'idk what kind of error it is');
-        }
         header('Location:' . $_SERVER['HTTP_REFERER']); 
         exit;
     }

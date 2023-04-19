@@ -62,28 +62,17 @@ class User {
     } else return null;
   }
 
-  static function getUser(PDO $db, $login, $password): array {
-      $error = '';
+  static function getUser(PDO $db, $login, $password): ?User {
     if (filter_var($login, FILTER_VALIDATE_EMAIL)) { 
       $stmt = $db->prepare('SELECT *
                           FROM users
-                          WHERE email = ?');
-      $stmt->execute(array($login));
-
-      if (!$user = $stmt->fetch()) {
-          $error = 'Invalid email';
-      }
+                          WHERE email = ? and pass = ?');
       
     } else {
       $stmt = $db->prepare('SELECT *
                           FROM users
-                          WHERE username = ?');
-      $stmt->execute(array($login));
-      
-      if (!$user = $stmt->fetch()){
-        $error = 'Invalid username';
+                          WHERE username = ? and pass=?');
       }
-  }
 
     $stmt->execute(array($login, sha1($password))); 
 
@@ -95,16 +84,9 @@ class User {
         $user['pass'],
         $user['email'],
         $user['category']
-      ), 'error'=> 'certinho');
-    } else {
-        if ($error) {
-          return array('user' => null, 'error' => $error);
-        } else {
-          $error = 'Invalid password' ;
-          return array('user' => null, 'error' => $error);
-        } 
-      }
-    }
+      );
+    } else return null;
+  }
 
   function updateName(PDO $db): void {
     $stmt = $db->prepare('
