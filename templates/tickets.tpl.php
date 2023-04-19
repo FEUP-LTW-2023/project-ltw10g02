@@ -49,8 +49,21 @@ function drawTickets(PDO $db, $tickets){
   <section id="ticketForm">
     <h1>Create a new ticket</h1>
     <form>
-      <input type="text" name="subject" placeholder="Subject" required>
-      <input type="text" name="description" placeholder="Description" required>
+      <label>Department:
+        <select name="department" required>
+          <option value="">&mdash;</option>
+          <option value="Sales">Sales</option>
+          <option value="Billing">Billing</option>
+          <option value="Technical Support">Technical Support</option>
+          <option value="Exchanges and Returns">Exchanges and Returns</option>
+        </select>
+      </label>
+      <label>Subject:
+        <input type="text" name="subject" placeholder="Subject" required>
+      </label>
+      <label>Description:
+        <textarea name="description"></textarea>
+      </label>
       <input type="hidden" name="user_id" value = <?=$session->getId()?>>
       <button formaction="/../actions/action_create_ticket.php" formmethod="post">Create ticket</button>
     </form>
