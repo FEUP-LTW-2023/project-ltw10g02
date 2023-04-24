@@ -53,19 +53,6 @@
 <?php function drawLoginForm($session){ ?>
   <section id="login">
     <h1>Login</h1>
-    <?php if (count($session->getMessages())>0) { ?>
-      <div class="error-message">
-        <?php
-          // display session messages if they exist
-          foreach ($session->getMessages() as $message) { ?>
-            <article class="<?$message['type']?>">
-              <?=$message['type']?>
-              <?=$message['text']?>
-            </article>
-          <?php } 
-        ?>
-      </div>  
-    <?php } ?>
     <form>
       <input type="text" name="login" placeholder="Username/Email">
       <input type="password" name="password" placeholder="Password">
@@ -78,9 +65,9 @@
   <section id="register">
     <h1>Create a new account</h1>
     <form>
-      <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getMessages()[1]['text'] ?>" placeholder="Name" required>
-      <input type="text" name="username" value="<?= $session->getMessages()[2]['text'] ?>" placeholder="Username" required>
-      <input type="email" name="email" value="<?= $session->getMessages()[3]['text'] ?>" placeholder="Email" required>
+      <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getFormValues()['name'] ?>" placeholder="Name" required>
+      <input type="text" name="username" value="<?= $session->getFormValues()['username'] ?>" placeholder="Username" required>
+      <input type="email" name="email" value="<?= $session->getFormValues()['email'] ?>" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
       <input type="password" name="password_repeated" placeholder="Repeat password" required>
       <button formaction="/../actions/action_register.php" formmethod="post">Register</button>
