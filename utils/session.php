@@ -1,12 +1,16 @@
 <?php
   class Session {
     private array $messages;
+    private array $formValues;
 
     public function __construct() {
       session_start();
 
       $this->messages = isset($_SESSION['messages']) ? $_SESSION['messages'] : array();
+      $this->formValues = isset($_SESSION['form_values']) ? $_SESSION['form_values'] : array();
+      
       unset($_SESSION['messages']);
+      unset($_SESSION['form_values']);
     }
 
     public function isLoggedIn() : bool {
@@ -43,6 +47,16 @@
 
     public function getMessages() {
       return $this->messages;
+    }
+
+    /* store the values from the form inputs in the session */
+    public function addFormValues(array $values) {
+      $_SESSION['form_values'] = $values;
+    }
+
+    /* get the stored form input values */
+    public function getFormValues() {
+      return $this->formValues;
     }
   }
 ?>
