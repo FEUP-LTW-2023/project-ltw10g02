@@ -49,6 +49,16 @@ class Department {
           return null;
       }
   }
+
+  public static function getAllDepartments(PDO $db): array{
+    $departments = array();
+    $rows = $db->query('SELECT * FROM departments');
+    foreach ($rows as $row) {
+      $department = new Department($row['id'], $row['name'], $row['description']);
+      $departments[] = $department;
+    }
+    return $departments;
+  }
   
 }
 
