@@ -17,7 +17,7 @@ function drawTickets(PDO $db, $tickets){
       </tr>
     </thead>
     <tbody>
-    <?php foreach ($tickets as $ticket): ?>
+      <?php foreach ($tickets as $ticket): ?>
         <tr>
           <td><?= $ticket->getId() ?></td>
           <td><?= $ticket->getSubject() ?></td>
@@ -45,17 +45,16 @@ function drawTickets(PDO $db, $tickets){
 <?php } ?>
 
 
-<?php function drawTicketForm(Session $session){ ?>
+<?php function drawTicketForm(Session $session, $departaments){ ?>
   <section id="ticketForm">
     <h1>Create a new ticket</h1>
     <form>
       <label>Department:
         <select name="department" required>
           <option value="">&mdash;</option>
-          <option value="Sales">Sales</option>
-          <option value="Billing">Billing</option>
-          <option value="Technical Support">Technical Support</option>
-          <option value="Exchanges and Returns">Exchanges and Returns</option>
+          <?php foreach ($departaments as $departament): ?>
+            <option value= "<?=$departament->getName()?>" > <?= $departament->getName() ?></option>
+          <?php endforeach ?>
         </select>
       </label>
       <label>Subject:
