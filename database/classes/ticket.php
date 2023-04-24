@@ -72,6 +72,16 @@ class Ticket {
     return $this->updated_at;
   }
 
+  public static function addTicket(PDO $db, Session $session, $subject, $description, $client_id): void{
+    try{
+      $stmt = $db->prepare("INSERT INTO tickets (subject, description, client_id) VALUES (?, ?, ?)");
+      $stmt->execute(array($subject, $description, $client_id));
+      $session->addMessage('success', 'Ticket created successfully');
+    } catch (PDOException $e) {
+      $session->addMessage('error', $e->getMessage());
+    }
+  }
+
   public static function getTicketsByUser(PDO $db, $id, $numberTickets = -1): array {
     $tickets = array();
     $query = 'SELECT * FROM tickets WHERE client_id = ?';

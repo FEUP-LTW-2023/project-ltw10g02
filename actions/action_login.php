@@ -11,7 +11,7 @@
     $db = getDatabaseConnection();
 
     $user = User::getUser($db, $_POST['login'], $_POST['password']);
-
+    
     if ($user){
         $session->setId($user->getId());
         $session->setName($user->getName());
@@ -19,5 +19,6 @@
     }
     else{
         header('Location:' . $_SERVER['HTTP_REFERER']); 
+        exit;
     }
 ?>

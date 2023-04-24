@@ -25,7 +25,7 @@
               </label>
               <ul class="menu-user-itens">
                 <li><a href="../pages/profile.php">Profile</a></li>
-                <li><a href="#">My tickets</a></li>
+                <li><a href="../pages/tickets.php">My tickets</a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
               </ul>
             </nav>
@@ -50,13 +50,13 @@
 </html>
 <?php } ?>
 
-<?php function drawLoginForm(){ ?>
+<?php function drawLoginForm($session){ ?>
   <section id="login">
     <h1>Login</h1>
     <form>
       <input type="text" name="login" placeholder="Username/Email">
       <input type="password" name="password" placeholder="Password">
-      <button formaction= '/../actions/action_login.php' formmethod="post">Login</button>
+      <button formaction= '../actions/action_login.php' formmethod="post">Login</button>
     </form>
   </section>
 <?php } ?> 
@@ -65,10 +65,11 @@
   <section id="register">
     <h1>Create a new account</h1>
     <form>
-      <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getMessages()[1]['text'] ?>" placeholder="Name" required>
-      <input type="text" name="username" value="<?= $session->getMessages()[2]['text'] ?>" placeholder="Username" required>
+      <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getFormValues()['name'] ?>" placeholder="Name" required>
+      <input type="text" name="username" value="<?= $session->getFormValues()['username'] ?>" placeholder="Username" required>
+      <input type="email" name="email" value="<?= $session->getFormValues()['email'] ?>" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
-      <input type="email" name="email" value="<?= $session->getMessages()[3]['text'] ?>" placeholder="Email" required>
+      <input type="password" name="password_repeated" placeholder="Repeat password" required>
       <button formaction="/../actions/action_register.php" formmethod="post">Register</button>
     </form>
     <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
