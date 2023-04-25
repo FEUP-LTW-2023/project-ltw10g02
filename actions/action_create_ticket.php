@@ -12,7 +12,7 @@
 
     Ticket::addTicket($db, $session, $_POST['subject'], $_POST['description'], $_POST['user_id']);
 
-    header('Location: ../pages/tickets.php'); 
+    header('Location: ../pages/my_tickets.php'); 
 
 
 ?>

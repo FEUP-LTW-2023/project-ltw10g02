@@ -12,7 +12,7 @@
         <article class = "user_tickets">
             <h2>Last Tickets</h2>
             <?php drawTickets($db, $tickets) ?>
-            <a href="../pages/tickets.php">Show all tickets</a>
+            <a href="../pages/my_tickets.php">Show all tickets</a>
         </article>
 
         <article class ="user_basic_infos">

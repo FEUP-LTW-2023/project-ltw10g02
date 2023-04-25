@@ -7,25 +7,23 @@ class Ticket {
   private $description;
   private $status;
   private $priority;
-  private $department_id;
   private $client_id;
   private $agent_id;
   private $faq_id;
+  private $product_id;
   private $created_at;
-  private $updated_at;
 
-  public function __construct($id, $subject, $description, $status, $priority, $department_id, $client_id, $agent_id, $faq_id, $created_at, $updated_at) {
+  public function __construct($id, $subject, $description, $status, $priority, $client_id, $agent_id, $faq_id, $product_id, $created_at) {
     $this->id = $id;
     $this->subject = $subject;
     $this->description = $description;
     $this->status = $status;
     $this->priority = $priority;
-    $this->department_id = $department_id;
     $this->client_id = $client_id;
     $this->agent_id = $agent_id;
     $this->faq_id = $faq_id;
+    $this->product_id = $product_id;
     $this->created_at = $created_at;
-    $this->updated_at = $updated_at;
   }
 
   public function getId(): int {
@@ -48,9 +46,6 @@ class Ticket {
     return $this->priority;
   }
 
-  public function getDepartmentId(): int {
-    return intval($this->department_id);
-  }
   
   public function getClientId(): int {
     return $this->client_id;
@@ -82,6 +77,27 @@ class Ticket {
     }
   }
 
+  public static function getTicketById(PDO $db, $id): ?Ticket {
+    $stmt = $db->prepare('SELECT * FROM tickets WHERE id = ?');
+    $stmt->execute(array($id));
+
+    if($ticket = $stmt->fetch()) {
+        return new Ticket(
+            $ticket['id'],
+            $ticket['subject'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $ticket['client_id'],
+            $ticket['agent_id'],
+            $ticket['faq_id'],
+            $ticket['product_id'],
+            $ticket['created_at']
+        );
+    } else return null;
+  }
+  
+
   public static function getTicketsByUser(PDO $db, $id, $numberTickets = -1): array {
     $tickets = array();
     $query = 'SELECT * FROM tickets WHERE client_id = ?';
@@ -97,12 +113,11 @@ class Ticket {
             $ticket['description'],
             $ticket['status'],
             $ticket['priority'],
-            $ticket['department_id'],
             $ticket['client_id'],
             $ticket['agent_id'],
             $ticket['faq_id'],
-            $ticket['created_at'],
-            $ticket['updated_at']
+            $ticket['product_id'],
+            $ticket['created_at']
         );
         $tickets[] = $ticket;
     }
@@ -114,7 +129,7 @@ class Ticket {
     $tickets = array();
     $rows = $db->query('SELECT * FROM tickets');
     foreach ($rows as $row) {
-      $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['department_id'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['created_at'], $row['updated_at']);
+      $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
       $tickets[] = $ticket;
     }
     return $tickets;

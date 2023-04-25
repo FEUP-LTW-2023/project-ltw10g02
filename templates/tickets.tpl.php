@@ -20,13 +20,35 @@ function drawTickets(PDO $db, $tickets){
       <?php foreach ($tickets as $ticket): ?>
         <tr>
           <td><?= $ticket->getId() ?></td>
-          <td><?= $ticket->getSubject() ?></td>
+          <td><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?= $ticket->getSubject()?></a></td>
           <td><?= $ticket->getDescription() ?></td>
           <td><?= $ticket->getStatus() ?></td>
         </tr>
       <?php endforeach ?>
     </tbody>
   </table>
+
+<?php 
+}
+?>
+
+<?php 
+function drawTicket(Ticket $ticket, $comments){ 
+?>
+  <section class = "ticketAndComments">
+    <h1><?=$ticket->getSubject()?></h1>
+    <article class = "ticket">
+      <p><?=$ticket->getDescription()?></p>
+    </article class>
+
+    <article class = "comments">
+      <h2>Comments</h2>
+      <?php foreach ($comments as $comment): ?>
+        <p><?=$comment->getBody()?></p>
+      <?php endforeach ?>
+    </article>
+  </section>  
+
 
 <?php 
 }
