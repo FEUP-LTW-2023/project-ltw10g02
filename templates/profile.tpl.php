@@ -5,13 +5,13 @@
 ?>
 
 
-<?php function drawInfosProfile(PDO $db, User $user, $tickets): void { ?>
+<?php function drawInfosProfile(User $user, $tickets): void { ?>
     <section class = "user_info">
         <h1>Profile Page</h1>
 
         <article class = "user_tickets">
             <h2>Last Tickets</h2>
-            <?php drawTickets($db, $tickets) ?>
+            <?php drawTickets($tickets) ?>
             <a href="../pages/my_tickets.php">Show all tickets</a>
         </article>
 
@@ -26,7 +26,7 @@
     </section>
 <?php } ?>
 
-<?php function drawEditProfileForm(PDO $db, User $user, $tickets): void { ?>
+<?php function drawEditProfileForm(User $user, $tickets): void { ?>
     <section class = "edit_profile">
         <h1>Edit your profile page</h1>
 

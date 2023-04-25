@@ -4,7 +4,7 @@
 ?>
 
 <?php 
-function drawTickets(PDO $db, $tickets){ 
+function drawTickets($tickets){ 
 ?>
 
 <table>
@@ -54,12 +54,12 @@ function drawTicket(Ticket $ticket, $comments){
 }
 ?>
 
-<?php function drawTicketsUser(PDO $db, $tickets){ ?>
+<?php function drawTicketsUser($tickets){ ?>
 
   <section class = "user_tickets">
         <h1>My Tickets</h1>
 
-        <?php drawTickets($db, $tickets) ?>
+        <?php drawTickets($tickets) ?>
 
         <a href="../pages/create_ticket.php">Create a new ticket</a>
 
