@@ -19,7 +19,7 @@
 
     // Display the tickets in an HTML table
     drawHeader($session);
-    drawInfosProfile($db, $user, $tickets);
+    drawInfosProfile($user, $tickets);
     drawFooter();
 
 ?>
