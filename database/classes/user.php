@@ -52,7 +52,7 @@ class User {
 
     if ($user = $stmt->fetch()) {
       return new User(
-        $user['id'],
+        (int) $user['id'],
         $user['name'],
         $user['username'],
         $user['pass'],
