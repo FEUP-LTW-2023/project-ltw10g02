@@ -61,7 +61,7 @@ class Comment {
     $results = $stmt->fetchAll();
 
     foreach ($results as $result) {
-      $comment = new Comment($result['id'], $result['ticket_id'], $result['user_id'], $result['body'], $result['updated_at']);
+      $comment = new Comment((int) $result['id'], (int) $result['ticket_id'], (int) $result['user_id'], $result['body'], $result['updated_at']);
       $comments[] = $comment;
     }
     return $comments;
