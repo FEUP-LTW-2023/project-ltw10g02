@@ -32,38 +32,35 @@ function drawTickets($tickets){
 }
 ?>
 
-<?php 
-function drawTicket(Ticket $ticket, $comments){ 
-?>
+<?php  function drawTicket(Ticket $ticket, $comments){ ?>
   <section class = "ticketAndComments">
+
     <h1><?=$ticket->getSubject()?></h1>
     <article class = "ticket">
       <p><?=$ticket->getDescription()?></p>
-    </article class>
-
-    <article class = "comments">
-      <h2>Comments</h2>
-      <?php foreach ($comments as $comment): ?>
-        <p><?=$comment->getBody()?></p>
-      <?php endforeach ?>
     </article>
+
+    <h2>Comments</h2>
+    <?php foreach ($comments as $comment): ?>
+      <article class = "comments">
+        <p><?=$comment->getBody()?></p>
+      </article>
+    <?php endforeach ?>
+
   </section>  
 
-
-<?php 
-}
-?>
+<?php } ?>
 
 <?php function drawTicketsUser($tickets){ ?>
 
   <section class = "user_tickets">
-        <h1>My Tickets</h1>
+      <h1>My Tickets</h1>
+      <input id="search_tickets" type="text" placeholder="Search your ticket">
 
-        <?php drawTickets($tickets) ?>
+      <?php drawTickets($tickets) ?>
 
-        <a href="../pages/create_ticket.php">Create a new ticket</a>
-
-    </section>
+      <a href="../pages/create_ticket.php">Create a new ticket</a>
+  </section>
 <?php } ?>
 
 

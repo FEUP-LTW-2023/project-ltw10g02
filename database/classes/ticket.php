@@ -134,5 +134,29 @@ class Ticket {
     }
     return $tickets;
   }
+
+  public static function searchTicketsUser(PDO $db, int $id, string $search): array {
+    $tickets = array();
+
+    $stmt = $db->prepare('SELECT id, subject, description, status FROM tickets WHERE client_id = ? and subject LIKE ?');
+    $stmt->execute(array($id, $search . '%'));
+
+    /* while ($row = $stmt->fetch()) {
+      $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
+      $tickets[] = $ticket;
+    } */
+
+    foreach ($stmt as $row) {
+      $ticket = array(
+        'id' => $row['id'],
+        'subject' => $row['subject'],
+        'description' => $row['description'],
+        'status' => $row['status']
+      );
+      array_push($tickets, $ticket);
+    }
+
+    return $tickets;
+  }
 }
 
