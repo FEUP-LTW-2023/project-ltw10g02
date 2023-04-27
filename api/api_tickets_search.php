@@ -10,6 +10,6 @@
   $db = getDatabaseConnection();
 
   $tickets = Ticket::searchTicketsUser($db, $session->getId(), $_GET['search']);
-
+  
   echo json_encode($tickets);
 ?>

@@ -46,6 +46,9 @@ function drawTickets($tickets){
         <p><?=$comment->getBody()?></p>
       </article>
     <?php endforeach ?>
+    
+    <?php drawCommentForm($ticket->getId()) ?>
+    
 
   </section>  
 
@@ -87,3 +90,11 @@ function drawTickets($tickets){
     </form>
   </section>
 <?php } ?>
+
+<?php function drawCommentForm($ticket_id){ ?>
+    <form id = "add_comment">
+      <input type="text" name="comment" placeholder="Add comment">
+      <input type="hidden" name="ticket_id" value = <?=$ticket_id?>>
+      <button onclick ="addComment()">Add comment</button>
+    </form>
+<?php } ?> 
