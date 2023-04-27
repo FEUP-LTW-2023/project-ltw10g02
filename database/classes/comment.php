@@ -67,9 +67,9 @@ class Comment {
     return $comments;
   }
 
-  static function addComment(PDO $db, $tickets_id, $user_id, $body) {
-    $stmt = $db->prepare('INSERT INTO comments (tickets_id, user_id, body) VALUES(?, ?, ?)');
-    return $stmt->execute(array($tickets_id, $user_id, $body));
+  static function addComment(PDO $db, $ticket_id, $user_id, $body) {
+    $stmt = $db->prepare('INSERT INTO comments (ticket_id, user_id, body) VALUES(?, ?, ?)');
+    return $stmt->execute(array($ticket_id, $user_id, $body));
   }
 
   

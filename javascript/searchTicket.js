@@ -1,10 +1,11 @@
 const searchTicket = document.querySelector('#search_tickets')
 if (searchTicket) {
   searchTicket.addEventListener('input', async function() {
-    const response = await fetch('../api/api_tickets.php?search=' + this.value)
+    const response = await fetch('../api/api_tickets_search.php?search=' + this.value)
     const tickets = await response.json()
 
-    console.log(tickets)
+    //console.log(tickets)
+    console.log(JSON.stringify(tickets[0]));
 
     const tbody = document.querySelector('tbody')
     tbody.innerHTML = ''

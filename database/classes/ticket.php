@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Ticket {
+class Ticket implements JsonSerializable{
   private $id;
   private $subject;
   private $description;
@@ -13,6 +13,7 @@ class Ticket {
   private $product_id;
   private $created_at;
 
+  
   public function __construct($id, $subject, $description, $status, $priority, $client_id, $agent_id, $faq_id, $product_id, $created_at) {
     $this->id = $id;
     $this->subject = $subject;
@@ -24,6 +25,21 @@ class Ticket {
     $this->faq_id = $faq_id;
     $this->product_id = $product_id;
     $this->created_at = $created_at;
+  }
+
+  public function jsonSerialize() {
+    return [
+      'id' => $this->id,
+      'subject' => $this->subject,
+      'description' => $this->description,
+      'status' => $this->status,
+      'priority' => $this->priority,
+      'client_id' => $this->client_id,
+      'agent_id' => $this->agent_id,
+      'faq_id' => $this->faq_id,
+      'product_id' => $this->product_id,
+      'created_at' => $this->created_at
+    ];
   }
 
   public function getId(): int {
@@ -138,22 +154,14 @@ class Ticket {
   public static function searchTicketsUser(PDO $db, int $id, string $search): array {
     $tickets = array();
 
-    $stmt = $db->prepare('SELECT id, subject, description, status FROM tickets WHERE client_id = ? and subject LIKE ?');
+    $stmt = $db->prepare('SELECT * FROM tickets WHERE client_id = ? and subject LIKE ?');
     $stmt->execute(array($id, $search . '%'));
-
-    /* while ($row = $stmt->fetch()) {
-      $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
-      $tickets[] = $ticket;
-    } */
-
-    foreach ($stmt as $row) {
-      $ticket = array(
-        'id' => $row['id'],
-        'subject' => $row['subject'],
-        'description' => $row['description'],
-        'status' => $row['status']
-      );
-      array_push($tickets, $ticket);
+    
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($rows as $row) {
+        $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
+        $tickets[] = $ticket;
     }
 
     return $tickets;
