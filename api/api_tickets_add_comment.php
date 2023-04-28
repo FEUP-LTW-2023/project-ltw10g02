@@ -9,5 +9,12 @@
 
   $db = getDatabaseConnection();
 
-  Comment::addComment($db, $_POST['ticket_id'], $session->getId(), $_POST['comment']);
+  try {
+    Comment::addComment($db, $_POST['ticket_id'], $session->getId(), $_POST['comment']);
+    $session->addMessage('success', 'Database updated successfully with the new comment.');
+  } catch (Exception $e) {
+      header('HTTP/1.1 500 Internal Server Error');
+      $session->addMessage('error', $e->getMessage());
+      exit();
+  }
 ?>

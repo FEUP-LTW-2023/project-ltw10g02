@@ -33,12 +33,20 @@
       return isset($_SESSION['name']) ? $_SESSION['name'] : null;
     }
 
+    public function getCategory() : ?string {
+      return isset($_SESSION['category']) ? $_SESSION['category'] : null;
+    }
+
     public function setId(int $id) {
       $_SESSION['id'] = $id;
     }
 
     public function setName(string $name) {
       $_SESSION['name'] = $name;
+    }
+    
+    public function setCategory(string $category) {
+      $_SESSION['category'] = $category;
     }
 
     public function addMessage(string $type, string $text) {
