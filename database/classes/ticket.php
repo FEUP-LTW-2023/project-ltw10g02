@@ -8,19 +8,21 @@ class Ticket implements JsonSerializable{
   private $status;
   private $priority;
   private $client_id;
+  private $department_id;
   private $agent_id;
   private $faq_id;
   private $product_id;
   private $created_at;
 
   
-  public function __construct($id, $subject, $description, $status, $priority, $client_id, $agent_id, $faq_id, $product_id, $created_at) {
+  public function __construct($id, $subject, $description, $status, $priority, $client_id, $department_id, $agent_id, $faq_id, $product_id, $created_at) {
     $this->id = $id;
     $this->subject = $subject;
     $this->description = $description;
     $this->status = $status;
     $this->priority = $priority;
     $this->client_id = $client_id;
+    $this->department_id = $department_id;
     $this->agent_id = $agent_id;
     $this->faq_id = $faq_id;
     $this->product_id = $product_id;
@@ -35,6 +37,7 @@ class Ticket implements JsonSerializable{
       'status' => $this->status,
       'priority' => $this->priority,
       'client_id' => $this->client_id,
+      'department_id' => $this->department_id,
       'agent_id' => $this->agent_id,
       'faq_id' => $this->faq_id,
       'product_id' => $this->product_id,
@@ -66,6 +69,10 @@ class Ticket implements JsonSerializable{
   public function getClientId(): int {
     return $this->client_id;
   }
+  
+  public function getDepartmentId(): int {
+    return $this->department_id;
+  }
 
   public function getAgentId(): int {
     return $this->agent_id;
@@ -79,14 +86,11 @@ class Ticket implements JsonSerializable{
     return $this->created_at;
   }
 
-  public function getUpdatedAt(): string {
-    return $this->updated_at;
-  }
 
-  public static function addTicket(PDO $db, Session $session, $subject, $description, $client_id): void{
+  public static function addTicket(PDO $db, Session $session, $subject, $description, $client_id, $department_id): void{
     try{
-      $stmt = $db->prepare("INSERT INTO tickets (subject, description, client_id) VALUES (?, ?, ?)");
-      $stmt->execute(array($subject, $description, $client_id));
+      $stmt = $db->prepare("INSERT INTO tickets (subject, description, client_id, department_id) VALUES (?, ?, ?, ?)");
+      $stmt->execute(array($subject, $description, $client_id, $department_id));
       $session->addMessage('success', 'Ticket created successfully');
     } catch (PDOException $e) {
       $session->addMessage('error', $e->getMessage());
@@ -105,6 +109,7 @@ class Ticket implements JsonSerializable{
             $ticket['status'],
             $ticket['priority'],
             $ticket['client_id'],
+            $ticket['department_id'],
             $ticket['agent_id'],
             $ticket['faq_id'],
             $ticket['product_id'],
@@ -130,6 +135,7 @@ class Ticket implements JsonSerializable{
             $ticket['status'],
             $ticket['priority'],
             $ticket['client_id'],
+            $ticket['department_id'],
             $ticket['agent_id'],
             $ticket['faq_id'],
             $ticket['product_id'],
@@ -145,7 +151,7 @@ class Ticket implements JsonSerializable{
     $tickets = array();
     $rows = $db->query('SELECT * FROM tickets');
     foreach ($rows as $row) {
-      $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
+      $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['department_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
       $tickets[] = $ticket;
     }
     return $tickets;
@@ -160,7 +166,7 @@ class Ticket implements JsonSerializable{
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     foreach ($rows as $row) {
-        $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
+        $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['department_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
         $tickets[] = $ticket;
     }
 
