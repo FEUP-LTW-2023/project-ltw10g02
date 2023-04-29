@@ -12,7 +12,7 @@
         <article class = "user_tickets">
             <h2>Last Tickets</h2>
             <?php drawTickets($tickets) ?>
-            <a href="../pages/my_tickets.php">Show all tickets</a>
+            <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
         </article>
 
         <article class ="user_basic_infos">
