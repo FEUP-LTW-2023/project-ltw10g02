@@ -15,6 +15,7 @@
     if ($user){
         $session->setId($user->getId());
         $session->setName($user->getName());
+        $session->setCategory($user->getCategory());
         header('Location: ../index.php');  
     }
     else{

@@ -44,9 +44,9 @@ class User {
 
   static function getUserById(PDO $db, $id): ?User {
 
-      $stmt = $db->prepare('SELECT *
-                          FROM users
-                          WHERE id = ?');
+    $stmt = $db->prepare('SELECT *
+                        FROM users
+                        WHERE id = ?');
 
     $stmt->execute(array($id)); 
 
@@ -61,6 +61,7 @@ class User {
       );
     } else return null;
   }
+  
 
   static function getUser(PDO $db, $login, $password): ?User {
     if (filter_var($login, FILTER_VALIDATE_EMAIL)) { 
