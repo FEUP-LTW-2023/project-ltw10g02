@@ -22,7 +22,7 @@ class Ticket implements JsonSerializable{
     $this->status = $status;
     $this->priority = $priority;
     $this->client_id = $client_id;
-    $this->department_id = $department_id;
+    $this->department_id = $agent_id;
     $this->agent_id = $agent_id;
     $this->faq_id = $faq_id;
     $this->product_id = $product_id;
@@ -69,7 +69,7 @@ class Ticket implements JsonSerializable{
   public function getClientId(): int {
     return $this->client_id;
   }
-  
+
   public function getDepartmentId(): int {
     return $this->department_id;
   }

@@ -61,7 +61,7 @@ CREATE TABLE tickets (
   status TEXT NOT NULL DEFAULT 'Open',
   priority TEXT,
   client_id INTEGER NOT NULL,
-  department_id INTEGER,
+  department_id INTEGER NOT NULL,
   agent_id INTEGER,
   faq_id INTEGER,
   product_id INTEGER,
@@ -144,7 +144,7 @@ INSERT INTO tickets (subject, description, client_id, department_id, agent_id, f
 VALUES
     ('Defective T-shirt', 'Received a t-shirt with a hole in it', 1, 4, 3, NULL, 1),
     ('Billing Inquiry', 'Need clarification on a charge', 2, 2, 4, NULL, NULL),
-    ('Jeans sizing', 'Are these jeans true to size?', 1, NULL, 3, NULL, 2),
+    ('Jeans sizing', 'Are these jeans true to size?', 1, 3, 3, NULL, 2),
     ('How do I change my password?', 'I would like to change my password but I don''t know how', 1, 3, NULL, 1, NULL),
     ('Wrong size product', 'My shirt does not fit me',  3, 4, 1, 3, 4),
     ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2);

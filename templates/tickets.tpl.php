@@ -72,10 +72,10 @@ function drawTickets($tickets){
     <h1>Create a new ticket</h1>
     <form>
       <label>Department:
-        <select name="department" required>
+        <select name="department_id" required>
           <option value="">&mdash;</option>
           <?php foreach ($departaments as $departament): ?>
-            <option value= "<?=$departament->getName()?>" > <?= $departament->getName() ?></option>
+            <option value="<?=$departament->getId()?>"> <?= $departament->getName() ?></option>
           <?php endforeach ?>
         </select>
       </label>
