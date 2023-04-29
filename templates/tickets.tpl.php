@@ -32,20 +32,25 @@ function drawTickets($tickets){
 }
 ?>
 
-<?php  function drawTicket(Ticket $ticket, $comments){ ?>
-  <section class = "ticketAndComments">
+<?php  function drawTicket(Ticket $ticket, array $comments, User $user_ticket, array $users_comments){ ?>
+  <section id = "ticketAndComments">
 
-    <h1><?=$ticket->getSubject()?></h1>
     <article class = "ticket">
+      <h1><?=$ticket->getSubject()?></h1>
+      <p><?=$user_ticket->getName()?></p>
+      <p><?=$ticket->getCreatedAt()?></p>
       <p><?=$ticket->getDescription()?></p>
     </article>
 
     <h2>Comments</h2>
-    <?php foreach ($comments as $comment): ?>
+    <?php $length = min(count($comments), count($users_comments)) ?>
+    <?php for ($i = 0; $i < $length; $i++): ?>
       <article class = "comments">
-        <p><?=$comment->getBody()?></p>
+        <p><?=$users_comments[$i]->getName()?></p>
+        <p><?=$comments[$i]->getUpdatedAt()?></p>
+        <p><?=$comments[$i]->getBody()?></p>
       </article>
-    <?php endforeach ?>
+    <?php endfor ?>
     
     <?php drawCommentForm($ticket->getId()) ?>
     
@@ -93,7 +98,7 @@ function drawTickets($tickets){
 
 <?php function drawCommentForm($ticket_id){ ?>
     <form id = "add_comment">
-      <input type="text" name="comment" placeholder="Add comment">
+      <textarea name="comment" placeholder="Add a new comment"></textarea>
       <input type="hidden" name="ticket_id" value = <?=$ticket_id?>>
       <button onclick ="addComment()">Add comment</button>
     </form>

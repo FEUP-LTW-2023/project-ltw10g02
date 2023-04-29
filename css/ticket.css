@@ -1,0 +1,83 @@
+#ticketAndComments > .ticket, #ticketAndComments > .comments  {
+    padding: 5px;
+    border: 1px solid rgba(26, 18, 11, 0.5);
+    border-radius: 2px;
+    width: 500px;
+}
+
+#ticketAndComments > .ticket {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
+#ticketAndComments > .ticket > h1 {
+    grid-area: 1 / 1 / span 1 / span 1;
+}
+
+#ticketAndComments > .ticket > p:nth-of-type(1) {
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+
+#ticketAndComments > .ticket > p:nth-of-type(2) {
+    grid-area: 2 / 1 / span 1 / span 1;
+    text-align: right;
+}
+
+#ticketAndComments > .ticket > p:nth-of-type(3) {
+    grid-area: 3 / 1 / span 1 / span 1;
+}
+
+#ticketAndComments > .comments {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+#ticketAndComments > .comments > p:nth-of-type(1) {
+    grid-area: 1 / 1 / span 1 / span 1;
+}
+
+#ticketAndComments > .comments > p:nth-of-type(2) {
+    grid-area: 1 / 1 / span 1 / span 1;
+    text-align: right;
+}
+
+#ticketAndComments > .comments > p:nth-of-type(3) {
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+
+#ticketAndComments > .comments {
+    margin: 5px;
+}
+
+
+#ticketAndComments > .ticket > p:nth-of-type(1)::before, #ticketAndComments > .comments > p:nth-of-type(1)::before {
+    content: "Created by: ";
+}
+
+#ticketAndComments > .ticket > p:nth-of-type(2)::before, #ticketAndComments > .comments > p:nth-of-type(2)::before {
+    content: "At: ";
+}
+
+#add_comment > textarea[name = "comment"]{
+    display: inline-block;
+
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid rgba(26, 18, 11, 0.5);
+
+    width: 500px;
+    height: 125px;
+    max-height: 125px;
+
+    background-color: #f2f2f2;
+
+    overflow: auto;
+    resize: none;
+}
+
