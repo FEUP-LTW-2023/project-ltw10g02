@@ -6,28 +6,16 @@
 <?php 
 function drawTickets($tickets){ 
 ?>
-
-<table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Subject</th>
-        <th>Description</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($tickets as $ticket): ?>
-        <tr>
-          <td><?= $ticket->getId() ?></td>
-          <td><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?= $ticket->getSubject()?></a></td>
-          <td><?= $ticket->getDescription() ?></td>
-          <td><?= $ticket->getStatus() ?></td>
-        </tr>
-      <?php endforeach ?>
-    </tbody>
-  </table>
-
+  <div id = "ticketResumeSection">
+    <?php foreach ($tickets as $ticket): ?>
+      <article class = "ticketResume">
+        <h2><?=$ticket->getSubject()?></h2>
+        <p><?=$ticket->getStatus()?></p>
+        <p><?=$ticket->getCreatedAt()?></p>
+        <p><?=$ticket->getDescription()?></p>
+      </article>
+    <?php endforeach ?>
+    </div> 
 <?php 
 }
 ?>
