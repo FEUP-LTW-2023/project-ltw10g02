@@ -83,7 +83,7 @@
     resize: none;
 }
 
-/* Css for ticket in profile page */
+/* Css for ticket resume in profile and my_tickets page */
 
 #ticketResumeSection {
     display: flex;
@@ -112,6 +112,7 @@
 #ticketResumeSection > .ticketResume > h2{
     grid-area: 1 / 1 / span 1 / span 1;
     text-align: left;
+    overflow: hidden;
 }
 
 #ticketResumeSection > .ticketResume > p:nth-of-type(1) {

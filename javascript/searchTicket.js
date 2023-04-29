@@ -4,31 +4,39 @@ if (searchTicket) {
     const response = await fetch('../api/api_tickets_search.php?search=' + this.value)
     const tickets = await response.json()
 
-    //console.log(tickets)
+    console.log(tickets)
     console.log(JSON.stringify(tickets[0]));
 
-    const tbody = document.querySelector('tbody')
-    tbody.innerHTML = ''
+    const ticketResumeSection = document.querySelector('#ticketResumeSection')
+    ticketResumeSection.innerHTML = ''
 
     for (const ticket of tickets) {
-      const tr = document.createElement('tr')
+      /* Create elements */
+      const article = document.createElement('article')
 
-      const tdId = document.createElement('td')
-      const tdSubject = document.createElement('td')
-      const tdDescription = document.createElement('td')
-      const tdStatus = document.createElement('td')
+      const anchorTicketPage = document.createElement('a')
+      const ticketH2 = document.createElement('h2')
+      const ticketStatus = document.createElement('p')
+      const ticketDate = document.createElement('p')
+      const ticketDescription = document.createElement('p')
 
-      tdId.textContent = ticket.id
-      tdSubject.textContent = ticket.subject
-      tdDescription.textContent = ticket.description
-      tdStatus.textContent = ticket.status
+      /* Create classes */
+      article.classList.add("ticketResume");
 
-      tr.appendChild(tdId)
-      tr.appendChild(tdSubject)
-      tr.appendChild(tdDescription)
-      tr.appendChild(tdStatus)
+      /* Assigning data */
+      anchorTicketPage.href = "../pages/ticket.php?id=" + ticket.id
+      anchorTicketPage.textContent = ticket.subject
+      ticketStatus.textContent = ticket.status
+      ticketDate.textContent = ticket.created_at
+      ticketDescription.textContent = ticket.description
 
-      tbody.appendChild(tr)
+      ticketH2.appendChild(anchorTicketPage)
+      article.appendChild(ticketH2)
+      article.appendChild(ticketStatus)
+      article.appendChild(ticketDate)
+      article.appendChild(ticketDescription)
+
+      ticketResumeSection.appendChild(article)
     }
   })
 }

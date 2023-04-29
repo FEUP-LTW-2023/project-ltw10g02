@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/ticket.css">
+    <link rel="stylesheet" href="../css/my_ticket.css">
     <script src="../javascript/searchTicket.js" defer></script>
     <script src="../javascript/addComment.js" defer></script>
+    <script src="../javascript/util.js" defer></script>
   </head>
   <body>
     <header>
@@ -61,6 +63,10 @@
       <input type="password" name="password" placeholder="Password">
       <button formaction= '../actions/action_login.php' formmethod="post">Login</button>
     </form>
+
+      <div class="error">
+        <p><?= $session->getMessages()[0]['text'] ?></p>
+      </div>
   </section>
 <?php } ?> 
 

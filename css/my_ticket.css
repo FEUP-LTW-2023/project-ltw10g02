@@ -1,0 +1,9 @@
+#user_tickets {
+    position: relative;
+}
+  
+#search_tickets {
+    position: absolute;
+    top: 15px;
+    right: 55px;
+}

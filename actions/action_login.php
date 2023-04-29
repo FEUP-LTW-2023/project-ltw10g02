@@ -16,9 +16,11 @@
         $session->setId($user->getId());
         $session->setName($user->getName());
         $session->setCategory($user->getCategory());
+        $session->addMessage('success', 'Login Successful');
         header('Location: ../index.php');  
     }
     else{
+        $session->addMessage('error', 'Login error');
         header('Location:' . $_SERVER['HTTP_REFERER']); 
         exit;
     }

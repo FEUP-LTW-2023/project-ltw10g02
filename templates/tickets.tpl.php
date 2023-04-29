@@ -9,7 +9,7 @@ function drawTickets($tickets){
   <div id = "ticketResumeSection">
     <?php foreach ($tickets as $ticket): ?>
       <article class = "ticketResume">
-        <h2><?=$ticket->getSubject()?></h2>
+        <h2><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?=$ticket->getSubject()?></a></h2>
         <p><?=$ticket->getStatus()?></p>
         <p><?=$ticket->getCreatedAt()?></p>
         <p><?=$ticket->getDescription()?></p>
@@ -49,7 +49,7 @@ function drawTickets($tickets){
 
 <?php function drawTicketsUser($tickets){ ?>
 
-  <section class = "user_tickets">
+  <section id = "user_tickets">
       <h1>My Tickets</h1>
       <input id="search_tickets" type="text" placeholder="Search your ticket">
 
