@@ -20,11 +20,17 @@ function addComment(){
         alert('There was an error adding the comment: ${errorMessage}');
     }
     else{
-      const formAddComment = document.querySelector('#add_comment')
+
+      // I need to ask the teacher
+
+      
+      /* const formAddComment = document.querySelector('#add_comment')
     
       const article = document.createElement('article')
     
-      const p = document.createElement('p')
+      const userNameComment = document.createElement('p')
+      const createdTimeComment = document.createElement('p')
+      const bodyComment = document.createElement('p')
     
       p.textContent = formData.get('comment')
     
@@ -36,6 +42,15 @@ function addComment(){
       document.querySelector('#add_comment > input[name = "comment"]').value = '';
 
       // Remove previous form submission listener
-      this.removeEventListener('submit', handleSubmit)
+      this.removeEventListener('submit', handleSubmit) */
+
+      // Save current page scroll position
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Reload the page
+      window.location.reload();
+
+      // Set page scroll position after reload
+      window.scrollTo(0, scrollTop);
     }
   }
