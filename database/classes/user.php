@@ -89,39 +89,44 @@ class User {
     } else return null;
   }
 
-  function updateName(PDO $db): void {
+  function updateName(PDO $db, string $newName): void {
     $stmt = $db->prepare('
         UPDATE User SET name = ?
         WHERE id = ?
       ');
 
     $stmt->execute(array($this->name, $this->id));
+    $this->name = $newName;
   }
 
-  function updateUserame(PDO $db): void {
+  function updateUserame(PDO $db, string $newUsername): void {
     $stmt = $db->prepare('
         UPDATE User SET username = ?
         WHERE id = ?
       ');
 
     $stmt->execute(array($this->username, $this->id));
+    $this->username = $newUsername;
   }
-  function updateEmail(PDO $db): void {
+
+  function updateEmail(PDO $db, string $newEmail): void {
     $stmt = $db->prepare('
         UPDATE User SET email = ?
         WHERE id = ?
       ');
 
     $stmt->execute(array($this->email, $this->id));
+    $this->email = $newEmail;
   }
 
-  function updatePass(PDO $db): void {
+  function updatePass(PDO $db, string $newPass): void {
     $stmt = $db->prepare('
         UPDATE User SET pass = ?
         WHERE id = ?
       ');
 
     $stmt->execute(array($this->pass, $this->id));
+    $this->pass = $newPass;
   }
 
   // check if username exists

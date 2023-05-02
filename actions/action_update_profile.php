@@ -11,7 +11,16 @@
 
     $db = getDatabaseConnection();
 
-    
+    $newName = $_POST['name'];
+    $newUsername = $_POST['username'];
+    $newEmail = $_POST['email'];
+    $newPass = $_POST['pass'];
+
+    $user->updateName($db, $newName);
+    $user->updateUserame($db, $newUsername);
+    $user->updateEmail($db, $newEmail);
+    $user->updatePass($db, $newPass);
+
     header('Location: ../pages/profile.php'); 
 
 ?>
