@@ -46,7 +46,7 @@ class Ticket implements JsonSerializable{
   }
 
   public function getId(): int {
-    return $this->id;
+    return intval($this->id);
   }
 
   public function getSubject(): string {
