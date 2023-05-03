@@ -4,9 +4,12 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
-    require_once __DIR__ . '/../database/database_connection.php';
-    require_once __DIR__ . '/../database/classes/user.php';
-    require_once __DIR__ . '/../database/classes/ticket.php';
+    if(!$session->isLoggedIn())
+        header("Location: ../index.php");
+
+    require_once (__DIR__ . '/../database/database_connection.php');
+    require_once (__DIR__ . '/../database/classes/user.php');
+    require_once (__DIR__ . '/../database/classes/ticket.php');
 
     require_once(__DIR__ . '/../templates/profile.tpl.php');
     require_once(__DIR__ . '/../templates/common.tpl.php');

@@ -14,6 +14,7 @@ if (searchTicket) {
       /* Create elements */
       const article = document.createElement('article')
 
+      const header = document.createElement('header')
       const anchorTicketPage = document.createElement('a')
       const ticketH2 = document.createElement('h2')
       const ticketStatus = document.createElement('p')
@@ -31,9 +32,11 @@ if (searchTicket) {
       ticketDescription.textContent = ticket.description
 
       /* Append Child */
+      header.appendChild(ticketH2)
+      header.appendChild(ticketStatus)
       ticketH2.appendChild(anchorTicketPage)
-      article.appendChild(ticketH2)
-      article.appendChild(ticketStatus)
+      
+      article.appendChild(header)
       article.appendChild(ticketDate)
       article.appendChild(ticketDescription)
 

@@ -46,7 +46,7 @@ class Ticket implements JsonSerializable{
   }
 
   public function getId(): int {
-    return intval($this->id);
+    return $this->id;
   }
 
   public function getSubject(): string {
@@ -61,20 +61,19 @@ class Ticket implements JsonSerializable{
     return $this->status;
   }
 
-  public function getPriority(): string {
+  public function getPriority(){
     return $this->priority;
   }
 
-  
-  public function getClientId(): int {
-    return intval($this->client_id);
+  public function getClientId(){
+    return $this->client_id;
   }
 
-  public function getDepartmentId(): int {
+  public function getDepartmentId(){
     return $this->department_id;
   }
 
-  public function getAgentId(): int {
+  public function getAgentId(){
     return $this->agent_id;
   }
 
@@ -85,7 +84,6 @@ class Ticket implements JsonSerializable{
   public function getCreatedAt(): string {
     return $this->created_at;
   }
-
 
   public static function addTicket(PDO $db, Session $session, $subject, $description, $client_id, $department_id): void{
     try{
@@ -127,6 +125,57 @@ class Ticket implements JsonSerializable{
     }
     $stmt = $db->prepare($query);
     $stmt->execute(array($id));
+    foreach ($stmt as $ticket) {
+        $ticket = new Ticket(
+            $ticket['id'],
+            $ticket['subject'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $ticket['client_id'],
+            $ticket['department_id'],
+            $ticket['agent_id'],
+            $ticket['faq_id'],
+            $ticket['product_id'],
+            $ticket['created_at']
+        );
+        $tickets[] = $ticket;
+    }
+    return $tickets;
+  }
+
+  public static function getTicketsByAgent(PDO $db, $id, $numberTickets = -1): array {
+    $tickets = array();
+    $query = 'SELECT * FROM tickets WHERE agent_id = ?';
+    if ($numberTickets > 0) {
+        $query .= ' LIMIT '.$numberTickets;
+    }
+    $stmt = $db->prepare($query);
+    $stmt->execute(array($id));
+    foreach ($stmt as $ticket) {
+        $ticket = new Ticket(
+            $ticket['id'],
+            $ticket['subject'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $ticket['client_id'],
+            $ticket['department_id'],
+            $ticket['agent_id'],
+            $ticket['faq_id'],
+            $ticket['product_id'],
+            $ticket['created_at']
+        );
+        $tickets[] = $ticket;
+    }
+    return $tickets;
+  }
+
+  public static function getTicketsByDepartment(PDO $db, $department_id): array {
+    $tickets = array();
+
+    $stmt = $db->prepare('SELECT * FROM tickets WHERE department_id = ?');
+    $stmt->execute(array($department_id));
     foreach ($stmt as $ticket) {
         $ticket = new Ticket(
             $ticket['id'],

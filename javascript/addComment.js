@@ -47,7 +47,7 @@ function addComment(){
       formAddComment.insertAdjacentElement('beforebegin', article)
       
       /* Clean comment area */
-      document.querySelector('#add_comment > input[name = "comment"]').value = ''
+      document.querySelector('#add_comment > textarea[name = "comment"]').value = ''
 
       /* Remove previous form submission listener */
       this.removeEventListener('submit', handleSubmit)

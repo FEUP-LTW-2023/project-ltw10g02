@@ -22,14 +22,23 @@ function drawTickets($tickets){
 }
 ?>
 
-<?php  function drawTicket(Ticket $ticket, array $comments, User $user_ticket, array $users_comments){ ?>
-  <section id = "ticketAndComments">
+<?php  function drawTicket(Ticket $ticket, array $comments, User $user_ticket, $agent_ticket, $department, $hashtags, array $users_comments){ ?>
+  <section id = "ticketAndComments">  
 
     <article class = "ticket">
       <h1><?=$ticket->getSubject()?></h1>
       <p><?=$user_ticket->getName()?></p>
       <p><?=$ticket->getCreatedAt()?></p>
+      <p><?= $department === null ? 'Not defined' : $department->getName() ?></p>
+      <p><?= $agent_ticket === null ? 'Not defined' : $agent_ticket->getName() ?></p>
+      <p><?= $ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority() ?></p>
+      
       <p><?=$ticket->getDescription()?></p>
+
+      <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
+
+      
+      
     </article>
 
     <h2>Comments</h2>
