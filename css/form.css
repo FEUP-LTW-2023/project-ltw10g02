@@ -33,6 +33,7 @@ input{
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: 4px;
+    padding-left: 30px;
 }
 
 input[name = "name"], input[name = "login"]{
