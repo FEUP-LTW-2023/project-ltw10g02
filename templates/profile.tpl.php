@@ -9,7 +9,7 @@
     <section class = "user_info">
         <h1>Profile Page</h1>
 
-        <article class = "user_tickets">
+        <article id = "user_tickets">
             <h2>Last Tickets</h2>
             <?php drawTickets($tickets) ?>
             <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>

@@ -14,43 +14,42 @@ function addComment(){
         method: 'POST',
         body: formData
       })
+
+    const data = await response.json()
     
     if (!response.ok) {
-        const errorMessage = await response.text();
-        alert('There was an error adding the comment: ${errorMessage}');
+        const errorMessage = await response.text()
+        alert('There was an error adding the comment: ${errorMessage}')
     }
     else{
-
-      // I need to ask the teacher
-
-      
-      /* const formAddComment = document.querySelector('#add_comment')
-    
+      /* Create elements */
       const article = document.createElement('article')
     
       const userNameComment = document.createElement('p')
       const createdTimeComment = document.createElement('p')
       const bodyComment = document.createElement('p')
-    
-      p.textContent = formData.get('comment')
-    
-      article.appendChild(p)
-    
-      formAddComment.insertAdjacentElement('beforebegin', article);
       
-      // Remove the input value after add the comment
-      document.querySelector('#add_comment > input[name = "comment"]').value = '';
+      /* Create classes */
+      article.classList.add("comments")
 
-      // Remove previous form submission listener
-      this.removeEventListener('submit', handleSubmit) */
+      /* Assigning data */
+      userNameComment.textContent = data.user.name
+      createdTimeComment.textContent = data.comment.updated_at
+      bodyComment.textContent = data.comment.body
+      
+      /* Append Child */
+      article.appendChild(userNameComment)
+      article.appendChild(createdTimeComment)
+      article.appendChild(bodyComment)
 
-      // Save current page scroll position
-      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      /* Add the article before the comment area */
+      const formAddComment = document.querySelector('#add_comment')
+      formAddComment.insertAdjacentElement('beforebegin', article)
+      
+      /* Clean comment area */
+      document.querySelector('#add_comment > input[name = "comment"]').value = ''
 
-      // Reload the page
-      window.location.reload();
-
-      // Set page scroll position after reload
-      window.scrollTo(0, scrollTop);
+      /* Remove previous form submission listener */
+      this.removeEventListener('submit', handleSubmit)
     }
   }

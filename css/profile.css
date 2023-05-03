@@ -1,0 +1,11 @@
+#user_tickets {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#user_tickets > button {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

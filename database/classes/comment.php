@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Comment {
+class Comment implements JsonSerializable{
   private $id;
   private $ticket_id;
   private $user_id;
@@ -14,6 +14,16 @@ class Comment {
     $this->user_id = $user_id;
     $this->body = $body;
     $this->updated_at = $updated_at;
+  }
+
+  public function jsonSerialize() {
+    return [
+      'id' => $this->id,
+      'ticket_id' => $this->ticket_id,
+      'user_id' => $this->user_id,
+      'body' => $this->body,
+      'updated_at' => $this->updated_at
+    ];
   }
 
   public function getId(): int {

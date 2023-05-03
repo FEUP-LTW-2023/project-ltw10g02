@@ -9,8 +9,10 @@ function drawTickets($tickets){
   <div id = "ticketResumeSection">
     <?php foreach ($tickets as $ticket): ?>
       <article class = "ticketResume">
-        <h2><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?=$ticket->getSubject()?></a></h2>
-        <p><?=$ticket->getStatus()?></p>
+        <header>
+          <h2><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?=$ticket->getSubject()?></a></h2>
+          <p><?=$ticket->getStatus()?></p>
+        </header>
         <p><?=$ticket->getCreatedAt()?></p>
         <p><?=$ticket->getDescription()?></p>
       </article>
