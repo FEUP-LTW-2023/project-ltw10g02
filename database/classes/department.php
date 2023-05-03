@@ -43,7 +43,7 @@ class Department implements JsonSerializable{
 
     if ($department = $stmt->fetch()) {
       return new Department(
-        $department['id'],
+        intval($department['id']),
         $department['name'],
         $department['description']
       );
