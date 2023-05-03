@@ -3,6 +3,7 @@
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tickets;
+DROP TABLE IF EXISTS ticket_history;
 DROP TABLE IF EXISTS ticket_hashtags;
 
 DROP TABLE IF EXISTS hashtags;
@@ -71,6 +72,23 @@ CREATE TABLE tickets (
   FOREIGN KEY (agent_id) REFERENCES users(id),
   FOREIGN KEY (faq_id) REFERENCES faqs(id),
   FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+CREATE TABLE ticket_history (
+  id INTEGER PRIMARY KEY,
+  ticket_id INTEGER NOT NULL,
+  subject TEXT,
+  description TEXT,
+  status TEXT,
+  priority TEXT,
+  department_id INTEGER,
+  agent_id INTEGER,
+  faq_id INTEGER,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ticket_id) REFERENCES tickets(id),
+  FOREIGN KEY (department_id) REFERENCES departments(id),
+  FOREIGN KEY (agent_id) REFERENCES users(id),
+  FOREIGN KEY (faq_id) REFERENCES faqs(id)
 );
 
 -- Hashtags table stores information about hashtags used in tickets
@@ -148,6 +166,9 @@ VALUES
     ('How do I change my password?', 'I would like to change my password but I don''t know how', 1, 3, NULL, 1, NULL),
     ('Wrong size product', 'My shirt does not fit me',  3, 4, 1, 3, 4),
     ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2);
+
+INSERT INTO ticket_history (ticket_id, subject, description, status, priority, department_id, agent_id, faq_id)
+VALUES (1, 'Problem with a t-shirt', 'Two holes in it', 'Open', 'High', 4, 4, 3);
 
 
 -- Insert hashtags
