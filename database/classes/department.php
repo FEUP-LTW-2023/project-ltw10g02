@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class Department {
+class Department implements JsonSerializable{
   private $id;
   private $name;
   private $description;
@@ -10,6 +10,14 @@ class Department {
     $this->id = $id;
     $this->name = $name;
     $this->description = $description;
+  }
+
+  public function jsonSerialize() {
+    return [
+      'id' => $this->id,
+      'name' => $this->name,
+      'description' => $this->description
+    ];
   }
 
   public function getId(): int {
@@ -25,29 +33,21 @@ class Department {
   }
 
  
-  public static function getById(PDO $db, int $id): ?Department
-  {
-      $stmt = $db->prepare('SELECT * FROM departments WHERE id = :id');
-      $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-      $stmt->execute();
-      $stmt->setFetchMode(PDO::FETCH_OBJ);
-  
-      try {
-          $departmentData = $stmt->fetch();
-          if (!$departmentData) {
-              return null;
-          }
-          $department = new Department(
-              (int)$departmentData->id,
-              $departmentData->name,
-              $departmentData->description
-          );
-          return $department;
-      } catch(PDOException $e) {
-          // Handle the error
-          error_log($e->getMessage());
-          return null;
-      }
+  public static function getDepartmentById(PDO $db, $id): ?Department {
+
+    $stmt = $db->prepare('SELECT *
+                        FROM departments
+                        WHERE id = ?');
+
+    $stmt->execute(array($id)); 
+
+    if ($department = $stmt->fetch()) {
+      return new Department(
+        $department['id'],
+        $department['name'],
+        $department['description']
+      );
+    } else return null;
   }
 
   public static function getAllDepartments(PDO $db): array{
