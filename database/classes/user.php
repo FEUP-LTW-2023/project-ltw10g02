@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-class User {
+class User implements JsonSerializable{
   private $id;
   private $name;
   private $username;
@@ -16,6 +16,16 @@ class User {
     $this->pass = $pass;
     $this->email = $email;
     $this->category = $category;
+  }
+
+  public function jsonSerialize() {
+    return [
+      'id' => $this->id,
+      'name' => $this->name,
+      'username' => $this->username,
+      'email' => $this->email,
+      'category' => $this->category
+    ];
   }
 
   public function getId(): int {

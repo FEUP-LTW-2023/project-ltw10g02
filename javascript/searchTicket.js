@@ -30,6 +30,7 @@ if (searchTicket) {
       ticketDate.textContent = ticket.created_at
       ticketDescription.textContent = ticket.description
 
+      /* Append Child */
       ticketH2.appendChild(anchorTicketPage)
       article.appendChild(ticketH2)
       article.appendChild(ticketStatus)
