@@ -92,7 +92,5 @@ function editPriority(){
 
     
 }
-
-
 editPriority()
 
