@@ -4,9 +4,6 @@ if (searchTicket) {
     const response = await fetch('../api/api_tickets_search.php?search=' + this.value)
     const tickets = await response.json()
 
-    console.log(tickets)
-    console.log(JSON.stringify(tickets[0]));
-
     const ticketResumeSection = document.querySelector('#ticketResumeSection')
     ticketResumeSection.innerHTML = ''
 
