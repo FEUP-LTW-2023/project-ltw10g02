@@ -29,15 +29,28 @@ function drawTickets($tickets){
       <h1><?=$ticket->getSubject()?></h1>
       <p><?=$user_ticket->getName()?></p>
       <p><?=$ticket->getCreatedAt()?></p>
-      <p><?= $department === null ? 'Not defined' : $department->getName() ?></p>
-      <p><?= $agent_ticket === null ? 'Not defined' : $agent_ticket->getName() ?></p>
-      <p><?= $ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority() ?></p>
-      
+      <span id = "edit_department">
+        <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
+        <img id = "edit_department_img" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
+      </span>
+
+      <span>
+        <p><?=$agent_ticket === null ? 'Not defined' : $agent_ticket->getName()?></p>
+        <img src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
+      </span> 
+
+      <span id = "edit_priority">
+        <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
+        <img id = "edit_priority_img" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+      </span> 
+
       <p><?=$ticket->getDescription()?></p>
 
-      <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
+      <span>
+        <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
+        <img src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+      </span>
 
-      
       
     </article>
 
@@ -97,7 +110,7 @@ function drawTickets($tickets){
 
 <?php function drawCommentForm($ticket_id){ ?>
     <form id = "add_comment">
-      <textarea name="comment" placeholder="Add a new comment"></textarea>
+      <textarea name="comment" placeholder="Add a new comment" required></textarea>
       <input type="hidden" name="ticket_id" value = <?=$ticket_id?>>
       <button onclick ="addComment()">Add comment</button>
     </form>

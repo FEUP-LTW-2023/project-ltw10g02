@@ -23,29 +23,6 @@ body {
   font-weight: 500;
 }
 
-/* Table Styles */
-table {
-  border-collapse: collapse;
-  margin: 20px 0;
-  width: 100%;
-  background-color: #f2f2f2;
-}
-
-thead {
-  background-color: #d6c197;
-  color: #fff;
-}
-
-th,
-td {
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  font-weight: bold; /* Use 'bold' em vez de 'bolder' */
-}
-
 /* Footer Styles */
 footer {
   background-color: #d6c197;
