@@ -51,6 +51,6 @@
     $hashtagjoin = rtrim($hashtagjoin, ", "); // Remove a última vírgula
 
     drawHeader($session);
-    drawTicket($ticket, $comments, $user_ticket, $agent_ticket, $department, $hashtagjoin, $users_comments);
+    drawTicket($ticket, $session, $comments, $user_ticket, $agent_ticket, $department, $hashtagjoin, $users_comments);
     drawFooter();
 ?>

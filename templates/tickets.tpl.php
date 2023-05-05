@@ -22,7 +22,7 @@ function drawTickets($tickets){
 }
 ?>
 
-<?php  function drawTicket(Ticket $ticket, array $comments, User $user_ticket, $agent_ticket, $department, $hashtags, array $users_comments){ ?>
+<?php  function drawTicket(Ticket $ticket, Session $session, array $comments, User $user_ticket, $agent_ticket, $department, $hashtags, array $users_comments){ ?>
   <section id = "ticketAndComments">  
 
     <article class = "ticket">
@@ -31,24 +31,33 @@ function drawTickets($tickets){
       <p><?=$ticket->getCreatedAt()?></p>
       <span id = "edit_department">
         <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
-        <img id = "edit_department_img" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img id = "edit_department_img" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
+        <?php endif; ?>
       </span>
 
       <span>
         <p><?=$agent_ticket === null ? 'Not defined' : $agent_ticket->getName()?></p>
-        <img src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
+        <?php endif; ?>
       </span> 
 
       <span id = "edit_priority">
         <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
-        <img id = "edit_priority_img" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img id = "edit_priority_img" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+        <?php endif; ?>
+    
       </span> 
 
       <p><?=$ticket->getDescription()?></p>
 
       <span>
         <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
-        <img src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+        <?php endif; ?>
       </span>
 
       
