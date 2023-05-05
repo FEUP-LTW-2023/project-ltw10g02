@@ -22,22 +22,44 @@ function drawTickets($tickets){
 }
 ?>
 
-<?php  function drawTicket(Ticket $ticket, array $comments, User $user_ticket, $agent_ticket, $department, $hashtags, array $users_comments){ ?>
+<?php  function drawTicket(Ticket $ticket, Session $session, array $comments, User $user_ticket, $agent_ticket, $department, $hashtags, array $users_comments){ ?>
   <section id = "ticketAndComments">  
 
     <article class = "ticket">
       <h1><?=$ticket->getSubject()?></h1>
       <p><?=$user_ticket->getName()?></p>
       <p><?=$ticket->getCreatedAt()?></p>
-      <p><?= $department === null ? 'Not defined' : $department->getName() ?></p>
-      <p><?= $agent_ticket === null ? 'Not defined' : $agent_ticket->getName() ?></p>
-      <p><?= $ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority() ?></p>
-      
+      <span id = "edit_department">
+        <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img id = "edit_department_img" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
+        <?php endif; ?>
+      </span>
+
+      <span>
+        <p><?=$agent_ticket === null ? 'Not defined' : $agent_ticket->getName()?></p>
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
+        <?php endif; ?>
+      </span> 
+
+      <span id = "edit_priority">
+        <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img id = "edit_priority_img" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+        <?php endif; ?>
+    
+      </span> 
+
       <p><?=$ticket->getDescription()?></p>
 
-      <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
+      <span>
+        <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+        <?php endif; ?>
+      </span>
 
-      
       
     </article>
 
@@ -97,7 +119,7 @@ function drawTickets($tickets){
 
 <?php function drawCommentForm($ticket_id){ ?>
     <form id = "add_comment">
-      <textarea name="comment" placeholder="Add a new comment"></textarea>
+      <textarea name="comment" placeholder="Add a new comment" required></textarea>
       <input type="hidden" name="ticket_id" value = <?=$ticket_id?>>
       <button onclick ="addComment()">Add comment</button>
     </form>

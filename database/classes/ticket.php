@@ -22,7 +22,7 @@ class Ticket implements JsonSerializable{
     $this->status = $status;
     $this->priority = $priority;
     $this->client_id = $client_id;
-    $this->department_id = $agent_id;
+    $this->department_id = $department_id;
     $this->agent_id = $agent_id;
     $this->faq_id = $faq_id;
     $this->product_id = $product_id;
@@ -83,6 +83,19 @@ class Ticket implements JsonSerializable{
 
   public function getCreatedAt(): string {
     return $this->created_at;
+  }
+
+  public function setPriority($priority): void{
+    $this->priority = $priority;
+  }
+
+  function updateTicket(PDO $db) {
+    $stmt = $db->prepare('
+        UPDATE Tickets SET subject = ?, description = ?, status = ?, priority = ?, department_id = ?, agent_id = ?, faq_id = ?, product_id = ?
+        WHERE id = ?
+      ');
+
+    return $stmt->execute(array($this->subject, $this->description, $this->status, $this->priority, $this->department_id, $this->agent_id, $this->faq_id, $this->product_id, $this->id));
   }
 
   public static function addTicket(PDO $db, Session $session, $subject, $description, $client_id, $department_id): void{

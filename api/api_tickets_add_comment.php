@@ -16,10 +16,9 @@
     $last_comment = Comment::getCommentById($db, $last_comment_id);
     $user_comment = User::getUserById($db, $last_comment->getUserId());
 
-    echo json_encode(array('comment' => $last_comment, 'user' => $user_comment));
-
     http_response_code(200);
     $session->addMessage('success', 'Database updated successfully with the new comment.');
+    echo json_encode(array('comment' => $last_comment, 'user' => $user_comment));
 
   } catch (Exception $e) {
       http_response_code(500);
