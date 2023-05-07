@@ -32,21 +32,21 @@ function drawTickets($tickets){
       <span id = "edit_department">
         <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_department_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
+          <img id = "edit_department_img" onclick ="editField('<?= $ticket->getId() ?>', 'department')" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
         <?php endif; ?>
       </span>
 
-      <span>
+      <span id = "edit_agent">
         <p><?=$agent_ticket === null ? 'Not defined' : $agent_ticket->getName()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_agent_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
+          <img id = "edit_agent_img" onclick ="editField('<?= $ticket->getId() ?>', 'agent')" src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
         <?php endif; ?>
       </span> 
 
       <span id = "edit_priority">
         <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_priority_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+          <img id = "edit_priority_img" onclick ="editField('<?= $ticket->getId() ?>', 'priority')" src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
         <?php endif; ?>
       </span> 
 
