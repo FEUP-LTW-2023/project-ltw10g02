@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/ticket.css">
     <link rel="stylesheet" href="../css/my_ticket.css">
     <link rel="stylesheet" href="../css/profile.css">
-    <script src="../javascript/editPriority.js" defer></script>
+    <script src="../javascript/editFieldTicketAgent.js" defer></script>
     <script src="../javascript/searchTicket.js" defer></script>
     <script src="../javascript/addComment.js" defer></script>
     <script src="../javascript/util.js" defer></script>

@@ -58,7 +58,7 @@ class Comment implements JsonSerializable{
           $comment['ticket_id'],
           $comment['user_id'],
           $comment['body'],
-          intval($comment['updated_at'])
+          $comment['updated_at']
         );
       } else return null;
   }
