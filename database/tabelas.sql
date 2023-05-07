@@ -2,6 +2,7 @@
 .mode columns
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_department;
 DROP TABLE IF EXISTS tickets;
 DROP TABLE IF EXISTS ticket_history;
 DROP TABLE IF EXISTS ticket_hashtags;
@@ -22,6 +23,15 @@ CREATE TABLE users (
   email TEXT NOT NULL UNIQUE,
   category TEXT NOT NULL
 );
+
+CREATE TABLE user_department (
+  user_id INTEGER NOT NULL,
+  department_id INTEGER NOT NULL,
+  PRIMARY KEY (user_id, department_id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
 
 -- Departments table stores information about support departments
 CREATE TABLE departments (
@@ -149,6 +159,11 @@ INSERT INTO users (name, username, pass, email, category) VALUES
   ('Devezas', 'devezas', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'devezas@example.com', 'agent'),
   ('Andre Restivo', 'arestivo', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'restivo@example.com', 'admin');
 
+INSERT INTO user_department (user_id, department_id) VALUES
+  (3, 1), --Sofia
+  (3, 2),
+  (4, 3), --Devezas
+  (4, 4);
 -- Insert FAQs
 INSERT INTO faqs (question, answer) VALUES
     ('How do I reset my password?', 'You can reset your password by clicking on the "Forgot password" link on the login page.'),
