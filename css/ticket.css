@@ -15,6 +15,11 @@
     grid-row-end: 7;
 }
 
+#ticketAndComments > .ticket input {
+    text-align: center;
+    overflow: auto;
+}
+
 #ticketAndComments > .ticket p {
     margin: 10px;
     padding: 0;
@@ -28,7 +33,12 @@
     margin-bottom: 2px;
 }
 
-#ticketAndComments > .ticket > h1 {
+#ticketAndComments > .ticket > button{
+    width: 100px;
+    justify-self: center;
+}
+
+#ticketAndComments > .ticket > h1,  #ticketAndComments > .ticket > input:nth-of-type(1){
     grid-area: 1 / 1 / span 1 / span 1;
 }
 
@@ -53,7 +63,7 @@
     grid-area: 5 / 1 / span 1 / span 1;
 }
 
-#ticketAndComments > .ticket > p:nth-of-type(3) {
+#ticketAndComments > .ticket > p:nth-of-type(3), #ticketAndComments > .ticket > input:nth-of-type(2) {
     grid-area: 6 / 1 / span 1 / span 1;
 }
 

@@ -32,33 +32,36 @@ function drawTickets($tickets){
       <span id = "edit_department">
         <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_department_img" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
+          <img id = "edit_department_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
         <?php endif; ?>
       </span>
 
       <span>
         <p><?=$agent_ticket === null ? 'Not defined' : $agent_ticket->getName()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
+          <img id = "edit_agent_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
         <?php endif; ?>
       </span> 
 
       <span id = "edit_priority">
         <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_priority_img" onclick ="editField()" data-id = <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+          <img id = "edit_priority_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
         <?php endif; ?>
       </span> 
 
       <p><?=$ticket->getDescription()?></p>
 
-      <span>
+      <span id = "edit_hashtags">
         <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+          <img id = "edit_hashtags_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
         <?php endif; ?>
       </span>
-
+      
+      <?php if ($session->getCategory() === "client"): ?>
+          <button onclick = "editTicketUser('<?= $ticket->getId() ?>')">Edit ticket</button>
+      <?php endif; ?>
       
     </article>
 
