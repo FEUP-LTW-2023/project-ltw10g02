@@ -85,9 +85,42 @@ class Ticket implements JsonSerializable{
     return $this->created_at;
   }
 
-  public function setPriority($priority): void{
-    $this->priority = $priority;
+  public function setSubject($subject): void {
+      $this->subject = $subject;
   }
+
+  public function setDescription($description): void {
+      $this->description = $description;
+  }
+
+  public function setStatus($status): void {
+      $this->status = $status;
+  }
+
+  public function setPriority($priority): void {
+      $this->priority = $priority;
+  }
+
+  public function setClientId($client_id): void {
+      $this->client_id = $client_id;
+  }
+
+  public function setDepartmentId($department_id): void {
+      $this->department_id = $department_id;
+  }
+
+  public function setAgentId($agent_id): void {
+      $this->agent_id = $agent_id;
+  }
+
+  public function setFaqId($faq_id): void {
+      $this->faq_id = $faq_id;
+  }
+
+  public function setProductId($product_id): void {
+      $this->product_id = $product_id;
+  }
+
 
   function updateTicket(PDO $db) {
     $stmt = $db->prepare('

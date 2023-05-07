@@ -1,7 +1,5 @@
-function editField(){
-    const imgEditPriority = document.getElementById('edit_priority_img')
-    const id_ticket = imgEditPriority.getAttribute('data-id')
-
+function editField(id_ticket){
+    /* Get inicial priority in database */
     const pPriority = document.querySelector('#edit_priority > p')
     const pPriorityValue = pPriority.textContent
 
@@ -44,7 +42,6 @@ function editField(){
     img.style.marginLeft = '8px'
 
     /* Append Child */
-
     select.appendChild(optionLow)
     select.appendChild(optionMedium)
     select.appendChild(optionHigh)
@@ -83,9 +80,9 @@ async function confirmField(id_ticket, priority_original) {
     p.textContent = priority
     img.src = '../images/icons/8666681_edit_icon.svg'
     img.alt = 'Edit priority'
-    img.onclick = editField
-    img.setAttribute('data-id', id_ticket)
-    
+    img.onclick = function() {
+        editField(id_ticket);
+    }
     
     /* Append Child */
     spanPriority.appendChild(p)
