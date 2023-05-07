@@ -1,6 +1,9 @@
-function editPriority(){
+function editField(){
     const imgEditPriority = document.getElementById('edit_priority_img')
     const id_ticket = imgEditPriority.getAttribute('data-id')
+
+    const pPriority = document.querySelector('#edit_priority > p')
+    const pPriorityValue = pPriority.textContent
 
     /* Select the span element */
     const spanPriority = document.getElementById('edit_priority')
@@ -34,7 +37,7 @@ function editPriority(){
     img.src = '../images/icons/326561_box_check_icon.svg'
     img.alt = 'Check edit priority'
     img.onclick = function() {
-        confirmPriority(id_ticket);
+        confirmField(id_ticket, pPriorityValue);
     }
     
     /* Add style */
@@ -53,8 +56,7 @@ function editPriority(){
 }
 
 /*  Now send the data for action*/
-async function confirmPriority(id_ticket) {
-    
+async function confirmField(id_ticket, priority_original) {
     const select = document.getElementById('select_priority')
     const priority = select.value
 
@@ -65,40 +67,42 @@ async function confirmPriority(id_ticket) {
     data.append('id', id_ticket);
     data.append('priority', priority);
 
+
+    /* Clean span element */
+    const spanPriority = document.getElementById('edit_priority')
+    spanPriority.innerHTML = ''
+
+    /* Create elements */
+    const p = document.createElement('p')
+    const img = document.createElement('img')
+
+    /* Assigning id */
+    img.id = 'edit_priority_img'
+
+    /* Assigning data */
+    p.textContent = priority
+    img.src = '../images/icons/8666681_edit_icon.svg'
+    img.alt = 'Edit priority'
+    img.onclick = editField
+    img.setAttribute('data-id', id_ticket)
+    
+    
+    /* Append Child */
+    spanPriority.appendChild(p)
+    spanPriority.appendChild(img)   
+
     const response = await fetch('../actions/action_edit_priority.php', {
         method: 'POST',
         body: data
     })
 
+
     if (!response.ok) {
         const errorMessage = await response.text()
-        alert('There are an error editing the priority: ${errorMessage}')
+        alert('There are an error editing the priority' + errorMessage)
+        p.textContent = priority_original
     }
 
-    else {
-        /* Clean span element */
-        const spanPriority = document.getElementById('edit_priority')
-        spanPriority.innerHTML = ''
-
-        /* Create elements */
-        const p = document.createElement('p')
-        const img = document.createElement('img')
-
-        /* Assigning id */
-        img.id = 'edit_priority_img'
-
-        /* Assigning data */
-        p.textContent = priority
-        img.src = '../images/icons/8666681_edit_icon.svg'
-        img.alt = 'Edit priority'
-        img.onclick = editPriority
-        img.setAttribute('data-id', id_ticket)
-        
-        
-        /* Append Child */
-        spanPriority.appendChild(p)
-        spanPriority.appendChild(img)   
-    }
 }
 
 

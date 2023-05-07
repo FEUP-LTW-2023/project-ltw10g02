@@ -46,9 +46,8 @@ function drawTickets($tickets){
       <span id = "edit_priority">
         <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_priority_img" onclick ="editPriority()" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+          <img id = "edit_priority_img" onclick ="editField()" data-id = <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
         <?php endif; ?>
-    
       </span> 
 
       <p><?=$ticket->getDescription()?></p>
