@@ -81,12 +81,11 @@ async function editField(id_ticket, field){
 
     /* Select the span element */
     const spanField = document.getElementById('edit_'+ field)
-    spanField.innerHTML = ''
     
     const response = await fetch('../api/api_tickets_get_infos.php?id=' + id_ticket)
     const ticketsInfo = await response.json()
 
-    console.log(ticketsInfo['agent'])
+    console.log(pFieldValue)
 
     /* Create elements */
     const select = document.createElement('select')
@@ -106,6 +105,9 @@ async function editField(id_ticket, field){
         else{
             option.textContent = element
         }
+
+        if(option.textContent === pFieldValue)
+            option.selected = true;
         select.appendChild(option)
     });
 
@@ -125,6 +127,9 @@ async function editField(id_ticket, field){
     
     /* Add style */
     img.style.marginLeft = '8px'
+
+
+    spanField.innerHTML = ''
 
     /* Append Child */
     spanField.appendChild(p)
