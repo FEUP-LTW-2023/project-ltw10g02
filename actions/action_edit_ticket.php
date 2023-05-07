@@ -14,8 +14,19 @@
     
     try {
         $ticket = Ticket::getTicketById($db, $_POST['id']);
-        $ticket->setSubject($_POST['subject']);
-        $ticket->setDescription($_POST['description']);
+
+        if($session->getCategory() === "client"){
+            $ticket->setSubject($_POST['subject']);
+            $ticket->setDescription($_POST['description']);
+        }
+        else{
+            if($_POST['field'] === 'department')
+                $ticket->setDepartmentId($_POST['fieldId']);
+            else if($_POST['field'] === 'agent')
+                $ticket->setAgentId($_POST['fieldId']);
+            else if($_POST['field'] === 'priority')
+                $ticket->setPriority($_POST['fieldValue']);
+        }
 
         $ticket->updateTicket($db);
 

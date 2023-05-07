@@ -39,6 +39,15 @@ class Hashtag implements JsonSerializable {
         } else return null;
       }
 
+    public static function getAllHashtags(PDO $db): ?array{
+      $hashtags = array();
+      $rows = $db->query('SELECT * FROM hashtags');
+      foreach ($rows as $row) {
+        $hashtag = new Hashtag($row['id'], $row['name']);
+        $hashtags[] = $hashtag;
+      }
+      return $hashtags;
+    }
   }
 
 

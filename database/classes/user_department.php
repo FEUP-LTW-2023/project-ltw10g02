@@ -30,6 +30,16 @@ class UserDepartment implements JsonSerializable {
     public function setDepartmentId($department_id) {
       $this->department_id = $department_id;
     }
+
+    public static function getAllAgents(PDO $db): ?array{
+      $agents = array();
+      $rows = $db->query('SELECT DISTINCT user_id FROM user_department');
+      foreach ($rows as $row) {
+        $agent = new UserDepartment($row['user_id'], $row['department_id']);
+        $agents[] = $agent;
+      }
+      return $agents;
+    }
   
   }
 ?>
