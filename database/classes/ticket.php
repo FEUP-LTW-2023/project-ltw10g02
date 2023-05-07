@@ -69,7 +69,7 @@ class Ticket implements JsonSerializable{
     return $this->client_id;
   }
 
-  public function getDepartmentId(){
+  public function getDepartmentId(): ?int{
     return $this->department_id;
   }
 

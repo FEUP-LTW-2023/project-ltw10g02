@@ -15,10 +15,13 @@
 
     if($session->getCategory() === "client")
         $tickets = Ticket::getTicketsByUser($db, $session->getId());
-    else
+    else{
+        /* $user = User::getUserById($db, $session->getId()); */
         $tickets = Ticket::getTicketsByAgent($db, $session->getId());
+        /* $tickets_department = Ticket::getTicketsByDepartment($db, $tickets->getDepartmentId()); */
+    }
     
     drawHeader($session);
-    drawTicketsUser($tickets);
+    drawTicketsUser($session, $tickets);
     drawFooter();
 ?>

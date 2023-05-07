@@ -46,7 +46,7 @@ function drawTickets($tickets){
       <span id = "edit_priority">
         <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_priority_img" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
+          <img id = "edit_priority_img" onclick ="editPriority()" data-id= <?=$ticket->getId()?> src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
         <?php endif; ?>
     
       </span> 
@@ -80,7 +80,7 @@ function drawTickets($tickets){
 
 <?php } ?>
 
-<?php function drawTicketsUser($tickets){ ?>
+<?php function drawTicketsUser(Session $session, $tickets){ ?>
 
   <section id = "user_tickets">
       <h1>My Tickets</h1>
@@ -88,7 +88,13 @@ function drawTickets($tickets){
 
       <?php drawTickets($tickets) ?>
 
-      <a href="../pages/create_ticket.php">Create a new ticket</a>
+      <?php if ($session->getCategory() === "client"): ?>
+        <a href="../pages/create_ticket.php">Create a new ticket</a>
+      <?php endif; ?>
+      
+      <?php if ($session->getCategory() !== "client"): ?>
+        <h1>Tickets Department</h1>
+      <?php endif; ?>
   </section>
 <?php } ?>
 
