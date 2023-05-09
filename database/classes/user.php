@@ -101,42 +101,62 @@ class User implements JsonSerializable{
 
   function updateName(PDO $db, string $newName): void {
     $stmt = $db->prepare('
-        UPDATE User SET name = ?
+        UPDATE users SET name = ?
         WHERE id = ?
       ');
 
-    $stmt->execute(array($this->name, $this->id));
-    $this->name = $newName;
+    $result = $stmt->execute(array($newName, $this->id));
+    if ($result) {
+      $this->name = $newName;
+    }
   }
 
-  function updateUserame(PDO $db, string $newUsername): void {
+  function updateUsername(PDO $db, string $newUsername): void {
     $stmt = $db->prepare('
-        UPDATE User SET username = ?
+        UPDATE users SET username = ?
         WHERE id = ?
       ');
 
-    $stmt->execute(array($this->username, $this->id));
-    $this->username = $newUsername;
+    $result = $stmt->execute(array($newUsername, $this->id));
+    if ($result) {
+      $this->username = $newUsername;
+    }
   }
 
   function updateEmail(PDO $db, string $newEmail): void {
     $stmt = $db->prepare('
-        UPDATE User SET email = ?
+        UPDATE users SET email = ?
         WHERE id = ?
       ');
 
-    $stmt->execute(array($this->email, $this->id));
-    $this->email = $newEmail;
+    $result = $stmt->execute(array($newEmail, $this->id));
+    if ($result) {
+      $this->email = $newEmail;
+    }
   }
 
   function updatePass(PDO $db, string $newPass): void {
     $stmt = $db->prepare('
-        UPDATE User SET pass = ?
+        UPDATE users SET pass = ?
         WHERE id = ?
       ');
 
-    $stmt->execute(array($this->pass, $this->id));
-    $this->pass = $newPass;
+    $result = $stmt->execute(array(sha1($newPass), $this->id));
+    if ($result) {
+      $this->pass = sha1($newPass);
+    }
+  }
+
+  function updateCategory(PDO $db, string $newCategory): void {
+    $stmt = $db->prepare('
+        UPDATE users SET category = ?
+        WHERE id = ?
+      ');
+
+    $result = $stmt->execute(array($newCategory, $this->id));
+    if ($result) {
+      $this->category = $newCategory;
+    }
   }
 
   // check if username exists
