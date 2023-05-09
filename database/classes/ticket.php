@@ -70,7 +70,7 @@ class Ticket implements JsonSerializable{
   }
 
   public function getDepartmentId(): ?int{
-    return $this->department_id;
+    return intval($this->department_id);
   }
 
   public function getAgentId(){
