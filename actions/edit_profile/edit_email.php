@@ -19,8 +19,15 @@
     $user = User::getUserById($db, $id);
 
     if (isset($_POST['email'])) {
-        $newEmail = $_POST['email'];
-        $user->updateEmail($db, $newEmail);
+        if(User::emailExists($db, $_POST['email'])) {
+            $session->addMessage('error', 'Email already used.');
+            header("Location: ../../pages/edit_email.php");    
+            exit();
+        }
+        else {
+            $newEmail = $_POST['email'];
+            $user->updateEmail($db, $newEmail);
+        } 
     }
 
     header('Location: ../../pages/profile.php'); 
