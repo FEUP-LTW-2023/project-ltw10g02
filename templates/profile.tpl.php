@@ -113,6 +113,11 @@
         </span>
 
         <span id="username">
+        <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+            <span class="error">
+                <p><?= $session->getMessages()[0]['text'] ?></p>
+            </span>
+        <?php endif; ?>
         <form action="/../actions/edit_profile/edit_username.php" method="post">
             <label for="username">Username: </label>
             <input type="text" id="username" name="username" value="<?php echo $user->getUsername() ?>">
@@ -151,6 +156,11 @@
         </span>
 
         <span id="email">
+        <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+            <span class="error">
+                <p><?= $session->getMessages()[0]['text'] ?></p>
+            </span>
+        <?php endif; ?>
         <form action="/../actions/edit_profile/edit_email.php" method="post">
             <label for="email">Email: </label>
             <input type="email" id="email" name="email" value="<?php echo $user->getEmail() ?>">

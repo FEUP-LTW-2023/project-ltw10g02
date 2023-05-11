@@ -129,9 +129,9 @@ class User implements JsonSerializable{
         WHERE id = ?
       ');
 
-    $result = $stmt->execute(array($newEmail, $this->id));
+    $result = $stmt->execute(array(strtolower($newEmail), $this->id));
     if ($result) {
-      $this->email = $newEmail;
+      $this->email = strtolower($newEmail);
     }
   }
 

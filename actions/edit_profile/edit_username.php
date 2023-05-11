@@ -19,8 +19,15 @@
     $user = User::getUserById($db, $id);
 
     if (isset($_POST['username'])) {
-        $newUsername = $_POST['username'];
-        $user->updateUsername($db, $newUsername);
+        if(User::usernameExists($db, $_POST['username'])) {
+            $session->addMessage('error', 'Username already exists.');
+            header("Location: ../../pages/edit_username.php");    
+            exit();
+        }
+        else {
+            $newUsername = $_POST['username'];
+            $user->updateUsername($db, $newUsername);
+        } 
     }
 
     header('Location: ../../pages/profile.php'); 
