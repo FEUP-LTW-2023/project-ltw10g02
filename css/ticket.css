@@ -152,13 +152,13 @@
 
 /* Css for ticket resume in profile and my_tickets page */
 
-#ticketResumeSection {
+#department_tickets, #my_tickets {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-#ticketResumeSection > .ticketResume {
+.ticketResume {
     display: grid;
     grid-column-start: 1;
     grid-column-end: 2;
@@ -176,14 +176,14 @@
     overflow: hidden;
 }
 
-#ticketResumeSection > .ticketResume > header {
+.ticketResume > header {
     grid-area: 1 / 1 / span 1 / span 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-#ticketResumeSection > .ticketResume > header > h2 > a{
+.ticketResume > header > h2 > a{
     display: flex;
     /* width: 210px; */
     max-width: 210px;
@@ -193,18 +193,18 @@
 }
 
 
-#ticketResumeSection > .ticketResume > p:nth-of-type(1) {
+.ticketResume > p:nth-of-type(1) {
     grid-area: 2 / 1 / span 1 / span 1;
 }
 
-#ticketResumeSection > .ticketResume > p:nth-of-type(2) {
+.ticketResume > p:nth-of-type(2) {
     grid-area: 3 / 1 / span 1 / span 1;
 }
 
-#ticketResumeSection > .ticketResume > header > p::before {
+.ticketResume > header > p::before {
     content: "Status: ";
 }
 
-#ticketResumeSection > .ticketResume > p:nth-of-type(1)::before{
+.ticketResume > p:nth-of-type(1)::before{
     content: "At: ";
 }

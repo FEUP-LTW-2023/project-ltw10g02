@@ -217,7 +217,7 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function getTicketsByDepartments(PDO $db, $user_department): array {
+  public static function getTicketsByDepartments(PDO $db, $user_department, $search = ''): array {
     $tickets = array();
 
     $user_department_ids = array();
@@ -227,9 +227,20 @@ class Ticket implements JsonSerializable{
 
     $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
     $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+    
+    if (!empty($search)) {
+        $sql .= " AND subject LIKE :search";
+    }
 
     $stmt = $db->prepare($sql);
-    $stmt->execute($user_department_ids);
+
+    $params = $user_department_ids;
+    if (!empty($search)) {
+        $params[] = $search.'%';
+        $stmt->bindParam(':search', $params[count($params)-1]);
+    }
+
+    $stmt->execute($params);
     
     foreach ($stmt as $ticket) {
         $ticket = new Ticket(
@@ -248,7 +259,8 @@ class Ticket implements JsonSerializable{
         $tickets[] = $ticket;
     }
     return $tickets;
-}
+  }
+
 
 
 

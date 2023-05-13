@@ -9,10 +9,16 @@
 
   require_once(__DIR__ . '/../database/database_connection.php');
   require_once(__DIR__ . '/../database/classes/ticket.php');
+  require_once(__DIR__ . '/../database/classes/user_department.php');
 
   $db = getDatabaseConnection();
 
-  $tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), $_GET['search']);
+  if($_GET['option'] === '1')
+    $tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), $_GET['search']);
+  else if($_GET['option'] === '2'){
+    $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+    $tickets = Ticket::getTicketsByDepartments($db, $departments_agent, $_GET['search']);
+  }
 
   
   echo json_encode($tickets);

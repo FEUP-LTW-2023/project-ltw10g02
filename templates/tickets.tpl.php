@@ -4,9 +4,9 @@
 ?>
 
 <?php 
-function drawTickets($tickets){ 
+function drawTickets($tickets, $div_id){ 
 ?>
-  <div id = "ticketResumeSection">
+  <div id = <?=$div_id?>>
     <?php foreach ($tickets as $ticket): ?>
       <article class = "ticketResume">
         <header>
@@ -90,13 +90,24 @@ function drawTickets($tickets){
 
 <?php } ?>
 
+<?php function drawSearchFormInput($form_id, $input_id){ ?>
+  <form id = <?=$form_id?>>
+    <select name="status" id="status">
+      <option value="Open">Open</option>
+      <option value="Assigned">Assigned</option>
+      <option value="Closed">Closed</option>
+    </select>
+  </form>
+  <input id= <?=$input_id?> type="text" placeholder="Search your ticket">
+<?php } ?>
+
 <?php function drawTicketsUser(Session $session, $tickets){ ?>
 
-  <section id = "user_tickets">
+  <section class = "my_tickets">
       <h1>My Tickets</h1>
       <input id="search_tickets" type="text" placeholder="Search your ticket">
 
-      <?php drawTickets($tickets) ?>
+      <?php drawTickets($tickets, 'my_tickets') ?>
 
       <a href="../pages/create_ticket.php">Create a new ticket</a>
   </section>
@@ -104,18 +115,19 @@ function drawTickets($tickets){
 
 <?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments){ ?>
 
-<section id = "agent_tickets">
+<section class = "my_tickets">
     <h1>My Tickets</h1>
-    <input id="search_tickets" type="text" placeholder="Search your ticket">
 
-    <?php drawTickets($tickets_agent) ?>
+    <?php drawSearchFormInput('form_my_tickets', 'search_tickets') ?>
+    <?php drawTickets($tickets_agent, 'my_tickets') ?>
 </section>
 
-<section id = "department_tickets">
+<section id = "department_tickets_section">
     <h1>Tickets Department</h1>
     <!-- <input id="search_tickets" type="text" placeholder="Search your ticket"> -->
 
-    <?php drawTickets($tickets_departments) ?>
+    <?php drawSearchFormInput('form_department_tickets', 'search_deparment_tickets') ?>
+    <?php drawTickets($tickets_departments, 'department_tickets') ?>
 </section>
 <?php } ?>
 
