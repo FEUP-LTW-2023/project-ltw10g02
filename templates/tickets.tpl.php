@@ -63,7 +63,7 @@ function drawTickets($tickets){
       <span id = "edit_hashtags">
         <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_hashtags_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+          <img id = "edit_hashtags_img" onclick ="editField('<?= $ticket->getId() ?>', 'hashtags')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
         <?php endif; ?>
       </span>
       
@@ -98,14 +98,25 @@ function drawTickets($tickets){
 
       <?php drawTickets($tickets) ?>
 
-      <?php if ($session->getCategory() === "client"): ?>
-        <a href="../pages/create_ticket.php">Create a new ticket</a>
-      <?php endif; ?>
-      
-      <?php if ($session->getCategory() !== "client"): ?>
-        <h1>Tickets Department</h1>
-      <?php endif; ?>
+      <a href="../pages/create_ticket.php">Create a new ticket</a>
   </section>
+<?php } ?>
+
+<?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments){ ?>
+
+<section id = "agent_tickets">
+    <h1>My Tickets</h1>
+    <input id="search_tickets" type="text" placeholder="Search your ticket">
+
+    <?php drawTickets($tickets_agent) ?>
+</section>
+
+<section id = "department_tickets">
+    <h1>Tickets Department</h1>
+    <!-- <input id="search_tickets" type="text" placeholder="Search your ticket"> -->
+
+    <?php drawTickets($tickets_departments) ?>
+</section>
 <?php } ?>
 
 

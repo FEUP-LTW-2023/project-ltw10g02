@@ -8,12 +8,11 @@
         header("Location: ../index.php");
 
   require_once(__DIR__ . '/../database/database_connection.php');
-  require_once(__DIR__ . '/../database/classes/ticket.php');
+  require_once(__DIR__ . '/../database/classes/hashtag.php');
 
   $db = getDatabaseConnection();
 
-  $tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), $_GET['search']);
-
+  $hashtags = Hashtag::searchHashtags($db, $_GET['search']);
   
-  echo json_encode($tickets);
+  echo json_encode($hashtags);
 ?>

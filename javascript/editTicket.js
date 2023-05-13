@@ -124,6 +124,10 @@ async function editField(id_ticket, field){
     img.onclick = function() {
         confirmField(id_ticket, pFieldValue, field);
     }
+
+    if(field === 'hashtags'){
+        p.textContent = 'teste'
+    }
     
     /* Add style */
     img.style.marginLeft = '8px'
@@ -197,5 +201,4 @@ async function confirmField(id_ticket, pFieldValue, field) {
         alert('There are an error editing the field' + errorMessage)
         p.textContent = pFieldValue
     }
-
 }

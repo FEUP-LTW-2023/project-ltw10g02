@@ -204,6 +204,7 @@ VALUES
   (3, 6),
   (4, 1),
   (5, 7),
+  (6, 1),
   (6, 2);
 
 INSERT INTO comments (ticket_id, user_id, body)
