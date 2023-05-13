@@ -217,24 +217,35 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function getTicketsByDepartments(PDO $db, $user_department, $search = '', $department = '', $status = '', $priority = ''): array {
+  public static function searchTickets(PDO $db, $id, $category = '', $user_department = '', $search = '', $department = '', $status = '', $priority = ''): array {
     $tickets = array();
 
-    if($department === "my_departments" || $department === '') {
-      $user_department_ids = array();
+    if($category === ""){
+      if($department === "my_departments" || $department  === "") {
+        $user_department_ids = array();
 
-      foreach ($user_department as $department) {
-        $user_department_ids[] = $department->getDepartmentId();
+        foreach ($user_department as $department) {
+          $user_department_ids[] = $department->getDepartmentId();
+        }
+        
+        $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
+        $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+        $params = $user_department_ids;
       }
-      
-      $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
-      $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
-      $params = $user_department_ids;
+      else{
+        $params = array();
+        $sql = "SELECT * FROM tickets WHERE department_id = ?";
+        $params[] = $department;
+      }
     }
     else{
-      $params = array();
-      $sql = "SELECT * FROM tickets WHERE department_id = ?";
-      $params[] = $department;
+      if($category === 'client')
+        $sql = 'SELECT * FROM tickets WHERE client_id = ?';
+      else if($category === 'agent')
+        $sql = 'SELECT * FROM tickets WHERE agent_id = ?'; 
+
+        $params = array();
+        $params[] = $id;
     }
     
     if (!empty($search)) {
@@ -242,7 +253,7 @@ class Ticket implements JsonSerializable{
         $params[] = $search . "%";
     }
     
-    if (!empty($status)) {
+    if (!empty($status) && $status !== "All") {
         $sql .= " AND status = ?";
         $params[] = $status;
     }
@@ -250,7 +261,7 @@ class Ticket implements JsonSerializable{
     if (!empty($priority) && $priority !== "All") {
       $sql .= " AND priority = ?";
       $params[] = $priority;
-  }
+    }
 
     $stmt = $db->prepare($sql);
     $stmt->execute($params);
@@ -286,24 +297,37 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function searchTickets(PDO $db, int $id, $category, string $search): array {
+  public static function getTicketsByDepartments(PDO $db, $user_department): array {
     $tickets = array();
 
-    if($category === 'client')
-      $stmt = $db->prepare('SELECT * FROM tickets WHERE client_id = ? and subject LIKE ?');
-    if($category === 'agent')
-      $stmt = $db->prepare('SELECT * FROM tickets WHERE agent_id = ? and subject LIKE ?'); 
-
-    $stmt->execute(array($id, $search . '%'));
-    
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    foreach ($rows as $row) {
-        $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['department_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
-        $tickets[] = $ticket;
+    $user_department_ids = array();
+    foreach ($user_department as $department) {
+        $user_department_ids[] = $department->getDepartmentId();
     }
 
+    $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
+    $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute($user_department_ids);
+    
+    foreach ($stmt as $ticket) {
+        $ticket = new Ticket(
+            $ticket['id'],
+            $ticket['subject'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $ticket['client_id'],
+            $ticket['department_id'],
+            $ticket['agent_id'],
+            $ticket['faq_id'],
+            $ticket['product_id'],
+            $ticket['created_at']
+        );
+        $tickets[] = $ticket;
+    }
     return $tickets;
-  }
+}
 }
 

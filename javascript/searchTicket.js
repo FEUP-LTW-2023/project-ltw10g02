@@ -63,5 +63,6 @@ function searchTicket(input_id, div_name, form_id, option) {
   }
 }
 
-searchTicket('search_tickets', 'my_tickets', 'form_my_tickets', 1)
+searchTicket('search_tickets_agent', 'my_tickets', 'form_my_tickets', 1)
+searchTicket('search_tickets_client', 'my_tickets', 'form_my_tickets', 1)
 searchTicket('search_deparment_tickets', 'department_tickets', 'form_department_tickets', 2)

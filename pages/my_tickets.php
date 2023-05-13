@@ -20,10 +20,13 @@
     else{
         $tickets_agent = Ticket::getTicketsByAgent($db, $session->getId());
         $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+        $departments = array();
+        foreach ($departments_agent as $department_agent) {
+            $department = Department::getDepartmentById($db, $department_agent->getDepartmentId());
+            $departments[] = $department;
+        }
         $tickets_department = Ticket::getTicketsByDepartments($db, $departments_agent);
     }
-
-    $departments = Department::getAllDepartments($db);
     
     drawHeader($session);
     if($session->getCategory() === "client")
