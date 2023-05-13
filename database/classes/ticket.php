@@ -217,29 +217,42 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function getTicketsByDepartments(PDO $db, $user_department, $search = ''): array {
+  public static function getTicketsByDepartments(PDO $db, $user_department, $search = '', $department = '', $status = '', $priority = ''): array {
     $tickets = array();
 
-    $user_department_ids = array();
-    foreach ($user_department as $department) {
-        $user_department_ids[] = $department->getDepartmentId();
-    }
+    if($department === "my_departments" || $department === '') {
+      $user_department_ids = array();
 
-    $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
-    $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+      foreach ($user_department as $department) {
+        $user_department_ids[] = $department->getDepartmentId();
+      }
+      
+      $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
+      $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+      $params = $user_department_ids;
+    }
+    else{
+      $params = array();
+      $sql = "SELECT * FROM tickets WHERE department_id = ?";
+      $params[] = $department;
+    }
     
     if (!empty($search)) {
-        $sql .= " AND subject LIKE :search";
+        $sql .= " AND subject LIKE ?";
+        $params[] = $search . "%";
     }
+    
+    if (!empty($status)) {
+        $sql .= " AND status = ?";
+        $params[] = $status;
+    }
+
+    if (!empty($priority) && $priority !== "All") {
+      $sql .= " AND priority = ?";
+      $params[] = $priority;
+  }
 
     $stmt = $db->prepare($sql);
-
-    $params = $user_department_ids;
-    if (!empty($search)) {
-        $params[] = $search.'%';
-        $stmt->bindParam(':search', $params[count($params)-1]);
-    }
-
     $stmt->execute($params);
     
     foreach ($stmt as $ticket) {
@@ -260,9 +273,6 @@ class Ticket implements JsonSerializable{
     }
     return $tickets;
   }
-
-
-
 
 
   public static function getAll(PDO $db): array {

@@ -152,7 +152,7 @@
 
 /* Css for ticket resume in profile and my_tickets page */
 
-#department_tickets, #my_tickets {
+#department_tickets, #my_tickets, #index {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

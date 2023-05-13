@@ -90,15 +90,31 @@ function drawTickets($tickets, $div_id){
 
 <?php } ?>
 
-<?php function drawSearchFormInput($form_id, $input_id){ ?>
-  <form id = <?=$form_id?>>
-    <select name="status" id="status">
+<?php function drawSearchFormInput($form_id, $input_id, $departments){ ?>
+  <span class = "search_menu">
+    <form id = <?=$form_id?>>
+    <select name="department" class="department_form_search">
+      <option value="my_departments">My departments</option>
+      <?php foreach ($departments as $department) { ?>
+        <option value= <?= $department->getId()?>><?= $department->getName()?></option>
+      <?php } ?>
+    </select>
+
+    <select name="status" class="status_form_search">
       <option value="Open">Open</option>
       <option value="Assigned">Assigned</option>
       <option value="Closed">Closed</option>
     </select>
+
+    <select name="priority" class="priority_form_search">
+      <option value="All">All</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
   </form>
-  <input id= <?=$input_id?> type="text" placeholder="Search your ticket">
+    <input id= <?=$input_id?> type="text" placeholder="Search your ticket">
+  </span>
 <?php } ?>
 
 <?php function drawTicketsUser(Session $session, $tickets){ ?>
@@ -113,12 +129,12 @@ function drawTickets($tickets, $div_id){
   </section>
 <?php } ?>
 
-<?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments){ ?>
+<?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments, $departments){ ?>
 
 <section class = "my_tickets">
     <h1>My Tickets</h1>
 
-    <?php drawSearchFormInput('form_my_tickets', 'search_tickets') ?>
+    <?php drawSearchFormInput('form_my_tickets', 'search_tickets', $departments) ?>
     <?php drawTickets($tickets_agent, 'my_tickets') ?>
 </section>
 
@@ -126,7 +142,7 @@ function drawTickets($tickets, $div_id){
     <h1>Tickets Department</h1>
     <!-- <input id="search_tickets" type="text" placeholder="Search your ticket"> -->
 
-    <?php drawSearchFormInput('form_department_tickets', 'search_deparment_tickets') ?>
+    <?php drawSearchFormInput('form_department_tickets', 'search_deparment_tickets', $departments) ?>
     <?php drawTickets($tickets_departments, 'department_tickets') ?>
 </section>
 <?php } ?>

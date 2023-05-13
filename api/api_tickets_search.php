@@ -17,7 +17,7 @@
     $tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), $_GET['search']);
   else if($_GET['option'] === '2'){
     $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
-    $tickets = Ticket::getTicketsByDepartments($db, $departments_agent, $_GET['search']);
+    $tickets = Ticket::getTicketsByDepartments($db, $departments_agent, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
   }
 
   
