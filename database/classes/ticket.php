@@ -220,34 +220,35 @@ class Ticket implements JsonSerializable{
   public static function searchTickets(PDO $db, $id, $category = '', $user_department = '', $search = '', $department = '', $status = '', $priority = ''): array {
     $tickets = array();
 
-    if($category === ""){
-      if($department === "my_departments" || $department  === "") {
-        $user_department_ids = array();
+    if($department === "my_departments" || $department  === "") {
+      $user_department_ids = array();
 
-        foreach ($user_department as $department) {
+      foreach ($user_department as $department) {
+        if($category === "")
           $user_department_ids[] = $department->getDepartmentId();
-        }
-        
-        $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
-        $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
-        $params = $user_department_ids;
+        else
+          $user_department_ids[] = $department->getId();
       }
-      else{
-        $params = array();
-        $sql = "SELECT * FROM tickets WHERE department_id = ?";
-        $params[] = $department;
-      }
+      
+      $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
+      $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+      $params = $user_department_ids;
     }
     else{
-      if($category === 'client')
-        $sql = 'SELECT * FROM tickets WHERE client_id = ?';
-      else if($category === 'agent')
-        $sql = 'SELECT * FROM tickets WHERE agent_id = ?'; 
-
-        $params = array();
-        $params[] = $id;
+      $params = array();
+      $sql = "SELECT * FROM tickets WHERE department_id = ?";
+      $params[] = $department;
     }
-    
+    if($category === 'client'){
+      $sql .= ' AND client_id = ?';
+      $params[] = $id;  
+    }
+    else if($category === 'agent'){
+      $sql .= ' AND agent_id = ?'; 
+      $params[] = $id;
+    }
+
+  
     if (!empty($search)) {
         $sql .= " AND subject LIKE ?";
         $params[] = $search . "%";

@@ -15,8 +15,14 @@
 
     $db = getDatabaseConnection();
 
-    if($session->getCategory() === "client")
+    if($session->getCategory() === "client"){
         $tickets = Ticket::getTicketsByUser($db, $session->getId());
+        $departments = array();
+        foreach ($tickets as $ticket) {
+            $department = Department::getDepartmentById($db, $ticket->getDepartmentId());
+            $departments[] = $department;
+        }
+    }
     else{
         $tickets_agent = Ticket::getTicketsByAgent($db, $session->getId());
         $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
@@ -26,12 +32,19 @@
             $departments[] = $department;
         }
         $tickets_department = Ticket::getTicketsByDepartments($db, $departments_agent);
+
+
+        $departments_agent_tickets = array();
+        foreach ($tickets_agent as $ticket_agent) {
+            $department = Department::getDepartmentById($db, $ticket_agent->getDepartmentId());
+            $departments_agent_tickets[] = $department;
+        }
     }
     
     drawHeader($session);
     if($session->getCategory() === "client")
-        drawTicketsUser($session, $tickets);
+        drawTicketsUser($session, $tickets, $departments);
     else if($session->getCategory() === "agent")
-        drawTicketsAgent($session, $tickets_agent, $tickets_department, $departments);
+        drawTicketsAgent($session, $tickets_agent, $tickets_department, $departments, $departments_agent_tickets);
     drawFooter();
 ?>

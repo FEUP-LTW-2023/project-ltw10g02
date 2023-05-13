@@ -121,7 +121,7 @@ function drawTickets($tickets, $div_id){
   </span>
 <?php } ?>
 
-<?php function drawTicketsUser(Session $session, $tickets){ ?>
+<?php function drawTicketsUser(Session $session, $tickets, $departments){ ?>
 
   <section class = "my_tickets">
       <h1>My Tickets</h1>
@@ -133,12 +133,12 @@ function drawTickets($tickets, $div_id){
   </section>
 <?php } ?>
 
-<?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments, $departments){ ?>
+<?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments, $departments, $departments_agent_tickets){ ?>
 
 <section class = "my_tickets">
     <h1>My Tickets</h1>
 
-    <?php drawSearchFormInput('form_my_tickets', 'search_tickets_agent', $departments) ?>
+    <?php drawSearchFormInput('form_my_tickets', 'search_tickets_agent', $departments_agent_tickets) ?>
     <?php drawTickets($tickets_agent, 'my_tickets') ?>
 </section>
 
