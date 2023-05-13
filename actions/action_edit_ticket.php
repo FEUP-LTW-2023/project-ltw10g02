@@ -28,8 +28,11 @@
             }
             else if($_POST['field'] === 'priority')
                 $ticket->setPriority($_POST['fieldValue']);
-            else if($_POST['field'] === 'status')
+            else if($_POST['field'] === 'status'){
+                if($_POST['fieldValue'] === "Open")
+                    $ticket->setAgentId(null);
                 $ticket->setStatus($_POST['fieldValue']);
+            }
         }
 
         $ticket->updateTicket($db);

@@ -178,6 +178,16 @@ async function confirmField(id_ticket, pFieldValue, field) {
     img.id = 'edit_' + field + '_img'
 
     /* Assigning data */
+    if(field === 'agent'){
+        const pStatus = document.querySelector('#edit_status > p')
+        pStatus.textContent = "Assigned"
+    }
+
+    if(field === 'status' && fieldValue === 'Open'){
+        const pAgent = document.querySelector('#edit_agent > p')
+        pAgent.textContent = "Not defined"
+    }
+
     p.textContent = fieldValue
 
     img.src = '../images/icons/8666681_edit_icon.svg'
