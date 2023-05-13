@@ -29,6 +29,14 @@ function drawTickets($tickets){
       <h1><?=$ticket->getSubject()?></h1>
       <p><?=$user_ticket->getName()?></p>
       <p><?=$ticket->getCreatedAt()?></p>
+
+      <span id = "edit_status">
+        <p><?=$ticket->getStatus()?></p>
+        <?php if ($session->getCategory() !== "client"): ?>
+          <img id = "edit_status_img" onclick ="editField('<?= $ticket->getId() ?>', 'status')" src="../images/icons/8666681_edit_icon.svg" alt="Edit status icon">
+        <?php endif; ?>
+      </span>
+
       <span id = "edit_department">
         <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
         <?php if ($session->getCategory() !== "client"): ?>

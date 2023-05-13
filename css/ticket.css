@@ -12,7 +12,7 @@
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 1;
-    grid-row-end: 7;
+    grid-row-end: 9;
 }
 
 #ticketAndComments > .ticket input {
@@ -63,12 +63,16 @@
     grid-area: 5 / 1 / span 1 / span 1;
 }
 
-#ticketAndComments > .ticket > p:nth-of-type(3), #ticketAndComments > .ticket > input:nth-of-type(2) {
+#ticketAndComments > .ticket > span:nth-of-type(4) {
     grid-area: 6 / 1 / span 1 / span 1;
 }
 
-#ticketAndComments > .ticket > span:nth-of-type(4) {
+#ticketAndComments > .ticket > p:nth-of-type(3), #ticketAndComments > .ticket > input:nth-of-type(2) {
     grid-area: 7 / 1 / span 1 / span 1;
+}
+
+#ticketAndComments > .ticket > span:nth-of-type(5) {
+    grid-area: 8 / 1 / span 1 / span 1;
 }
 
 #ticketAndComments > .ticket > p:nth-of-type(1)::before, #ticketAndComments > .comments > p:nth-of-type(1)::before {
@@ -80,14 +84,18 @@
 }
 
 #ticketAndComments > .ticket > span:nth-of-type(1) > p::before {
-    content: "Department: ";
+    content: "Status: ";
 }
 
 #ticketAndComments > .ticket > span:nth-of-type(2) > p::before {
-    content: "Agent: ";
+    content: "Department: ";
 }
 
 #ticketAndComments > .ticket > span:nth-of-type(3) > p::before {
+    content: "Agent: ";
+}
+
+#ticketAndComments > .ticket > span:nth-of-type(4) > p::before {
     content: "Priority: ";
 }
 
@@ -95,7 +103,7 @@
     content: "Text: ";
 }
 
-#ticketAndComments > .ticket > span:nth-of-type(4) > p::before {
+#ticketAndComments > .ticket > span:nth-of-type(5) > p::before {
     content: "Hashtags: ";
 }
 

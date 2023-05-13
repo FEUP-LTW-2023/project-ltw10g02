@@ -26,6 +26,8 @@
                 $ticket->setAgentId($_POST['fieldId']);
             else if($_POST['field'] === 'priority')
                 $ticket->setPriority($_POST['fieldValue']);
+            else if($_POST['field'] === 'status')
+                $ticket->setStatus($_POST['fieldValue']);
         }
 
         $ticket->updateTicket($db);

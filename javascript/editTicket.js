@@ -98,7 +98,7 @@ async function editField(id_ticket, field){
     /* Create select menu */
     ticketsInfo[field].forEach(function(element) {
         const option = document.createElement('option')
-        if(field !== 'priority'){
+        if(field !== 'priority' && field !== 'status'){
             option.textContent = element.name
             option.setAttribute('id', element.id);
         }
@@ -145,7 +145,7 @@ async function confirmField(id_ticket, pFieldValue, field) {
 
     let fieldId = null;
 
-    if(field !== 'priority'){
+    if(field !== 'priority' && field !== 'status'){
         const selectedOption = select.selectedOptions[0];
         fieldId = selectedOption.getAttribute('id');
     }
@@ -157,7 +157,7 @@ async function confirmField(id_ticket, pFieldValue, field) {
     const data = new FormData();
     data.append('id', id_ticket);
     data.append('field', field);
-    if(field !== 'priority')
+    if(field !== 'priority' && field !== 'status')
         data.append('fieldId', fieldId);
     else
         data.append('fieldValue', fieldValue);
