@@ -7,6 +7,8 @@
 
     require_once __DIR__ . '/../database/database_connection.php';
     require_once __DIR__ . '/../database/classes/ticket.php';
+    require_once __DIR__ . '/../database/classes/user_department.php';
+    require_once __DIR__ . '/../database/classes/department.php';
 
     require_once(__DIR__ . '/../templates/profile.tpl.php');
     require_once(__DIR__ . '/../templates/common.tpl.php');
@@ -16,12 +18,20 @@
     if($session->getCategory() === "client")
         $tickets = Ticket::getTicketsByUser($db, $session->getId());
     else{
-        /* $user = User::getUserById($db, $session->getId()); */
-        $tickets = Ticket::getTicketsByAgent($db, $session->getId());
-        /* $tickets_department = Ticket::getTicketsByDepartment($db, $tickets->getDepartmentId()); */
+        $tickets_agent = Ticket::getTicketsByAgent($db, $session->getId());
+        $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+        $departments = array();
+        foreach ($departments_agent as $department_agent) {
+            $department = Department::getDepartmentById($db, $department_agent->getDepartmentId());
+            $departments[] = $department;
+        }
+        $tickets_department = Ticket::getTicketsByDepartments($db, $departments_agent);
     }
     
     drawHeader($session);
-    drawTicketsUser($session, $tickets);
+    if($session->getCategory() === "client")
+        drawTicketsUser($session, $tickets);
+    else if($session->getCategory() === "agent")
+        drawTicketsAgent($session, $tickets_agent, $tickets_department, $departments);
     drawFooter();
 ?>

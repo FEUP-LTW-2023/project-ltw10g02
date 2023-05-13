@@ -217,11 +217,55 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function getTicketsByDepartment(PDO $db, $department_id): array {
+  public static function searchTickets(PDO $db, $id, $category = '', $user_department = '', $search = '', $department = '', $status = '', $priority = ''): array {
     $tickets = array();
 
-    $stmt = $db->prepare('SELECT * FROM tickets WHERE department_id = ?');
-    $stmt->execute(array($department_id));
+    if($category === ""){
+      if($department === "my_departments" || $department  === "") {
+        $user_department_ids = array();
+
+        foreach ($user_department as $department) {
+          $user_department_ids[] = $department->getDepartmentId();
+        }
+        
+        $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
+        $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+        $params = $user_department_ids;
+      }
+      else{
+        $params = array();
+        $sql = "SELECT * FROM tickets WHERE department_id = ?";
+        $params[] = $department;
+      }
+    }
+    else{
+      if($category === 'client')
+        $sql = 'SELECT * FROM tickets WHERE client_id = ?';
+      else if($category === 'agent')
+        $sql = 'SELECT * FROM tickets WHERE agent_id = ?'; 
+
+        $params = array();
+        $params[] = $id;
+    }
+    
+    if (!empty($search)) {
+        $sql .= " AND subject LIKE ?";
+        $params[] = $search . "%";
+    }
+    
+    if (!empty($status) && $status !== "All") {
+        $sql .= " AND status = ?";
+        $params[] = $status;
+    }
+
+    if (!empty($priority) && $priority !== "All") {
+      $sql .= " AND priority = ?";
+      $params[] = $priority;
+    }
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute($params);
+    
     foreach ($stmt as $ticket) {
         $ticket = new Ticket(
             $ticket['id'],
@@ -241,6 +285,7 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
+
   public static function getAll(PDO $db): array {
 
     $tickets = array();
@@ -252,20 +297,37 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function searchTicketsUser(PDO $db, int $id, string $search): array {
+  public static function getTicketsByDepartments(PDO $db, $user_department): array {
     $tickets = array();
 
-    $stmt = $db->prepare('SELECT * FROM tickets WHERE client_id = ? and subject LIKE ?');
-    $stmt->execute(array($id, $search . '%'));
-    
-    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-    foreach ($rows as $row) {
-        $ticket = new Ticket($row['id'], $row['subject'], $row['description'], $row['status'], $row['priority'], $row['client_id'], $row['department_id'], $row['agent_id'], $row['faq_id'], $row['product_id'], $row['created_at']);
-        $tickets[] = $ticket;
+    $user_department_ids = array();
+    foreach ($user_department as $department) {
+        $user_department_ids[] = $department->getDepartmentId();
     }
 
+    $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));
+    $sql = "SELECT * FROM tickets WHERE department_id IN ($placeholders)";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute($user_department_ids);
+    
+    foreach ($stmt as $ticket) {
+        $ticket = new Ticket(
+            $ticket['id'],
+            $ticket['subject'],
+            $ticket['description'],
+            $ticket['status'],
+            $ticket['priority'],
+            $ticket['client_id'],
+            $ticket['department_id'],
+            $ticket['agent_id'],
+            $ticket['faq_id'],
+            $ticket['product_id'],
+            $ticket['created_at']
+        );
+        $tickets[] = $ticket;
+    }
     return $tickets;
-  }
+}
 }
 

@@ -4,9 +4,9 @@
 ?>
 
 <?php 
-function drawTickets($tickets){ 
+function drawTickets($tickets, $div_id){ 
 ?>
-  <div id = "ticketResumeSection">
+  <div id = <?=$div_id?>>
     <?php foreach ($tickets as $ticket): ?>
       <article class = "ticketResume">
         <header>
@@ -63,7 +63,7 @@ function drawTickets($tickets){
       <span id = "edit_hashtags">
         <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_hashtags_img" onclick ="editField('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+          <img id = "edit_hashtags_img" onclick ="editField('<?= $ticket->getId() ?>', 'hashtags')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
         <?php endif; ?>
       </span>
       
@@ -90,22 +90,65 @@ function drawTickets($tickets){
 
 <?php } ?>
 
+<?php function drawSearchFormInput($form_id, $input_id, $departments){ ?>
+  <span class = "search_menu">
+    <form id = <?=$form_id?>>
+    <label for="department">Department:</label>
+    <select name="department" class="department_form_search">
+      <option value="my_departments">My departments</option>
+      <?php foreach ($departments as $department) { ?>
+        <option value= <?= $department->getId()?>><?= $department->getName()?></option>
+      <?php } ?>
+    </select>
+      
+    <label for="status">Status:</label>
+    <select name="status" class="status_form_search">
+      <option value="All">All</option>
+      <option value="Open">Open</option>
+      <option value="Assigned">Assigned</option>
+      <option value="Closed">Closed</option>
+    </select>
+
+    <label for="priority">Priority:</label>
+    <select name="priority" class="priority_form_search">
+      <option value="All">All</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    </form>
+    <input id= <?=$input_id?> type="text" placeholder="Search your ticket">
+  </span>
+<?php } ?>
+
 <?php function drawTicketsUser(Session $session, $tickets){ ?>
 
-  <section id = "user_tickets">
+  <section class = "my_tickets">
       <h1>My Tickets</h1>
-      <input id="search_tickets" type="text" placeholder="Search your ticket">
 
-      <?php drawTickets($tickets) ?>
+      <?php drawSearchFormInput('form_my_tickets', 'search_tickets_client', $departments) ?>
+      <?php drawTickets($tickets, 'my_tickets') ?>
 
-      <?php if ($session->getCategory() === "client"): ?>
-        <a href="../pages/create_ticket.php">Create a new ticket</a>
-      <?php endif; ?>
-      
-      <?php if ($session->getCategory() !== "client"): ?>
-        <h1>Tickets Department</h1>
-      <?php endif; ?>
+      <a href="../pages/create_ticket.php">Create a new ticket</a>
   </section>
+<?php } ?>
+
+<?php function drawTicketsAgent(Session $session, $tickets_agent, $tickets_departments, $departments){ ?>
+
+<section class = "my_tickets">
+    <h1>My Tickets</h1>
+
+    <?php drawSearchFormInput('form_my_tickets', 'search_tickets_agent', $departments) ?>
+    <?php drawTickets($tickets_agent, 'my_tickets') ?>
+</section>
+
+<section id = "department_tickets_section">
+    <h1>Tickets Department</h1>
+    <!-- <input id="search_tickets" type="text" placeholder="Search your ticket"> -->
+
+    <?php drawSearchFormInput('form_department_tickets', 'search_deparment_tickets', $departments) ?>
+    <?php drawTickets($tickets_departments, 'department_tickets') ?>
+</section>
 <?php } ?>
 
 

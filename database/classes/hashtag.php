@@ -48,6 +48,22 @@ class Hashtag implements JsonSerializable {
       }
       return $hashtags;
     }
+
+    public static function searchHashtags(PDO $db, string $search): array {
+      $hashtags = array();
+  
+      $stmt = $db->prepare('SELECT * FROM hashtags WHERE name LIKE ?');
+      $stmt->execute(array($search . '%'));
+      
+      $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+      foreach ($rows as $row) {
+          $hashtag = new Hashtag($row['id'], $row['name']);
+          $hashtags[] = $hashtag;
+      }
+  
+      return $hashtags;
+    }
   }
 
 

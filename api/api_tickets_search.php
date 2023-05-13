@@ -4,12 +4,22 @@
   require_once(__DIR__ . '/../utils/session.php');
   $session = new Session();
 
+  if(!$session->isLoggedIn())
+        header("Location: ../index.php");
+
   require_once(__DIR__ . '/../database/database_connection.php');
   require_once(__DIR__ . '/../database/classes/ticket.php');
+  require_once(__DIR__ . '/../database/classes/user_department.php');
 
   $db = getDatabaseConnection();
 
-  $tickets = Ticket::searchTicketsUser($db, $session->getId(), $_GET['search']);
+  if($_GET['option'] === '1')
+    $tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), '', $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+  else if($_GET['option'] === '2'){
+    $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+    $tickets = Ticket::searchTickets($db, $session->getId(), '', $departments_agent, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+  }
+
   
   echo json_encode($tickets);
 ?>
