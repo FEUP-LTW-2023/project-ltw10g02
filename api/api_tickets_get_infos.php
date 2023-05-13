@@ -35,7 +35,7 @@
 
         $hashtags = Hashtag::getAllHashtags($db);
 
-        echo json_encode(array('status' => $status, 'department' => $departments, 'agent' => $agents, 'priority' => $priority, 'hashtag' => $hashtags));
+        echo json_encode(array('status' => $status, 'department' => $departments, 'agent' => $agents, 'priority' => $priority, 'hashtags' => $hashtags));
         http_response_code(200);
         $session->addMessage('success', 'Edited ticket.');
     }
