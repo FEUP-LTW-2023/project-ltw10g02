@@ -226,19 +226,19 @@
         <article class="user_basic_infos">
         
         <span id="name">
-            <p>Name:</p>
+            <p>Name: <?= $user->getName()?></p>
         </span>
 
         <span id= "username">
-            <p>Username:</p>
+            <p>Username: <?= $user->getUsername()?></p>
         </span>
 
         <span id= "email">
-            <p>Email:</p>
+            <p>Email: <?= $user->getEmail()?></p>
         </span>
 
         <span id= "category">
-            <p>Category:</p>
+            <p>Category: <?= $user->getCategory()?></p>
         </span>
 
         <span id= "pass">
