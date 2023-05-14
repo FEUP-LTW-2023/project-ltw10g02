@@ -32,14 +32,12 @@ function drawTickets($tickets, $div_id){
       <li class="ticketHistory-item">
         <div class="ticketHistory-box">
           <div>
-            <p>Description: <?=$history->getDescription()?></p>
-            <p>Status: <?=$history->getStatus()?></p>
-            
             <?php  
               $department = Department::getDepartmentById($db, $history->getDepartmentId());
             ?>
               <p>Department: <?=$department->getName()?></p>
-            <!-- create a link to show faq -->
+            <p>Status: <?=$history->getStatus()?></p>
+              <!-- create a link to show faq -->
             <?php $faq = FAQ::getById($db, $history->getFaqId());
             if ($faq === null):?>
             <p>FAQ: no FAQ associated with this ticket</p>
@@ -128,7 +126,6 @@ function drawTickets($tickets, $div_id){
     
     <?php drawCommentForm($ticket->getId()) ?>
     
-
   </section>  
 
 <?php } ?>

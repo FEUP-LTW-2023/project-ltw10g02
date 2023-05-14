@@ -54,8 +54,10 @@
 
     $hashtagjoin = rtrim($hashtagjoin, ", "); // Remove a última vírgula
 
-    drawHeader($session);
-    drawTicket($ticket, $session, $comments, $user_ticket, $agent_ticket, $department, $hashtagjoin, $users_comments);
+    $currentPage = "ticket.php";
+    drawHeader($session, $currentPage);
+    drawTicket($ticket, $session, $comments, $user_ticket, $agent_ticket, $department, $hashtagjoin, $users_comments);    
     drawTicketHistory($db, $ticket -> getId());
     drawFooter();
+    
 ?>

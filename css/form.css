@@ -13,11 +13,14 @@ section > h1{
 }
 
 
-section > form > button{
+/* section > form >  */
+button{
     display: block;
+    padding: 15px;
     margin: 10px auto 0px auto;
-    background-color: rgb(168, 161, 161);
-    border: 2px solid darkslategray;
+    color: #f2f2f2;
+    background-color: #721c25e3 ;
+    border: 2px;
     border-radius: 5px; 
 }
 
