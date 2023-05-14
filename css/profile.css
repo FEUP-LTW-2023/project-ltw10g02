@@ -9,3 +9,9 @@
     margin-top: 4px;
     margin-bottom: 4px;
 }
+
+.user_basic_infos {
+    border: 1px solid rgba(26, 18, 11, 0.5);
+    padding: 10px;
+    margin-top: 10px;
+}

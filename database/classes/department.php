@@ -50,7 +50,7 @@ class Department implements JsonSerializable{
     } else return null;
   }
 
-  public static function getAllDepartments(PDO $db): array{
+  public static function getAllDepartments(PDO $db): ?array{
     $departments = array();
     $rows = $db->query('SELECT * FROM departments');
     foreach ($rows as $row) {
@@ -58,6 +58,11 @@ class Department implements JsonSerializable{
       $departments[] = $department;
     }
     return $departments;
+  }
+
+  public static function addDepartment(PDO $db, $name, $description){
+    $stmt = $db->prepare('INSERT INTO departments (name, description) VALUES(?, ?)');
+    return $stmt->execute(array($name, $description));
   }
   
 }

@@ -33,6 +33,9 @@
               <ul class="menu-user-itens">
                 <li><a href="../pages/profile.php">Profile</a></li>
                 <li><a href="../pages/my_tickets.php">My tickets</a></li>
+                <?php if($session->getCategory() === 'admin'): ?>
+                  <li><a href="../pages/admin_area.php">Admin area</a></li>
+                <?php endif; ?>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
               </ul>
             </nav>
