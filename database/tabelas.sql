@@ -127,6 +127,11 @@ CREATE TABLE comments (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+-- Triggers for populating ticket_history table
+.read add_history_trigger.sql
+.read update_ticket_trigger.sql
+
+
 -- Insert sample data for categories table
 INSERT INTO categories (name) VALUES 
     ('T-shirts'),
@@ -182,9 +187,6 @@ VALUES
     ('Wrong size product', 'My shirt does not fit me',  3, 4, 1, 3, 4),
     ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2);
 
-INSERT INTO ticket_history (ticket_id, subject, description, status, priority, department_id, agent_id, faq_id)
-VALUES (1, 'Problem with a t-shirt', 'Two holes in it', 'Open', 'High', 4, 4, 3);
-
 
 -- Insert hashtags
 INSERT INTO hashtags (name) VALUES
@@ -210,3 +212,4 @@ VALUES
 INSERT INTO comments (ticket_id, user_id, body)
 VALUES
   (6, 1, 'Can someone help me with my refund?');
+
