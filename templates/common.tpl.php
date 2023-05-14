@@ -1,6 +1,6 @@
 <?php 
   declare(strict_types = 1); 
-  function drawHeader(Session $session): void { ?>
+  function drawHeader(Session $session, $currentPage=''): void { ?>
 
 <!DOCTYPE html>
 <html lang="en-US">
@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="../css/ticket.css">
     <link rel="stylesheet" href="../css/my_ticket.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <?php if ($currentPage==="ticket.php") : ?>
+      <link rel="stylesheet" href="../css/ticket_history.css">
+    <?php endif; ?>
     <script src="../javascript/editTicket.js" defer></script>
     <script src="../javascript/searchTicket.js" defer></script>
     <script src="../javascript/addComment.js" defer></script>
