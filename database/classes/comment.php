@@ -55,8 +55,8 @@ class Comment implements JsonSerializable{
       if ($comment = $stmt->fetch()) {
         return new Comment(
           (int) $comment['id'],
-          $comment['ticket_id'],
-          $comment['user_id'],
+          (int) $comment['ticket_id'],
+          (int) $comment['user_id'],
           $comment['body'],
           $comment['updated_at']
         );

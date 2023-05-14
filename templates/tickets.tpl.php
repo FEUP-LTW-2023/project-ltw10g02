@@ -22,6 +22,49 @@ function drawTickets($tickets, $div_id){
 }
 ?>
 
+<?php function drawTicketHistory($db, $ticket_id){
+  $ticketHistory = TicketHistory::getHistoryByTicketId($db, $ticket_id, $numberHistory = -1);
+?>
+  <aside class="ticketHistory">
+    <h2>Ticket History</h2>
+    <ul>
+    <?php foreach ($ticketHistory as $history): ?>
+      <li class="ticketHistory-item">
+        <div class="ticketHistory-box">
+          <div>
+            <p>Description: <?=$history->getDescription()?></p>
+            <p>Status: <?=$history->getStatus()?></p>
+            
+            <?php  
+              $department = Department::getDepartmentById($db, $history->getDepartmentId());
+            ?>
+              <p>Department: <?=$department->getName()?></p>
+            <!-- create a link to show faq -->
+            <?php $faq = FAQ::getById($db, $history->getFaqId());
+            if ($faq === null):?>
+            <p>FAQ: no FAQ associated with this ticket</p>
+            <?php else: ?><p>FAQ: <?=$faq->getQuestion()?></p>
+            <?php endif; ?>
+
+          </div>
+          
+          <div>
+            <p>Modification: <?=$history->getUpdatedAt()?></p>
+           
+            <?php
+              $agent = User::getUserById($db, $history->getAgentId());
+            ?>
+              <p>Agent: <?=$agent->getName()?></p>
+            <p>Priority: <?=$history->getPriority()?></p>
+            
+          </div>
+        </div>
+      </li>
+    <?php endforeach ?>
+    </ul>
+  </aside>
+<?php } ?>
+
 <?php  function drawTicket(Ticket $ticket, Session $session, array $comments, User $user_ticket, $agent_ticket, $department, $hashtags, array $users_comments){ ?>
   <section id = "ticketAndComments">  
 

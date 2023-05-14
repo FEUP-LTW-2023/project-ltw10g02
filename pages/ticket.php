@@ -12,13 +12,17 @@
     require_once __DIR__ . '/../database/classes/department.php';
     require_once __DIR__ . '/../database/classes/ticket_hashtag.php';
     require_once __DIR__ . '/../database/classes/hashtag.php';
+    require_once __DIR__ . '/../database/classes/ticket_history.php';
+    require_once __DIR__ . '/../database/classes/faq.php';
+
 
     require_once(__DIR__ . '/../templates/profile.tpl.php');
     require_once(__DIR__ . '/../templates/common.tpl.php');
-
+  
     $db = getDatabaseConnection();
 
     $ticket = Ticket::getTicketById($db, $_GET['id']);
+
 
     if($session->getId() !== $ticket->getClientId() && $session->getCategory() !== "agent"){
         $session->addMessage('error', 'You dont have permissions');
@@ -52,5 +56,6 @@
 
     drawHeader($session);
     drawTicket($ticket, $session, $comments, $user_ticket, $agent_ticket, $department, $hashtagjoin, $users_comments);
+    drawTicketHistory($db, $ticket -> getId());
     drawFooter();
 ?>
