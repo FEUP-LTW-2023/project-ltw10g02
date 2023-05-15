@@ -60,10 +60,19 @@ class Department implements JsonSerializable{
     return $departments;
   }
 
+  // check if department exists
+  static function departmentExists(PDO $db, $department_name) {
+    $stmt = $db->prepare('SELECT * FROM departments WHERE name = ?');
+    $stmt->execute(array($department_name));
+    return $stmt->fetch();
+  }
+
   public static function addDepartment(PDO $db, $name, $description){
     $stmt = $db->prepare('INSERT INTO departments (name, description) VALUES(?, ?)');
     return $stmt->execute(array($name, $description));
   }
+
+  
   
 }
 

@@ -10,6 +10,6 @@
     require_once(__DIR__ . '/../templates/admin.tpl.php');
 
     drawHeader($session);
-    addDepartment();
+    addElementsAdmin($session);
     drawFooter();
 ?>

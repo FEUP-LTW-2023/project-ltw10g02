@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
-    if(!$session->isLoggedIn())
+    if(!$session->isLoggedIn() || $session->getCategory() !== 'admin')
         header("Location: ../index.php");
 
     require_once __DIR__ . '/../database/database_connection.php';
