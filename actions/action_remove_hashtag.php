@@ -9,19 +9,15 @@
 
     require_once(__DIR__ . '/../database/database_connection.php');
 
-    require_once(__DIR__ . '/../database/classes/ticket.php');
+    require_once(__DIR__ . '/../database/classes/ticket_hashtag.php');
 
     $db = getDatabaseConnection();
-    
+
     try{
-        Ticket::addTicket($db, $session, $_POST['subject'], $_POST['description'], $_POST['user_id'], $_POST['department_id']);
-        $session->addMessage('success', 'Ticket created!');
-        header('Location: ../pages/my_tickets.php'); 
+        TicketHashtag::removeHashtagFromTicket($db, $_POST['ticket_id'], $_POST['hashtag_id'])
+        $session->addMessage('sucess', 'Hashtag removed!');
     }
     catch (Exception $e) {
         $session->addMessage('error', $e->getMessage());
-        header('Location: ../pages/my_tickets.php'); 
     }
-
-
 ?>

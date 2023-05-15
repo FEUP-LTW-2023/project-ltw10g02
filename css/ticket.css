@@ -103,10 +103,6 @@
     content: "Text: ";
 }
 
-#ticketAndComments > .ticket > span:nth-of-type(5) > p::before {
-    content: "Hashtags: ";
-}
-
 #ticketAndComments > .comments {
     display: grid;
     grid-column-start: 1;

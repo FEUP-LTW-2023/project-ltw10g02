@@ -48,7 +48,7 @@ class UserDepartment implements JsonSerializable {
       $agents = array();
       $rows = $db->query('SELECT DISTINCT user_id FROM user_department');
       foreach ($rows as $row) {
-        $agent = new UserDepartment($row['user_id'], $row['department_id']);
+        $agent = new UserDepartment($row['user_id'], null);
         $agents[] = $agent;
       }
       return $agents;

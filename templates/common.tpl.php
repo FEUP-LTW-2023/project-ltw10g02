@@ -75,9 +75,11 @@
       <button formaction= '../actions/action_login.php' formmethod="post">Login</button>
     </form>
 
-      <div class="error">
+    <?php if ($session->getMessages()[0]['type'] !== null): ?>
+      <div class=<?=$session->getMessages()[0]['type']?>>
         <p><?= $session->getMessages()[0]['text'] ?></p>
       </div>
+    <?php endif; ?>
   </section>
 <?php } ?> 
 
@@ -86,7 +88,7 @@
     <h1>Create a new account</h1>
     <form>
       <input type="text" name="name" pattern="[A-Za-zÀ-ú ]+" title="Only letters" value="<?= $session->getFormValues()['name'] ?>" placeholder="Name" required>
-      <input type="text" name="username" value="<?= $session->getFormValues()['username'] ?>" placeholder="Username" required>
+      <input type="text" name="username" pattern="[A-Za-z0-9]+" value="<?= $session->getFormValues()['username'] ?>" placeholder="Username" required>
       <input type="email" name="email" value="<?= $session->getFormValues()['email'] ?>" placeholder="Email" required>
       <input type="password" name="password" placeholder="Password" required>
       <input type="password" name="password_repeated" placeholder="Repeat password" required>

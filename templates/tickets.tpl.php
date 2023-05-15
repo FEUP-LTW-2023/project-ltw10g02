@@ -10,11 +10,11 @@ function drawTickets($tickets, $div_id){
     <?php foreach ($tickets as $ticket): ?>
       <article class = "ticketResume">
         <header>
-          <h2><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?=$ticket->getSubject()?></a></h2>
+          <h2><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?=htmlentities($ticket->getSubject())?></a></h2>
           <p><?=$ticket->getStatus()?></p>
         </header>
         <p><?=$ticket->getCreatedAt()?></p>
-        <p><?=$ticket->getDescription()?></p>
+        <p><?=htmlentities($ticket->getDescription())?></p>
       </article>
     <?php endforeach ?>
     </div> 
@@ -75,8 +75,8 @@ function drawTickets($tickets, $div_id){
   <section id = "ticketAndComments">  
 
     <article class = "ticket">
-      <h1><?=$ticket->getSubject()?></h1>
-      <p><?=$user_ticket->getName()?></p>
+      <h1><?=htmlentities($ticket->getSubject())?></h1>
+      <p><?=htmlentities($user_ticket->getName())?></p>
       <p><?=$ticket->getCreatedAt()?></p>
 
       <span id = "edit_status">
@@ -94,7 +94,7 @@ function drawTickets($tickets, $div_id){
       </span>
 
       <span id = "edit_agent">
-        <p><?=$agent_ticket === null ? 'Not defined' : $agent_ticket->getName()?></p>
+        <p><?=$agent_ticket === null ? 'Not defined' : htmlentities($agent_ticket->getName())?></p>
         <?php if ($session->getCategory() !== "client"): ?>
           <img id = "edit_agent_img" onclick ="editField('<?= $ticket->getId() ?>', 'agent')" src="../images/icons/8666681_edit_icon.svg" alt="Edit agent ticket icon">
         <?php endif; ?>
@@ -110,9 +110,9 @@ function drawTickets($tickets, $div_id){
       <p><?=$ticket->getDescription()?></p>
 
       <span id = "edit_hashtags">
-        <p><?=empty($hashtags) ? 'Not defined' : $hashtags ?></p>
+        <p><?=empty($hashtags) ? 'Hashtags: Not defined' : 'Hashtags: ' . $hashtags ?></p>
         <?php if ($session->getCategory() !== "client"): ?>
-          <img id = "edit_hashtags_img" onclick ="editField('<?= $ticket->getId() ?>', 'hashtags')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
+          <img id = "edit_hashtags_img" onclick ="editHashtag('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
         <?php endif; ?>
       </span>
       
@@ -126,9 +126,9 @@ function drawTickets($tickets, $div_id){
     <?php $length = min(count($comments), count($users_comments)) ?>
     <?php for ($i = 0; $i < $length; $i++): ?>
       <article class = "comments">
-        <p><?=$users_comments[$i]->getName()?></p>
+        <p><?=htmlentities($users_comments[$i]->getName())?></p>
         <p><?=$comments[$i]->getUpdatedAt()?></p>
-        <p><?=$comments[$i]->getBody()?></p>
+        <p><?=htmlentities($comments[$i]->getBody())?></p>
       </article>
     <?php endfor ?>
     

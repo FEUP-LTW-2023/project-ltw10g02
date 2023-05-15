@@ -5,7 +5,11 @@
         <button formaction="/../actions/action_add_department.php" formmethod="post">Add a new department</button>
     </form>
 
+    <?php if ($session->getMessages()[0]['type'] !== null): ?>
+      <div class=<?=$session->getMessages()[0]['type']?>>
         <p><?= $session->getMessages()[0]['text'] ?></p>
+      </div>
+    <?php endif; ?>
 <?php } ?>
 
 <?php function addElementsAdmin(Session $session) {?>
