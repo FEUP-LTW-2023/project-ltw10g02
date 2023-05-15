@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/ticket.css">
     <link rel="stylesheet" href="../css/my_ticket.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/admin_area.css">
     <?php if ($currentPage==="ticket.php") : ?>
       <link rel="stylesheet" href="../css/ticket_history.css">
     <?php endif; ?>
@@ -37,7 +38,7 @@
                 <li><a href="../pages/profile.php">Profile</a></li>
                 <li><a href="../pages/my_tickets.php">My tickets</a></li>
                 <?php if($session->getCategory() === 'admin'): ?>
-                  <li><a href="../pages/admin_area.php">Admin area</a></li>
+                  <li><a href="../pages/create_entities_admin.php">Create Entities</a></li>
                 <?php endif; ?>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
               </ul>

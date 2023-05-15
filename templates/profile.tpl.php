@@ -15,7 +15,12 @@
             <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
         </article>
 
-        <article class ="user_basic_infos">
+        <?php drawBasicInfosProfile($session, $user) ?>
+    </section>
+<?php } ?>
+ 
+<?php function drawBasicInfosProfile(Session $session, User $user): void {?>
+    <article class ="user_basic_infos">
             <h2>My infos</h2>
 
                 <span id= "name"> 
@@ -65,9 +70,8 @@
                 </span>
             
         </article>
-    </section>
 <?php } ?>
- 
+
 <?php function drawEditNameForm(Session $session, User $user): void {?>
     <section class = "edit_name">
         <h1>Edit Name</h1>

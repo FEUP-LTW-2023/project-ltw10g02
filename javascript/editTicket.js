@@ -124,10 +124,6 @@ async function editField(id_ticket, field){
     img.onclick = function() {
         confirmField(id_ticket, pFieldValue, field);
     }
-
-    if(field === 'hashtags'){
-        p.textContent = 'teste'
-    }
     
     /* Add style */
     img.style.marginLeft = '8px'
@@ -180,11 +176,13 @@ async function confirmField(id_ticket, pFieldValue, field) {
     /* Assigning data */
     if(field === 'agent'){
         const pStatus = document.querySelector('#edit_status > p')
+        const pStatusOldValue = pStatus.textContent
         pStatus.textContent = "Assigned"
     }
 
     if(field === 'status' && fieldValue === 'Open'){
         const pAgent = document.querySelector('#edit_agent > p')
+        const pAgentOldValue = pAgent.textContent
         pAgent.textContent = "Not defined"
     }
 
@@ -209,6 +207,7 @@ async function confirmField(id_ticket, pFieldValue, field) {
     if (!response.ok) {
         const errorMessage = await response.text()
         alert('There are an error editing the field' + errorMessage)
+
         p.textContent = pFieldValue
     }
 }
