@@ -31,7 +31,7 @@ class FAQ {
 
     $faqs = [];
     foreach ($results as $result) {
-      $faqs[] = new self($result['question'], $result['answer'], $result['id']);
+      $faqs[] = new self($result['question'], $result['answer'], (int) $result['id']);
     }
 
     return $faqs;
@@ -59,7 +59,7 @@ class FAQ {
   }
 
   public function getId(): ?int {
-    return $this->id;
+    return intval($this->id);
   }
 
   public function getQuestion(): string {

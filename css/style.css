@@ -65,5 +65,18 @@ span.error {
   font-size: 14px;
 }
 
+ul {
+  list-style: none;
+}
 
+div.faq {
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #721c24;
+
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px #ccc;
+    background-color:#f4e6cb44;
+}
 

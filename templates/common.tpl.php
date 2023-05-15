@@ -36,6 +36,7 @@
               <ul class="menu-user-itens">
                 <li><a href="../pages/profile.php">Profile</a></li>
                 <li><a href="../pages/my_tickets.php">My tickets</a></li>
+                <li><a href="../pages/faqs.php">FAQs</a></li>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
               </ul>
             </nav>
