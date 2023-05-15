@@ -15,3 +15,9 @@
     </section>
 <?php } ?>
 
+<?php function listUsers(Session $session) {?>
+    <section id = "add_elements_admin">
+        <h1>Create a new department</h1>
+        <?php addDepartment($session) ?>
+    </section>
+<?php } ?>

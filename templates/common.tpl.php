@@ -38,6 +38,7 @@
                 <li><a href="../pages/profile.php">Profile</a></li>
                 <li><a href="../pages/my_tickets.php">My tickets</a></li>
                 <?php if($session->getCategory() === 'admin'): ?>
+                  <li><a href="../pages/users.php">Users</a></li>
                   <li><a href="../pages/create_entities_admin.php">Create Entities</a></li>
                 <?php endif; ?>
                 <li><a href="../actions/action_logout.php">Logout</a></li>
