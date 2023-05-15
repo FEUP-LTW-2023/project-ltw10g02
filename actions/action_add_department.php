@@ -19,9 +19,14 @@
         departmentRedirect($session);    
     }
 
+    try{
+        Department::addDepartment($db, $_POST['name_department'], $_POST['description_department']); 
+        $session->addMessage('success', 'Department created!');
+        header('Location: ../pages/create_entities_admin.php'); 
+    }
+    catch (Exception $e) {
+        $session->addMessage('error', $e->getMessage());
+        header('Location: ../pages/create_entities_admin.php'); 
+    }
 
-    Department::addDepartment($db, $_POST['name_department'], $_POST['description_department']);
-    $session->addMessage('sucess', 'Department created!');
-
-    header('Location: ../pages/create_entities_admin.php'); 
 ?>

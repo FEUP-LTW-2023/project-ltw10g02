@@ -12,10 +12,16 @@
     require_once(__DIR__ . '/../database/classes/ticket.php');
 
     $db = getDatabaseConnection();
-
-    Ticket::addTicket($db, $session, $_POST['subject'], $_POST['description'], $_POST['user_id'], $_POST['department_id']);
-
-    header('Location: ../pages/my_tickets.php'); 
+    
+    try{
+        Ticket::addTicket($db, $session, $_POST['subject'], $_POST['description'], $_POST['user_id'], $_POST['department_id']);
+        $session->addMessage('success', 'Ticket created!');
+        header('Location: ../pages/my_tickets.php'); 
+    }
+    catch (Exception $e) {
+        $session->addMessage('error', $e->getMessage());
+        header('Location: ../pages/my_tickets.php'); 
+    }
 
 
 ?>

@@ -55,7 +55,7 @@ a:hover {
   text-decoration: underline;
 }
 
-span.error {
+span.error, div.error {
   display: block;
   background-color: #f8d7da;
   color: #721c24;

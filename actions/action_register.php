@@ -47,11 +47,14 @@
         storeFormValuesAndRedirect($session);
     }
     
-    $user = User::addUser($db, $session, $_POST['name'], $_POST['username'], $_POST['password'], $_POST['email'], "client");
-
-    if($user){
+    try {
+        $user = User::addUser($db, $session, $_POST['name'], $_POST['username'], $_POST['password'], $_POST['email'], "client");
         $session->addMessage('success', 'New user created.');
-        header('Location: /../pages/login.php');  // redirect to the page we came from
+        header('Location: /../pages/login.php'); 
+
+    } catch (Exception $e) {
+        $session->addMessage('error', $e->getMessage());
+        header('Location: /../pages/register.php'); 
     }
 
 ?>

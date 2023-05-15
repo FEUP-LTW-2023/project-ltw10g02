@@ -75,9 +75,11 @@
       <button formaction= '../actions/action_login.php' formmethod="post">Login</button>
     </form>
 
-      <div class="error">
+    <?php if ($session->getMessages()[0]['type'] !== null): ?>
+      <div class=<?=$session->getMessages()[0]['type']?>>
         <p><?= $session->getMessages()[0]['text'] ?></p>
       </div>
+    <?php endif; ?>
   </section>
 <?php } ?> 
 

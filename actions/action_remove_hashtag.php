@@ -13,5 +13,11 @@
 
     $db = getDatabaseConnection();
 
-    TicketHashtag::removeHashtagFromTicket($db, $_POST['ticket_id'], $_POST['hashtag_id'])
+    try{
+        TicketHashtag::removeHashtagFromTicket($db, $_POST['ticket_id'], $_POST['hashtag_id'])
+        $session->addMessage('sucess', 'Hashtag removed!');
+    }
+    catch (Exception $e) {
+        $session->addMessage('error', $e->getMessage());
+    }
 ?>
