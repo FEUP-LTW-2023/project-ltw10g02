@@ -71,6 +71,27 @@ class User implements JsonSerializable{
       );
     } else return null;
   }
+
+  static function getAllUsers(PDO $db): ?array {
+    $users = array();
+    $stmt = $db->prepare('SELECT * FROM users');
+
+    $stmt->execute(); 
+    foreach ($stmt as $row){
+      $user = new User(
+        (int) $row['id'],
+        $row['name'],
+        $row['username'],
+        $row['pass'],
+        $row['email'],
+        $row['category']
+      );
+
+      $users[] = $user;
+    }
+
+    return $users;
+  }
   
 
   static function getUser(PDO $db, $login, $password): ?User {
