@@ -169,6 +169,7 @@ INSERT INTO user_department (user_id, department_id) VALUES
   (3, 2),
   (4, 3), --Devezas
   (4, 4);
+  
 -- Insert FAQs
 INSERT INTO faqs (question, answer) VALUES
     ('How do I reset my password?', 'You can reset your password by clicking on the "Forgot password" link on the login page.'),
