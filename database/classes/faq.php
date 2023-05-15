@@ -21,7 +21,7 @@ class FAQ {
       return null;
     }
 
-    return new self($result['question'], $result['answer'], $result['id']);
+    return new self($result['question'], $result['answer'], (int) $result['id']);
   }
 
   public static function getAll(PDO $db): array {

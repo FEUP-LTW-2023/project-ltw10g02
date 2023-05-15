@@ -38,11 +38,19 @@ function drawTickets($tickets, $div_id){
               <p>Department: <?=$department->getName()?></p>
             <p>Status: <?=$history->getStatus()?></p>
               <!-- create a link to show faq -->
-            <?php $faq = FAQ::getById($db, $history->getFaqId());
-            if ($faq === null):?>
-            <p>FAQ: no FAQ associated with this ticket</p>
-            <?php else: ?><p>FAQ: <?=$faq->getQuestion()?></p>
-            <?php endif; ?>
+            <?php
+              $faqId = $history->getFaqId();
+              if ($faqId === null):?>
+            <p>FAQ: none associated</p>
+            <?php 
+              else: 
+                $faq= FAQ::getById($db, $faqId);
+                if ($faq !== null):?>
+                  <p>FAQ: <a href="../pages/faqs.php"><?= $faq->getQuestion() ?></a></p>
+                <?php 
+                endif;
+              endif; 
+            ?>
 
           </div>
           
