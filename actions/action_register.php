@@ -31,6 +31,21 @@
         $session->addMessage('error', 'Passwords do not match.');
         storeFormValuesAndRedirect($session);
     }
+
+    if (!preg_match("/^[a-zA-ZÀ-ú\s]+$/", $_POST['name'])) {
+        $session->addMessage('error', 'Name must contain only letters and space.');
+        storeFormValuesAndRedirect($session);
+    }
+
+    if (!preg_match("/^[a-zA-Z0-9]+$/", $_POST['username'])) {
+        $session->addMessage('error', 'Username must contain only not especial letters and numbers.');
+        storeFormValuesAndRedirect($session);
+    }
+
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $session->addMessage('error', 'Invalid email.');
+        storeFormValuesAndRedirect($session);
+    }
     
     $user = User::addUser($db, $session, $_POST['name'], $_POST['username'], $_POST['password'], $_POST['email'], "client");
 
