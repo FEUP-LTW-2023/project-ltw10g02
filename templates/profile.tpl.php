@@ -26,7 +26,7 @@
                 <span id= "name"> 
                     <p>
                         Name: 
-                        <?= $user->getName()?>
+                        <?= htmlentities($user->getName())?>
                         <img id="edit_name_img" onclick ="redirectToPage('/../pages/edit_name.php')" src="../images/icons/8666681_edit_icon.svg" alt="Edit name icon" />
                     </p>
                 </span>
@@ -34,7 +34,7 @@
                 <span id= "username">
                     <p>
                         Username: 
-                        <?= $user->getUsername()?>
+                        <?= htmlentities($user->getUsername())?>
                         <img id="edit_username_img" onclick ="redirectToPage('/../pages/edit_username.php')" src="../images/icons/8666681_edit_icon.svg" alt="Edit username icon" />
                     </p>
                 </span>
@@ -42,7 +42,7 @@
                 <span id= "email">
                     <p>
                         Email: 
-                        <?= $user->getEmail()?>
+                        <?= htmlentities($user->getEmail())?>
                         <img id="edit_email_img" onclick ="redirectToPage('/../pages/edit_email.php')" src="../images/icons/8666681_edit_icon.svg" alt="Edit email icon" />
                     </p>
                 </span>
@@ -81,17 +81,17 @@
         <span id="name">
         <form action="/../actions/edit_profile/edit_name.php" method="post">
             <label for="name">Name: </label>
-            <input type="text" id="name" name="name" value="<?php echo $user->getName() ?>">
+            <input type="text" id="name" name="name" value="<?php echo htmlentities($user->getName()) ?>">
             <input type="submit" value="Save changes">
         </form>
         </span>
 
         <span id= "username">
-            <p>Username: <?= $user->getUsername()?></p>
+            <p>Username: <?= htmlentities($user->getUsername())?></p>
         </span>
 
         <span id= "email">
-            <p>Email: <?= $user->getEmail()?></p>
+            <p>Email: <?= htmlentities($user->getEmail())?></p>
         </span>
 
         <span id= "category">
@@ -113,7 +113,7 @@
         <article class="user_basic_infos">
         
         <span id= "name">
-            <p>Name: <?= $user->getName()?></p>
+            <p>Name: <?= htmlentities($user->getName())?></p>
         </span>
 
         <span id="username">
@@ -124,17 +124,17 @@
         <?php endif; ?>
         <form action="/../actions/edit_profile/edit_username.php" method="post">
             <label for="username">Username: </label>
-            <input type="text" id="username" name="username" value="<?php echo $user->getUsername() ?>">
+            <input type="text" id="username" name="username" value="<?php echo htmlentities($user->getUsername()) ?>">
             <input type="submit" value="Save changes">
         </form>
         </span>
 
         <span id= "email">
-            <p>Email: <?= $user->getEmail()?></p>
+            <p>Email: <?= htmlentities($user->getEmail())?></p>
         </span>
 
         <span id= "category">
-            <p>Category: <?= $user->getCategory()?></p>
+            <p>Category: <?= htmlentities($user->getCategory())?></p>
         </span>
 
         <span id= "pass">
@@ -152,11 +152,11 @@
         <article class="user_basic_infos">
         
         <span id= "name">
-            <p>Name: <?= $user->getName()?></p>
+            <p>Name: <?= htmlentities($user->getName())?></p>
         </span>
 
         <span id= "username">
-            <p>Username: <?= $user->getUsername()?></p>
+            <p>Username: <?= htmlentities($user->getUsername())?></p>
         </span>
 
         <span id="email">
@@ -167,13 +167,13 @@
         <?php endif; ?>
         <form action="/../actions/edit_profile/edit_email.php" method="post">
             <label for="email">Email: </label>
-            <input type="email" id="email" name="email" value="<?php echo $user->getEmail() ?>">
+            <input type="email" id="email" name="email" value="<?php echo htmlentities($user->getEmail()) ?>">
             <input type="submit" value="Save changes">
         </form>
         </span>
 
         <span id= "category">
-            <p>Category: <?= $user->getCategory()?></p>
+            <p>Category: <?= htmlentities($user->getCategory())?></p>
         </span>
 
         <span id= "pass">
@@ -192,15 +192,15 @@
         <article class="user_basic_infos">
         
         <span id= "name">
-            <p>Name: <?= $user->getName()?></p>
+            <p>Name: <?= htmlentities($user->getName())?></p>
         </span>
 
         <span id= "username">
-            <p>Username: <?= $user->getUsername()?></p>
+            <p>Username: <?= htmlentities($user->getUsername())?></p>
         </span>
 
         <span id= "email">
-            <p>Email: <?= $user->getEmail()?></p>
+            <p>Email: <?= htmlentities($user->getEmail())?></p>
         </span>
         
         <span id="category">
@@ -230,15 +230,15 @@
         <article class="user_basic_infos">
         
         <span id="name">
-            <p>Name: <?= $user->getName()?></p>
+            <p>Name: <?= htmlentities($user->getName())?></p>
         </span>
 
         <span id= "username">
-            <p>Username: <?= $user->getUsername()?></p>
+            <p>Username: <?= htmlentities($user->getUsername())?></p>
         </span>
 
         <span id= "email">
-            <p>Email: <?= $user->getEmail()?></p>
+            <p>Email: <?= htmlentities($user->getEmail())?></p>
         </span>
 
         <span id= "category">

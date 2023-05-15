@@ -40,6 +40,14 @@ class TicketHashtag implements JsonSerializable {
 
         return $ticketHashtags;
     }
+
+    static function removeHashtagFromTicket(PDO $db, $ticket_id, $hashtag_id) {
+      $stmt = $db->prepare('DELETE
+                          FROM ticket_hashtags
+                          WHERE ticket_id = ? AND hashtag_id = ?');
+  
+      return $stmt->execute(array($ticket_id, $hashtag_id)); 
+  }
   
 }
 ?>

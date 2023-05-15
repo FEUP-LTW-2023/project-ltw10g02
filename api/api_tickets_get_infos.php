@@ -13,6 +13,7 @@
     require_once(__DIR__ . '/../database/classes/department.php');
     require_once(__DIR__ . '/../database/classes/user_department.php');
     require_once(__DIR__ . '/../database/classes/hashtag.php');
+    require_once(__DIR__ . '/../database/classes/ticket_hashtag.php');
 
     $db = getDatabaseConnection();
     
@@ -33,9 +34,17 @@
 
         $priority = array('Low', 'Medium', 'High');
 
-        $hashtags = Hashtag::getAllHashtags($db);
+        $tickets_hashtags = TicketHashtag::getByTicketId($db, $ticket->getId());
 
-        echo json_encode(array('status' => $status, 'department' => $departments, 'agent' => $agents, 'priority' => $priority, 'hashtags' => $hashtags));
+        $hashtags = array();
+        foreach ($tickets_hashtags as $ticket_hashtag) {
+            $hashtag = HashTag::getTagById($db, $ticket_hashtag->getHashtagId());
+            $hashtags[] = $hashtag;
+        }
+
+        $allHashtags = Hashtag::getAllHashtags($db);
+
+        echo json_encode(array('status' => $status, 'department' => $departments, 'agent' => $agents, 'priority' => $priority, 'hashtags' => $hashtags, 'allHashtags' => $allHashtags));
         http_response_code(200);
         $session->addMessage('success', 'Edited ticket.');
     }
