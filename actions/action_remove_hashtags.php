@@ -13,9 +13,15 @@
 
     $db = getDatabaseConnection();
 
+    $jsonData = $_POST['hashtagsIds'];
+    $hashtagsIds = json_decode($jsonData);
+
     try{
-        TicketHashtag::removeHashtagFromTicket($db, $_POST['ticket_id'], $_POST['hashtag_id'])
-        $session->addMessage('sucess', 'Hashtag removed!');
+        // Agora você pode acessar os elementos do array
+        foreach ($hashtagsIds as $hashtagId) {
+            TicketHashtag::removeHashtagFromTicket($db, $_POST['ticket_id'], $hashtagId);
+        }
+        $session->addMessage('success', 'Hashtag removed!');
     }
     catch (Exception $e) {
         $session->addMessage('error', $e->getMessage());

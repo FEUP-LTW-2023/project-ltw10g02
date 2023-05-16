@@ -37,7 +37,23 @@ class Hashtag implements JsonSerializable {
             $hashtag['name']
           );
         } else return null;
-      }
+    }
+
+    static function getHashtagByName(PDO $db, $name): ?Hashtag {
+
+      $stmt = $db->prepare('SELECT *
+                          FROM hashtags
+                          WHERE name = ?');
+  
+      $stmt->execute(array($name)); 
+  
+      if ($hashtag = $stmt->fetch()) {
+        return new Hashtag(
+          (int) $hashtag['id'],
+          $hashtag['name']
+        );
+      } else return null;
+  }
 
     public static function getAllHashtags(PDO $db): ?array{
       $hashtags = array();
@@ -63,6 +79,18 @@ class Hashtag implements JsonSerializable {
       }
   
       return $hashtags;
+    }
+
+    // check if email exists
+    static function hashtagExists(PDO $db, $hashtag) {
+      $stmt = $db->prepare('SELECT * FROM hashtags WHERE name = ?');
+      $stmt->execute(array($hashtag));
+      return $stmt->fetch();
+    }
+
+    static function addHashtag(PDO $db, $hashtag){
+      $stmt = $db->prepare('INSERT INTO hashtags (name) VALUES(?)');
+      return $stmt->execute(array($hashtag));
     }
   }
 

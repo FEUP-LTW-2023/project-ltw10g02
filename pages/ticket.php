@@ -24,7 +24,7 @@
     $ticket = Ticket::getTicketById($db, $_GET['id']);
 
 
-    if($session->getId() !== $ticket->getClientId() && $session->getCategory() !== "agent"){
+    if($session->getId() !== $ticket->getClientId() && $session->getCategory() === "client"){
         $session->addMessage('error', 'You dont have permissions');
         die(header("Location: ../index.php"));
     }
