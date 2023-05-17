@@ -95,9 +95,9 @@
       <button formaction="/../actions/action_register.php" formmethod="post">Register</button>
     </form>
     <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
-      <span class="error">
+      <div class="error">
         <p><?= $session->getMessages()[0]['text'] ?></p>
-      </span>
+    </div>
     <?php endif; ?>
   </section>
 <?php } ?>

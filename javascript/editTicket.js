@@ -234,9 +234,11 @@ async function editHashtag(id_ticket) {
 
     spanField.innerHTML = ''
 
-    spanField.style.whiteSpace = 'normal'
+    spanField.style.display = 'flex'
+
+    /* spanField.style.display = 'inline-block'
     spanField.style.overflow = 'auto'
-    spanField.style.maxWidth = '400px'
+    spanField.style.width = '300px' */
 
     spanField.appendChild(p)
 
@@ -284,13 +286,6 @@ async function editHashtag(id_ticket) {
 }
 
 async function checkHashtag(id_ticket, arrayHashtagId) {
-    const hashtags = document.querySelectorAll('.hashtag');
-
-    if (hashtags.length === 0) {
-        const firstP = document.querySelector('#edit_hashtags > p:nth-of-type(1)')
-        firstP.textContent = "Hashtags: Not defined"
-    }
-
     const img = document.querySelector('#edit_hashtags > img')
 
     img.src = '../images/icons/8666681_edit_icon.svg'
@@ -327,6 +322,13 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
         p.setAttribute('id', pInfo.id)
 
         span.insertBefore(p, img);
+    }
+
+    const hashtags = document.querySelectorAll('.hashtag');
+
+    if (hashtags.length === 0) {
+        const firstP = document.querySelector('#edit_hashtags > p:nth-of-type(1)')
+        firstP.textContent = "Hashtags: Not defined"
     }
 
 
