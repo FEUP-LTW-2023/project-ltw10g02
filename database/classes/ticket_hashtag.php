@@ -47,7 +47,12 @@ class TicketHashtag implements JsonSerializable {
                           WHERE ticket_id = ? AND hashtag_id = ?');
   
       return $stmt->execute(array($ticket_id, $hashtag_id)); 
-  }
+    }
+
+    static function addTicketHashtag(PDO $db, $ticket_id, $hashtag_id){
+      $stmt = $db->prepare('INSERT INTO ticket_hashtags (ticket_id, hashtag_id) VALUES(?, ?)');
+      return $stmt->execute(array($ticket_id, $hashtag_id));
+    }
   
 }
 ?>

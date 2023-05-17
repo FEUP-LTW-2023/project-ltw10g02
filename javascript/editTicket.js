@@ -228,25 +228,42 @@ async function editHashtag(id_ticket) {
     /* Create elements */
     const p = document.createElement('p')
     p.textContent = 'Hashtags: '
+
     const img = document.createElement('img')
 
 
     spanField.innerHTML = ''
 
+    spanField.style.display = 'flex'
+
+    /* spanField.style.display = 'inline-block'
+    spanField.style.overflow = 'auto'
+    spanField.style.width = '300px' */
+
     spanField.appendChild(p)
 
+    let arrayHashtagId = []
 
     /* Create select menu */
     ticketsInfo['hashtags'].forEach(function(element) {
         const p = document.createElement('p')
-        p.classList.add("hashtag");
+        p.classList.add("hashtag")
         p.textContent = '#' + element.name
-        p.setAttribute('id', element.id);
-        /* p.onclick = function() {
-            removeHashtag(id_ticket, p)
-        } */
+        p.setAttribute('id', element.id)
+
+        p.addEventListener('click', function() {
+            arrayHashtagId.push(p.getAttribute('id'))
+            p.remove()
+        });
+    
         spanField.appendChild(p)
     });
+
+    const input = document.createElement('input')
+    input.style.padding = '0px'
+    /* input.style.overflow = 'auto' */
+
+    spanField.appendChild(input)
 
 
     /* Assigning id */
@@ -258,7 +275,7 @@ async function editHashtag(id_ticket) {
     img.src = '../images/icons/326561_box_check_icon.svg'
     img.alt = 'Check edit hashtags' 
     img.onclick = function() {
-        confirmHashTags(id_ticket, pFieldValue);
+        checkHashtag(id_ticket, arrayHashtagId)
     } 
     
     /* Add style */
@@ -268,21 +285,64 @@ async function editHashtag(id_ticket) {
     spanField.appendChild(img)
 }
 
-async function removeHashtag(id_ticket, p) {
-    const data = new FormData();
-    data.append('ticket_id', id_ticket);
-    data.append('hashtag_id', p.id);
+async function checkHashtag(id_ticket, arrayHashtagId) {
+    const img = document.querySelector('#edit_hashtags > img')
 
-    console.log(id_ticket, p.id)
+    img.src = '../images/icons/8666681_edit_icon.svg'
+    img.alt = 'Edit hashtags' 
+    img.onclick = function() {
+        editHashtag(id_ticket)
+    } 
+    const span = document.querySelector('#edit_hashtags')
 
-    const response = await fetch('../actions/action_remove_hashtag.php', {
+    /* span.style.maxWidth = '300px' */
+
+    const newHashtag = document.querySelector('#edit_hashtags > input')
+
+    console.log(newHashtag.value)
+
+    if(newHashtag.value !== ''){
+        const p = document.createElement('p')
+        p.textContent = '#' + newHashtag.value
+        p.classList.add("hashtag")
+
+        const data2 = new FormData();
+        data2.append('ticket_id', id_ticket)
+        data2.append('hashtag', newHashtag.value)
+
+        const response2 = await fetch('../api/api_add_hashtag_ticket.php', {
+            method: 'POST',
+            body: data2
+        })
+
+        const pInfo = await response2.json()
+
+        console.log(pInfo.id)
+
+        p.setAttribute('id', pInfo.id)
+
+        span.insertBefore(p, img);
+    }
+
+    const hashtags = document.querySelectorAll('.hashtag');
+
+    if (hashtags.length === 0) {
+        const firstP = document.querySelector('#edit_hashtags > p:nth-of-type(1)')
+        firstP.textContent = "Hashtags: Not defined"
+    }
+
+
+    const data1 = new FormData();
+    data1.append('ticket_id', id_ticket)
+    data1.append('hashtagsIds', JSON.stringify(arrayHashtagId))
+
+
+    newHashtag.remove()
+
+    const response1 = await fetch('../actions/action_remove_hashtags.php', {
         method: 'POST',
-        body: data
+        body: data1
     })
 
-    p.remove();
 }
 
-function confirmHashTags(id_ticket, pFieldValue) {
-    
-}

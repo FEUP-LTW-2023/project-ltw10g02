@@ -11,7 +11,7 @@
   require_once(__DIR__ . '/../database/classes/hashtag.php');
 
   $db = getDatabaseConnection();
-
+  
   $hashtags = Hashtag::searchHashtags($db, $_GET['search']);
   
   echo json_encode($hashtags);

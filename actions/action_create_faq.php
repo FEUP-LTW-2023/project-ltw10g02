@@ -4,7 +4,7 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
 
-    if(!$session->isLoggedIn()){
+    if(!$session->isLoggedIn() || $session->getCategory() === 'client'){
         header("Location: ../index.php");
         exit();
     }

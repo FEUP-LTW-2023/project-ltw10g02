@@ -56,12 +56,11 @@ function drawTickets($tickets, $div_id){
           
           <div>
             <p>Modification: <?=$history->getUpdatedAt()?></p>
-           
             <?php
               $agent = User::getUserById($db, $history->getAgentId());
             ?>
-              <p>Agent: <?=$agent->getName()?></p>
-            <p>Priority: <?=$history->getPriority()?></p>
+              <p>Agent: <?=$agent === null ? 'Not defined' : $agent->getName()?></p>
+            <p>Priority: <?=$history->getPriority() === null ? 'Not defined' : $history->getPriority()?></p>
             
           </div>
         </div>

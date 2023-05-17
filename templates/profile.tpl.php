@@ -118,9 +118,9 @@
 
         <span id="username">
         <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
-            <span class="error">
+            <div class="error">
                 <p><?= $session->getMessages()[0]['text'] ?></p>
-            </span>
+            </div>
         <?php endif; ?>
         <form action="/../actions/edit_profile/edit_username.php" method="post">
             <label for="username">Username: </label>
