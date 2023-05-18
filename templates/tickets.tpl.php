@@ -11,7 +11,7 @@ function drawTickets($tickets, $div_id){
       <article class = "ticketResume">
         <header>
           <h2><a href="../pages/ticket.php?id=<?=$ticket->getId()?>"><?=htmlentities($ticket->getSubject())?></a></h2>
-          <p><?=$ticket->getStatus()?></p>
+          <p><?=htmlentities($ticket->getStatus())?></p>
         </header>
         <p><?=$ticket->getCreatedAt()?></p>
         <p><?=htmlentities($ticket->getDescription())?></p>
@@ -35,8 +35,8 @@ function drawTickets($tickets, $div_id){
             <?php  
               $department = Department::getDepartmentById($db, $history->getDepartmentId());
             ?>
-              <p>Department: <?=$department->getName()?></p>
-            <p>Status: <?=$history->getStatus()?></p>
+              <p>Department: <?=htmlentities($department->getName())?></p>
+            <p>Status: <?=htmlentities($history->getStatus())?></p>
               <!-- create a link to show faq -->
             <?php
               $faqId = $history->getFaqId();
@@ -46,7 +46,7 @@ function drawTickets($tickets, $div_id){
               else: 
                 $faq= FAQ::getById($db, $faqId);
                 if ($faq !== null):?>
-                  <p>FAQ: <a href="../pages/faqs.php"><?= $faq->getQuestion() ?></a></p>
+                  <p>FAQ: <a href="../pages/faqs.php"><?= htmlentities($faq->getQuestion()) ?></a></p>
                 <?php 
                 endif;
               endif; 
@@ -59,8 +59,8 @@ function drawTickets($tickets, $div_id){
             <?php
               $agent = User::getUserById($db, $history->getAgentId());
             ?>
-              <p>Agent: <?=$agent === null ? 'Not defined' : $agent->getName()?></p>
-            <p>Priority: <?=$history->getPriority() === null ? 'Not defined' : $history->getPriority()?></p>
+              <p>Agent: <?=$agent === null ? 'Not defined' : htmlentities($agent->getName())?></p>
+            <p>Priority: <?=$history->getPriority() === null ? 'Not defined' : htmlentities($history->getPriority())?></p>
             
           </div>
         </div>
@@ -79,14 +79,14 @@ function drawTickets($tickets, $div_id){
       <p><?=$ticket->getCreatedAt()?></p>
 
       <span id = "edit_status">
-        <p><?=$ticket->getStatus()?></p>
+        <p><?=htmlentities($ticket->getStatus())?></p>
         <?php if ($session->getCategory() !== "client"): ?>
           <img id = "edit_status_img" onclick ="editField('<?= $ticket->getId() ?>', 'status')" src="../images/icons/8666681_edit_icon.svg" alt="Edit status icon">
         <?php endif; ?>
       </span>
 
       <span id = "edit_department">
-        <p><?=$department === null ? 'Not defined' : $department->getName()?></p>
+        <p><?=$department === null ? 'Not defined' : htmlentities($department->getName())?></p>
         <?php if ($session->getCategory() !== "client"): ?>
           <img id = "edit_department_img" onclick ="editField('<?= $ticket->getId() ?>', 'department')" src="../images/icons/8666681_edit_icon.svg" alt="Edit department icon">
         <?php endif; ?>
@@ -100,16 +100,16 @@ function drawTickets($tickets, $div_id){
       </span> 
 
       <span id = "edit_priority">
-        <p><?=$ticket->getPriority() === null ? 'Not defined' : $ticket->getPriority()?></p>
+        <p><?=$ticket->getPriority() === null ? 'Not defined' : htmlentities($ticket->getPriority())?></p>
         <?php if ($session->getCategory() !== "client"): ?>
           <img id = "edit_priority_img" onclick ="editField('<?= $ticket->getId() ?>', 'priority')" src="../images/icons/8666681_edit_icon.svg" alt="Edit priority ticket icon">
         <?php endif; ?>
       </span> 
 
-      <p><?=$ticket->getDescription()?></p>
+      <p><?=htmlentities($ticket->getDescription())?></p>
 
       <div id = "edit_hashtags">
-        <p><?=empty($hashtags) ? 'Hashtags: Not defined' : 'Hashtags: ' . $hashtags ?></p>
+        <p><?=empty($hashtags) ? 'Hashtags: Not defined' : 'Hashtags: ' . htmlentities($hashtags) ?></p>
         <?php if ($session->getCategory() !== "client"): ?>
           <img id = "edit_hashtags_img" onclick ="editHashtag('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
         <?php endif; ?>
@@ -144,7 +144,7 @@ function drawTickets($tickets, $div_id){
     <select name="department" class="department_form_search">
       <option value="my_departments">My departments</option>
       <?php foreach ($departments as $department) { ?>
-        <option value= <?= $department->getId()?>><?= $department->getName()?></option>
+        <option value= <?= $department->getId()?>><?= htmlentities($department->getName())?></option>
       <?php } ?>
     </select>
       
@@ -207,7 +207,7 @@ function drawTickets($tickets, $div_id){
         <select name="department_id" required>
           <option value="">&mdash;</option>
           <?php foreach ($departaments as $departament): ?>
-            <option value="<?=$departament->getId()?>"> <?= $departament->getName() ?></option>
+            <option value="<?=$departament->getId()?>"> <?= htmlentities($departament->getName()) ?></option>
           <?php endforeach ?>
         </select>
       </label>

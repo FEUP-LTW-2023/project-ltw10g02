@@ -181,20 +181,20 @@ class User implements JsonSerializable{
   }
 
   // check if username exists
-  static function usernameExists(PDO $db, $username) {
+  static function usernameExists(PDO $db, $username): bool {
     $stmt = $db->prepare('SELECT * FROM users WHERE username = ?');
     $stmt->execute(array($username));
     return $stmt->fetch();
   }
 
   // check if email exists
-  static function emailExists(PDO $db, $email) {
+  static function emailExists(PDO $db, $email): bool {
     $stmt = $db->prepare('SELECT * FROM users WHERE email = ?');
     $stmt->execute(array($email));
     return $stmt->fetch();
   }
 
-  static function addUser(PDO $db, Session $session, $name, $username, $password, $email, $category){
+  static function addUser(PDO $db, $name, $username, $password, $email, $category): bool{
     $stmt = $db->prepare('INSERT INTO users (name, username, pass, email, category) VALUES(?, ?, ?, ?, ?)');
     return $stmt->execute(array($name, $username, sha1($password), strtolower($email), $category));
   }

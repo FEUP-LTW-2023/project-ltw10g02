@@ -4,8 +4,10 @@
   require_once(__DIR__ . '/../utils/session.php');
   $session = new Session();
 
-  if(!$session->isLoggedIn() || $session->getCategory() === 'client')
+  if(!$session->isLoggedIn() || $session->getCategory() === 'client'){
         header("Location: ../index.php");
+        exit();
+  }
 
   require_once(__DIR__ . '/../database/database_connection.php');
   require_once(__DIR__ . '/../database/classes/hashtag.php');
