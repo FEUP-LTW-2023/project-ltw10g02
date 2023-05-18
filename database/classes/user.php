@@ -194,7 +194,7 @@ class User implements JsonSerializable{
     return $stmt->fetch();
   }
 
-  static function addUser(PDO $db, Session $session, $name, $username, $password, $email, $category){
+  static function addUser(PDO $db, $name, $username, $password, $email, $category){
     $stmt = $db->prepare('INSERT INTO users (name, username, pass, email, category) VALUES(?, ?, ?, ?, ?)');
     return $stmt->execute(array($name, $username, sha1($password), strtolower($email), $category));
   }

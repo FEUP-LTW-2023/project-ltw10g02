@@ -146,6 +146,40 @@
     resize: none;
 }
 
+#edit_hashtags {
+    max-width: 40em;
+    background-color: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+.hashtag {
+    max-width: 40em;
+    padding: 0.25em 0.5em;
+    margin: 0.25em;
+    cursor: pointer;
+    word-break: break-all;
+}
+
+#edit_hashtags > p {
+    word-break: break-all;
+}
+
+#edit_hashtags > input {
+    padding: 0px;
+}
+
+#edit_hashtags > img {
+    margin-left: 8px;
+}
+
+/* @media screen and (max-width: 500px) {
+    #ticketAndComments > .ticket, #ticketAndComments > .comments, #add_comment > textarea[name = "comment"] {
+        width: 100%;
+    }
+} */
+
 /* Css for ticket resume in profile and my_tickets page */
 
 #department_tickets, #my_tickets, #profile_tickets, #index {
@@ -182,7 +216,6 @@
 
 .ticketResume > header > h2 > a{
     display: flex;
-    /* width: 210px; */
     max-width: 210px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -204,6 +237,16 @@
 
 .ticketResume > p:nth-of-type(1)::before{
     content: "At: ";
+}
+
+@media screen and (max-width: 750px) {
+    .ticketResume {
+        width: 100%;
+    }
+
+    .ticketResume > header > h2 > a{
+        max-width: 180px;
+    }
 }
 
 

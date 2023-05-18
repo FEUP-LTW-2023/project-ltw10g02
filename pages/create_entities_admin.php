@@ -2,8 +2,10 @@
     require_once(__DIR__ . '/../utils/session.php');
     $session = new Session();
     
-    if(!$session->isLoggedIn() || $session->getCategory() !== 'admin')
+    if(!$session->isLoggedIn() || $session->getCategory() !== 'admin'){
         header("Location: ../index.php");
+        exit();
+    }
 
     require_once(__DIR__ . '/../templates/common.tpl.php');
     require_once(__DIR__ . '/../templates/profile.tpl.php');
