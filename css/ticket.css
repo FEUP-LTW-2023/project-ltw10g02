@@ -166,6 +166,14 @@
     word-break: break-all;
 }
 
+#edit_hashtags > input {
+    padding: 0px;
+}
+
+#edit_hashtags > img {
+    margin-left: 8px;
+}
+
 /* Css for ticket resume in profile and my_tickets page */
 
 #department_tickets, #my_tickets, #profile_tickets, #index {
