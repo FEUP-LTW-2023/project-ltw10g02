@@ -216,7 +216,6 @@
 
 .ticketResume > header > h2 > a{
     display: flex;
-    /* width: 210px; */
     max-width: 210px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -240,9 +239,13 @@
     content: "At: ";
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 750px) {
     .ticketResume {
         width: 100%;
+    }
+
+    .ticketResume > header > h2 > a{
+        max-width: 180px;
     }
 }
 
