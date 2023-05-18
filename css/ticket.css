@@ -146,6 +146,26 @@
     resize: none;
 }
 
+#edit_hashtags {
+    max-width: 40em;
+    background-color: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+.hashtag {
+    max-width: 40em;
+    padding: 0.25em 0.5em;
+    margin: 0.25em;
+    cursor: pointer;
+    word-break: break-all;
+}
+
+#edit_hashtags > p {
+    word-break: break-all;
+}
+
 /* Css for ticket resume in profile and my_tickets page */
 
 #department_tickets, #my_tickets, #profile_tickets, #index {

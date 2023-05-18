@@ -108,12 +108,12 @@ function drawTickets($tickets, $div_id){
 
       <p><?=$ticket->getDescription()?></p>
 
-      <span id = "edit_hashtags">
+      <div id = "edit_hashtags">
         <p><?=empty($hashtags) ? 'Hashtags: Not defined' : 'Hashtags: ' . $hashtags ?></p>
         <?php if ($session->getCategory() !== "client"): ?>
           <img id = "edit_hashtags_img" onclick ="editHashtag('<?= $ticket->getId() ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit hashtags icon">
         <?php endif; ?>
-      </span>
+        </div>
       
       <?php if ($session->getCategory() === "client"): ?>
           <button onclick = "editTicketUser('<?= $ticket->getId() ?>')">Edit ticket</button>

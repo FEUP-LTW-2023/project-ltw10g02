@@ -246,17 +246,17 @@ async function editHashtag(id_ticket) {
 
     /* Create select menu */
     ticketsInfo['hashtags'].forEach(function(element) {
-        const p = document.createElement('p')
-        p.classList.add("hashtag")
-        p.textContent = '#' + element.name
-        p.setAttribute('id', element.id)
+        const span = document.createElement('span')
+        span.classList.add("hashtag")
+        span.textContent = '#' + element.name
+        span.setAttribute('id', element.id)
 
-        p.addEventListener('click', function() {
-            arrayHashtagId.push(p.getAttribute('id'))
-            p.remove()
+        span.addEventListener('click', function() {
+            arrayHashtagId.push(span.getAttribute('id'))
+            span.remove()
         });
     
-        spanField.appendChild(p)
+        spanField.appendChild(span)
     });
 
     const input = document.createElement('input')
@@ -285,6 +285,8 @@ async function editHashtag(id_ticket) {
     spanField.appendChild(img)
 }
 
+
+
 async function checkHashtag(id_ticket, arrayHashtagId) {
     const img = document.querySelector('#edit_hashtags > img')
 
@@ -293,7 +295,7 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
     img.onclick = function() {
         editHashtag(id_ticket)
     } 
-    const span = document.querySelector('#edit_hashtags')
+    const div = document.querySelector('#edit_hashtags')
 
     /* span.style.maxWidth = '300px' */
 
@@ -302,9 +304,9 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
     console.log(newHashtag.value)
 
     if(newHashtag.value !== ''){
-        const p = document.createElement('p')
-        p.textContent = '#' + newHashtag.value
-        p.classList.add("hashtag")
+        const span = document.createElement('span')
+        span.textContent = '#' + newHashtag.value
+        span.classList.add("hashtag")
 
         const data2 = new FormData();
         data2.append('ticket_id', id_ticket)
@@ -319,9 +321,9 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
 
         console.log(pInfo.id)
 
-        p.setAttribute('id', pInfo.id)
+        span.setAttribute('id', pInfo.id)
 
-        span.insertBefore(p, img);
+        div.insertBefore(span, img);
     }
 
     const hashtags = document.querySelectorAll('.hashtag');

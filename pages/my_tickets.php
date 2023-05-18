@@ -5,6 +5,8 @@
     if(!$session->isLoggedIn())
         header("Location: ../index.php");
 
+    require_once __DIR__ . '/../utils/util.php';
+
     require_once __DIR__ . '/../database/database_connection.php';
     require_once __DIR__ . '/../database/classes/ticket.php';
     require_once __DIR__ . '/../database/classes/user_department.php';
@@ -39,12 +41,15 @@
             $department = Department::getDepartmentById($db, $ticket_agent->getDepartmentId());
             $departments_agent_tickets[] = $department;
         }
+        $uniqueDepartmentsAgent = getUniqueDepartments($departments_agent_tickets);
     }
+
+    $uniqueDepartments = getUniqueDepartments($departments);
     
     drawHeader($session);
     if($session->getCategory() === "client")
-        drawTicketsUser($session, $tickets, $departments);
+        drawTicketsUser($session, $tickets, $uniqueDepartments);
     else if($session->getCategory() === "agent")
-        drawTicketsAgent($session, $tickets_agent, $tickets_department, $departments, $departments_agent_tickets);
+        drawTicketsAgent($session, $tickets_agent, $tickets_department, $uniqueDepartments, $uniqueDepartmentsAgent);
     drawFooter();
 ?>
