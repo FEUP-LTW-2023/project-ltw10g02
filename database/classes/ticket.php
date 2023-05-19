@@ -239,11 +239,12 @@ class Ticket implements JsonSerializable{
       $sql = "SELECT * FROM tickets WHERE department_id = ?";
       $params[] = $department;
     }
+    
     if($category === 'client'){
       $sql .= ' AND client_id = ?';
       $params[] = $id;  
     }
-    else if($category === 'agent'){
+    else{
       $sql .= ' AND agent_id = ?'; 
       $params[] = $id;
     }

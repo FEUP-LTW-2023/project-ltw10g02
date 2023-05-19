@@ -58,6 +58,8 @@
             $department = Department::getDepartmentById($db, $ticket_admin->getDepartmentId());
             $departments_admin_tickets[] = $department;
         }
+
+        $uniqueDepartmentsAdmin = getUniqueDepartments($departments_admin_tickets);
     }
     
 
@@ -69,6 +71,6 @@
     else if($session->getCategory() === "agent")
         drawTicketsAgent($session, $tickets_agent, $tickets_department, $uniqueDepartments, $uniqueDepartmentsAgent);
     else if($session->getCategory() === "admin")
-        drawTicketsAgent($session, $tickets_admin, $tickets_department, $departments_admin, $departments_admin_tickets);
+        drawTicketsAgent($session, $tickets_admin, $tickets_department, $departments_admin, $uniqueDepartmentsAdmin);
     drawFooter();
 ?>
