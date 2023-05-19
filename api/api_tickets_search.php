@@ -32,8 +32,14 @@
     
   }
   else if($_GET['option'] === '2'){
-    $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
-    $search_tickets = Ticket::searchTickets($db, $session->getId(), '', $departments_agent, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+    if($session->getCategory() === "agent"){
+      $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+      $search_tickets = Ticket::searchTickets($db, $session->getId(), '', $departments_agent, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+    }
+    else{
+      $departments_admin = Department::getAllDepartments($db);
+      $search_tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), $departments_admin, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+    }
   }
 
   

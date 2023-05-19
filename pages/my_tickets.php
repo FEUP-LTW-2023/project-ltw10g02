@@ -27,7 +27,7 @@
             $departments[] = $department;
         }
     }
-    else{
+    else if(($session->getCategory() === "agent")){
         $tickets_agent = Ticket::getTicketsByAgent($db, $session->getId());
         $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
         $departments = array();
@@ -35,7 +35,7 @@
             $department = Department::getDepartmentById($db, $department_agent->getDepartmentId());
             $departments[] = $department;
         }
-        $tickets_department = Ticket::getTicketsByDepartments($db, $departments_agent);
+        $tickets_department = Ticket::getTicketsByDepartments($db, $departments_agent, 'agent');
 
 
         $departments_agent_tickets = array();
@@ -46,6 +46,23 @@
         $uniqueDepartmentsAgent = getUniqueDepartments($departments_agent_tickets);
     }
 
+    else if($session->getCategory() === "admin"){
+        $tickets_admin = Ticket::getTicketsByAgent($db, $session->getId());
+        $departments_admin = Department::getAllDepartments($db);
+
+        $tickets_department = Ticket::getTicketsByDepartments($db, $departments_admin, 'admin');
+
+
+        $departments_admin_tickets = array();
+        foreach ($tickets_admin as $ticket_admin) {
+            $department = Department::getDepartmentById($db, $ticket_admin->getDepartmentId());
+            $departments_admin_tickets[] = $department;
+        }
+
+        $uniqueDepartmentsAdmin = getUniqueDepartments($departments_admin_tickets);
+    }
+    
+
     $uniqueDepartments = getUniqueDepartments($departments);
     
     drawHeader($session);
@@ -53,5 +70,7 @@
         drawTicketsUser($session, $tickets, $uniqueDepartments);
     else if($session->getCategory() === "agent")
         drawTicketsAgent($session, $tickets_agent, $tickets_department, $uniqueDepartments, $uniqueDepartmentsAgent);
+    else if($session->getCategory() === "admin")
+        drawTicketsAgent($session, $tickets_admin, $tickets_department, $departments_admin, $uniqueDepartmentsAdmin);
     drawFooter();
 ?>
