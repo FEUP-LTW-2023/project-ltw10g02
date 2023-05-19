@@ -246,11 +246,6 @@
         </span>
 
         <span id= "pass">
-            <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
-            <span class="error">
-                <p><?= $session->getMessages()[0]['text'] ?></p>
-            </span>
-            <?php endif; ?>
         <form action="/../actions/edit_profile/edit_pass.php" method="post">
             <label for="old_pass">Old Password: </label>
             <p><input type="password" id="old_pass" name="old_pass"></p>
@@ -259,6 +254,12 @@
             <label for="confirm_new_pass">Confirm New Password: </label>
             <p><input type="password" id="confirm_new_pass" name="confirm_new_pass"></p>
             <input type="submit" value="Save changes">
+
+            <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+                <div class="error">
+                    <p><?= $session->getMessages()[0]['text'] ?></p>
+                </div>
+            <?php endif; ?>
         </form>
         </span>
 
