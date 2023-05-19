@@ -85,8 +85,6 @@ async function editField(id_ticket, field){
     const response = await fetch('../api/api_tickets_get_infos.php?id=' + id_ticket)
     const ticketsInfo = await response.json()
 
-    console.log(pFieldValue)
-
     /* Create elements */
     const select = document.createElement('select')
 
@@ -149,10 +147,6 @@ async function confirmField(id_ticket, pFieldValue, field) {
         const selectedOption = select.selectedOptions[0];
         fieldId = selectedOption.getAttribute('id');
     }
-
-    console.log(id_ticket)
-    console.log(field)
-    console.log(fieldValue)
 
     const data = new FormData();
     data.append('id', id_ticket);
@@ -320,8 +314,6 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
         editHashtag(id_ticket)
     } 
 
-    console.log(newHashtag.value)
-
     if(select && select.value !== '-'){
         const span = document.createElement('span')
         span.textContent = '#' + select.value
@@ -337,8 +329,6 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
         })
 
         const pInfo = await response2.json()
-
-        console.log(pInfo.id)
 
         span.setAttribute('id', pInfo.id)
 
@@ -361,8 +351,6 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
         })
 
         const pInfo = await response2.json()
-
-        console.log(pInfo.id)
 
         span.setAttribute('id', pInfo.id)
 

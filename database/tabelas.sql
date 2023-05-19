@@ -186,7 +186,13 @@ VALUES
     ('Jeans sizing', 'Are these jeans true to size?', 1, 3, 3, NULL, 2),
     ('How do I change my password?', 'I would like to change my password but I don''t know how', 1, 3, NULL, 1, NULL),
     ('Wrong size product', 'My shirt does not fit me',  3, 4, 1, 3, 4),
-    ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2);
+    ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2),
+    ('Account Access Issue', 'I am unable to log into my account. It says my password is incorrect.', 2, 1, 5, NULL, NULL),
+    ('Product Return Request', 'I would like to return a product I recently purchased as it arrived damaged.', 3, 4, 5, NULL, 4),
+    ('Order Modification', 'I need to update the shipping address for my order #123456.', 1, 2, 5, NULL, 3),
+    ('Technical Issue', 'Im experiencing an error message when trying to submit a form on the website.', 2, 3, 5, NULL, NULL),
+    ('Product Availability Inquiry', 'Is the XYZ product currently in stock? I would like to place an order.', 3, 4, 5, NULL, 5);
+    
 
 
 -- Insert hashtags
