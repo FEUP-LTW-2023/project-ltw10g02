@@ -8,12 +8,13 @@
 <?php function drawInfosProfile(Session $session, User $user, $tickets): void { ?>
     <section class = "user_info">
         <h1>Profile Page</h1>
-
-        <article id = "user_tickets">
-            <h2>Last Tickets</h2>
-            <?php drawTickets($tickets, 'profile_tickets') ?>
-            <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
-        </article>
+        <?php if (!empty($tickets)): ?>
+            <article id = "user_tickets">
+                <h2>Last Tickets</h2>
+                <?php drawTickets($tickets, 'profile_tickets') ?>
+                <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
+            </article>
+        <?php endif; ?>
 
         <?php drawBasicInfosProfile($session, $user) ?>
     </section>
