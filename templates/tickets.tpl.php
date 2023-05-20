@@ -41,7 +41,7 @@ function drawTickets($tickets, $div_id){
             <?php
               $faqId = $history->getFaqId();
               if ($faqId === null):?>
-            <p>FAQ: none associated</p>
+                <p>FAQ: none associated</p>
             <?php 
               else: 
                 $faq= FAQ::getById($db, $faqId);
