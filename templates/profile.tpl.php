@@ -49,13 +49,7 @@
                 </span>
 
                 <span id= "category">
-                    <p>
-                        Category: 
-                        <?= $user->getCategory()?>
-                        <!-- <?php if ($session->getCategory() === "admin"): ?>
-                        <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
-                        <?php endif; ?> -->
-                        </p>
+                    <p>Category: <?= $user->getCategory()?></p>
                 </span>
 
                 <span id= "pass">
@@ -170,45 +164,6 @@
 
         <span id= "category">
             <p>Category: <?= htmlentities($user->getCategory())?></p>
-        </span>
-
-        <span id= "pass">
-            <p>Password</p>
-        </span>
-
-        </article>      
-    </section>
-<?php } ?>
-
-<!-- falta aplicar -->
-<?php function drawEditCategoryForm(Session $session, User $user): void {?>
-    <section class = "edit_category">
-        <h1>Edit Category</h1>
-
-        <article class="user_basic_infos">
-        
-        <span id= "name">
-            <p>Name: <?= htmlentities($user->getName())?></p>
-        </span>
-
-        <span id= "username">
-            <p>Username: <?= htmlentities($user->getUsername())?></p>
-        </span>
-
-        <span id= "email">
-            <p>Email: <?= htmlentities($user->getEmail())?></p>
-        </span>
-        
-        <span id="category">
-        <form action="/../actions/edit_profile/edit_category.php" method="post">
-            <label for="category">Category: </label>
-            <select id="category" name="category">
-                <option value="client" <?php if ($user->getCategory() === 'client') echo 'selected'; ?>>Client</option>
-                <option value="agent" <?php if ($user->getCategory() === 'agent') echo 'selected'; ?>>Agent</option>
-                <option value="admin" <?php if ($user->getCategory() === 'admin') echo 'selected'; ?>>Admin</option>
-            </select>
-            <input type="submit" value="Save changes">
-        </form>
         </span>
 
         <span id= "pass">

@@ -54,5 +54,17 @@ class UserDepartment implements JsonSerializable {
       return $agents;
     }
   
-  }
+    public static function removeDepartmentFromUser(PDO $db, $user_id, $department_id){
+      $stmt = $db->prepare('DELETE FROM user_department WHERE user_id = ? AND department_id = ?');
+      return $stmt->execute(array($user_id, $department_id));
+    }
+
+    public static function addDepartmentToUser(PDO $db, $userId, $departmentId): void
+    {
+        $stmt = $db->prepare('INSERT INTO user_department (user_id, department_id) VALUES (?, ?)');
+        $stmt->execute([$userId, $departmentId]);
+    }
+
+    
+  }  
 ?>
