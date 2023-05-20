@@ -72,7 +72,7 @@
     <form>
       <input type="text" name="login" placeholder="Username/Email">
       <input type="password" name="password" placeholder="Password">
-      <button formaction= '../actions/action_login.php' formmethod="post">Login</button>
+      <button formaction= '../actions/action_login.php' formmethod="get">Login</button>
     </form>
 
     <?php if ($session->getMessages()[0]['type'] !== null): ?>

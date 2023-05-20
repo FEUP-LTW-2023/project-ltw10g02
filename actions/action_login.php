@@ -10,7 +10,7 @@
 
     $db = getDatabaseConnection();
 
-    $user = User::getUser($db, $_POST['login'], $_POST['password']);
+    $user = User::getUser($db, $_GET['login'], $_GET['password']);
     
     if ($user){
         $session->setId($user->getId());
