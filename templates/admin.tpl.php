@@ -25,12 +25,16 @@
         <div class="category">
             <h2>Clients</h2>
             <ul>
-                <?php foreach ($clients as $client): ?>
+                <?php foreach ($clients as $client): 
+                    $userId=$client->getId();
+                    ?>
                     <li class=client>
                         <div>
                             <p>Name: <?= $client->getName(); ?></p>
                             <p>Username: <?= $client->getUsername(); ?></p>
-                            <p>Category: <?= $client->getCategory(); ?></p>
+                            <p>Category: <?= $client->getCategory(); ?> 
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?userId=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            </p>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -40,12 +44,119 @@
         <div class="category">
             <h2>Agents</h2>
             <ul>
-                <?php foreach ($agents as $agent): ?>
+                <?php foreach ($agents as $agent): 
+                    $userId=$agent->getId();
+                    ?>
                     <li class=agent>
                         <div>
                             <p>Name: <?= $agent->getName(); ?></p>
                             <p>Username: <?= $agent->getUsername(); ?></p>
-                            <p>Category: <?= $agent->getCategory(); ?></p>
+                            <p>Category: <?= $agent->getCategory(); ?>
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?userId=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            </p>
+                            
+                            <!-- Display departments -->
+                            <p>Departments: 
+                            <ul>
+                            <?php
+                            $departments = UserDepartment::getDepartmentsByAgent($db, $agent->getId());
+                            foreach ($departments as $department):
+                                $departmentName = Department::getDepartmentById($db, $department->getDepartmentId())->getName();
+                                ?>
+                                <li><?= $departmentName; ?></li>
+                            <?php endforeach; ?>
+                            </p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        
+        <div class="category">
+            <h2>Admins</h2>
+            <ul>
+                <?php foreach ($admins as $admin): ?>
+                    <li class=admin>
+                        <div>
+                            <p>Name: <?= $admin->getName(); ?></p>
+                            <p>Username: <?= $admin->getUsername(); ?></p>
+                            <p>Category: <?= $admin->getCategory(); ?></p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </section>
+<?php } ?>
+
+
+<?php function drawUsersEditCategory(PDO $db, Session $session, array $clients, array $agents, array $admins, User $user){ ?>
+    <section id ="users">
+        <div class="category">
+            <h2>Clients</h2>
+            <ul>
+                <?php foreach ($clients as $client): 
+                    $userId=$client->getId();
+                    ?>
+                    <li class=client>
+                        <div>
+                            <p>Name: <?= $client->getName(); ?></p>
+                            <p>Username: <?= $client->getUsername(); ?></p>
+                            
+                            <?php if ($userId == $user->getId()): ?>
+    
+                            <form action="/../actions/edit_category.php?userId=<?= $userId ?>" method="post">
+                                <label for="category">Category: </label>
+                                <select id="category" name="category">
+                                    <option value="client" <?php if ($user->getCategory() === 'client') echo 'selected'; ?>>Client</option>
+                                    <option value="agent" <?php if ($user->getCategory() === 'agent') echo 'selected'; ?>>Agent</option>
+                                    <option value="admin" <?php if ($user->getCategory() === 'admin') echo 'selected'; ?>>Admin</option>
+                                </select>
+                                <input type="submit" value="Save changes">
+                            </form>
+                            
+                            <?php else: ?>
+                            <p>Category: <?= $client->getCategory(); ?>
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?user=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            </p>                        
+                            <?php endif; ?>
+
+
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h2>Agents</h2>
+            <ul>
+                <?php foreach ($agents as $agent): 
+                    $userId=$agent->getId();
+                    ?>
+                    <li class=agent>
+                        <div>
+                            <p>Name: <?= $agent->getName(); ?></p>
+                            <p>Username: <?= $agent->getUsername(); ?></p>
+                            
+                            <?php if ($userId == $user->getId()): ?>
+                            
+                            <form action="/../actions/edit_category.php?userId=<?= $userId ?>" method="post">
+                                <label for="category">Category: </label>
+                                <select id="category" name="category">
+                                    <option value="client" <?php if ($user->getCategory() === 'client') echo 'selected'; ?>>Client</option>
+                                    <option value="agent" <?php if ($user->getCategory() === 'agent') echo 'selected'; ?>>Agent</option>
+                                    <option value="admin" <?php if ($user->getCategory() === 'admin') echo 'selected'; ?>>Admin</option>
+                                </select>
+                                <input type="submit" value="Save changes">
+                            </form>
+                            
+                            <?php else: ?>
+                            <p>Category: <?= $client->getCategory(); ?>
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?user=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            </p>                        
+                            <?php endif; ?>
+
                             <!-- Display departments -->
                             <p>Departments: 
                             <ul>

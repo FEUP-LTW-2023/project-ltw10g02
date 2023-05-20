@@ -29,7 +29,7 @@
     }
     else if(($session->getCategory() === "agent")){
         $tickets_agent = Ticket::getTicketsByAgent($db, $session->getId());
-        $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+        $departments_agent = UserDepartment::getDepartmentsByAgent($db, $session->getId());
         $departments = array();
         foreach ($departments_agent as $department_agent) {
             $department = Department::getDepartmentById($db, $department_agent->getDepartmentId());

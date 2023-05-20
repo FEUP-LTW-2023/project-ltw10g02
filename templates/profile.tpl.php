@@ -52,11 +52,6 @@
                     <p>
                         Category: 
                         <?= $user->getCategory()?>
-                        <!-- nenhum usuario pode mudar sua propria categoria
-                        os admin podem mudar a categoria de outros usuarios
-                        criar uma pagina "clients", que lista os clientes, e o admin pode alterar a categoria
-                        criar uma pagina "AGENTS", que lista os agents, e o admin pode alterar a categoria e o departamento -->
-
                         <!-- <?php if ($session->getCategory() === "admin"): ?>
                         <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
                         <?php endif; ?> -->
