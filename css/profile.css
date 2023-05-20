@@ -15,3 +15,7 @@
     padding: 10px;
     margin-top: 10px;
 }
+
+.user_basic_infos input{
+    padding-left: 5px;
+}

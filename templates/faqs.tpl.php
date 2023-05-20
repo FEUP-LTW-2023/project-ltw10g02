@@ -15,8 +15,8 @@
       <?php foreach ($faqs as $faq): ?>
         <li class=faq>
           <div class="faq">
-            <h2><?= $faq->getQuestion() ?></h2>
-              <p><?=$faq->getAnswer()?></p>
+            <h2><?= htmlentities($faq->getQuestion()) ?></h2>
+              <p><?=htmlentities($faq->getAnswer())?></p>
           </div>
         </li>
       <?php endforeach; ?>

@@ -160,27 +160,33 @@ class User implements JsonSerializable{
     if (filter_var($login, FILTER_VALIDATE_EMAIL)) { 
       $stmt = $db->prepare('SELECT *
                           FROM users
-                          WHERE email = ? and pass = ?');
+                          WHERE email = ?');
       
     } else {
       $stmt = $db->prepare('SELECT *
                           FROM users
-                          WHERE username = ? and pass=?');
-      }
-
-    $stmt->execute(array($login, sha1($password))); 
-
+                          WHERE username = ?');
+    }
+  
+    $stmt->execute(array($login));
+  
     if ($user = $stmt->fetch()) {
-      return new User(
-        (int) $user['id'],
-        $user['name'],
-        $user['username'],
-        $user['pass'],
-        $user['email'],
-        $user['category']
-      );
-    } else return null;
+      $hashedPassword = $user['pass'];
+      if (password_verify($password, $hashedPassword)) {
+        return new User(
+          (int) $user['id'],
+          $user['name'],
+          $user['username'],
+          $user['pass'],
+          $user['email'],
+          $user['category']
+        );
+      }
+    }
+  
+    return null;
   }
+  
 
   function updateName(PDO $db, string $newName): void {
     $stmt = $db->prepare('
@@ -219,16 +225,19 @@ class User implements JsonSerializable{
   }
 
   function updatePass(PDO $db, string $newPass): void {
+    $hashedPassword = password_hash($newPass, PASSWORD_DEFAULT);
+    
     $stmt = $db->prepare('
-        UPDATE users SET pass = ?
-        WHERE id = ?
-      ');
-
-    $result = $stmt->execute(array(sha1($newPass), $this->id));
+      UPDATE users SET pass = ?
+      WHERE id = ?
+    ');
+  
+    $result = $stmt->execute(array($hashedPassword, $this->id));
     if ($result) {
-      $this->pass = sha1($newPass);
+      $this->pass = $hashedPassword;
     }
   }
+  
 
   function updateCategory(PDO $db, string $newCategory): void {
     $stmt = $db->prepare('
@@ -256,9 +265,9 @@ class User implements JsonSerializable{
     return $stmt->fetch();
   }
 
-  static function addUser(PDO $db, Session $session, $name, $username, $password, $email, $category){
+  static function addUser(PDO $db, $name, $username, $password, $email, $category){
     $stmt = $db->prepare('INSERT INTO users (name, username, pass, email, category) VALUES(?, ?, ?, ?, ?)');
-    return $stmt->execute(array($name, $username, sha1($password), strtolower($email), $category));
+    return $stmt->execute(array($name, $username, password_hash($password, PASSWORD_DEFAULT), strtolower($email), $category));
   }
 }
 ?>

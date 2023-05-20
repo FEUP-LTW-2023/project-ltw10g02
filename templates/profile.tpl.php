@@ -8,12 +8,13 @@
 <?php function drawInfosProfile(Session $session, User $user, $tickets): void { ?>
     <section class = "user_info">
         <h1>Profile Page</h1>
-
-        <article id = "user_tickets">
-            <h2>Last Tickets</h2>
-            <?php drawTickets($session, $tickets, 'profile_tickets') ?>
-            <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
-        </article>
+        <?php if (!empty($tickets)): ?>
+            <article id = "user_tickets">
+                <h2>Last Tickets</h2>
+                <?php drawTickets($tickets, 'profile_tickets') ?>
+                <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
+            </article>
+        <?php endif; ?>
 
         <?php drawBasicInfosProfile($session, $user) ?>
     </section>
@@ -246,11 +247,6 @@
         </span>
 
         <span id= "pass">
-            <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
-            <span class="error">
-                <p><?= $session->getMessages()[0]['text'] ?></p>
-            </span>
-            <?php endif; ?>
         <form action="/../actions/edit_profile/edit_pass.php" method="post">
             <label for="old_pass">Old Password: </label>
             <p><input type="password" id="old_pass" name="old_pass"></p>
@@ -259,6 +255,12 @@
             <label for="confirm_new_pass">Confirm New Password: </label>
             <p><input type="password" id="confirm_new_pass" name="confirm_new_pass"></p>
             <input type="submit" value="Save changes">
+
+            <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+                <div class="error">
+                    <p><?= $session->getMessages()[0]['text'] ?></p>
+                </div>
+            <?php endif; ?>
         </form>
         </span>
 

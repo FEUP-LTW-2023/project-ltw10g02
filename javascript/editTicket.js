@@ -85,8 +85,6 @@ async function editField(id_ticket, field){
     const response = await fetch('../api/api_tickets_get_infos.php?id=' + id_ticket)
     const ticketsInfo = await response.json()
 
-    console.log(pFieldValue)
-
     /* Create elements */
     const select = document.createElement('select')
 
@@ -150,10 +148,6 @@ async function confirmField(id_ticket, pFieldValue, field) {
         fieldId = selectedOption.getAttribute('id');
     }
 
-    console.log(id_ticket)
-    console.log(field)
-    console.log(fieldValue)
-
     const data = new FormData();
     data.append('id', id_ticket);
     data.append('field', field);
@@ -212,18 +206,19 @@ async function confirmField(id_ticket, pFieldValue, field) {
     }
 }
 
+
 async function editHashtag(id_ticket) {
+    var select = document.querySelector('select');
+
     /* Get inicial field in database */
     const pField = document.querySelector('#edit_hashtags > p')
     const pFieldValue = pField.textContent
 
     /* Select the span element */
-    const spanField = document.getElementById('edit_hashtags')
+    const divField = document.getElementById('edit_hashtags')
     
     const response = await fetch('../api/api_tickets_get_infos.php?id=' + id_ticket)
     const ticketsInfo = await response.json()
-
-    console.log(pFieldValue)
 
     /* Create elements */
     const p = document.createElement('p')
@@ -232,39 +227,30 @@ async function editHashtag(id_ticket) {
     const img = document.createElement('img')
 
 
-    spanField.innerHTML = ''
+    divField.innerHTML = ''
 
-    spanField.style.display = 'flex'
-
-    /* spanField.style.display = 'inline-block'
-    spanField.style.overflow = 'auto'
-    spanField.style.width = '300px' */
-
-    spanField.appendChild(p)
+    divField.appendChild(p)
 
     let arrayHashtagId = []
 
     /* Create select menu */
     ticketsInfo['hashtags'].forEach(function(element) {
-        const p = document.createElement('p')
-        p.classList.add("hashtag")
-        p.textContent = '#' + element.name
-        p.setAttribute('id', element.id)
+        const span = document.createElement('span')
+        span.classList.add("hashtag")
+        span.textContent = '#' + element.name
+        span.setAttribute('id', element.id)
 
-        p.addEventListener('click', function() {
-            arrayHashtagId.push(p.getAttribute('id'))
-            p.remove()
+        span.addEventListener('click', function() {
+            arrayHashtagId.push(span.getAttribute('id'))
+            span.remove()
         });
     
-        spanField.appendChild(p)
+        divField.appendChild(span)
     });
 
     const input = document.createElement('input')
-    input.style.padding = '0px'
-    /* input.style.overflow = 'auto' */
 
-    spanField.appendChild(input)
-
+    divField.appendChild(input)
 
     /* Assigning id */
 
@@ -277,34 +263,83 @@ async function editHashtag(id_ticket) {
     img.onclick = function() {
         checkHashtag(id_ticket, arrayHashtagId)
     } 
-    
-    /* Add style */
-    img.style.marginLeft = '8px'
 
     /* Append Child */
-    spanField.appendChild(img)
+    divField.appendChild(img)
+
+    input.addEventListener('input', async function() {
+        const response = await fetch('../api/api_hashtags_autocomplete.php?search=' + this.value)
+        const hashtags = await response.json()
+
+        if(!select){
+            select = document.createElement('select')
+        }
+        else
+            select.innerHTML = ''
+
+        if (this.value !== '') {        
+            const response = await fetch('../api/api_hashtags_autocomplete.php?search=' + this.value)
+            const hashtags = await response.json();
+
+            const option = document.createElement('option')
+            option.textContent = '-'
+            select.appendChild(option)
+
+            for (const hashtag of hashtags) {
+              const option = document.createElement('option')
+              option.textContent = hashtag.name
+              select.appendChild(option)
+            }
+            divField.insertBefore(select, img)
+          }
+    })
 }
+
+
 
 async function checkHashtag(id_ticket, arrayHashtagId) {
     const img = document.querySelector('#edit_hashtags > img')
 
-    img.src = '../images/icons/8666681_edit_icon.svg'
-    img.alt = 'Edit hashtags' 
-    img.onclick = function() {
-        editHashtag(id_ticket)
-    } 
-    const span = document.querySelector('#edit_hashtags')
-
-    /* span.style.maxWidth = '300px' */
+    const div = document.querySelector('#edit_hashtags')
 
     const newHashtag = document.querySelector('#edit_hashtags > input')
 
-    console.log(newHashtag.value)
+    const select = document.querySelector('#edit_hashtags > select')
+
+    img.src = '../images/icons/8666681_edit_icon.svg'
+    img.alt = 'Edit hashtags' 
+    img.onclick = function() {
+        if(select)
+            select.remove()
+        editHashtag(id_ticket)
+    } 
+
+    if(select && select.value !== '-'){
+        const span = document.createElement('span')
+        span.textContent = '#' + select.value
+        span.classList.add("hashtag")
+
+        const data2 = new FormData();
+        data2.append('ticket_id', id_ticket)
+        data2.append('hashtag', select.value)
+
+        const response2 = await fetch('../api/api_add_hashtag_ticket.php', {
+            method: 'POST',
+            body: data2
+        })
+
+        const pInfo = await response2.json()
+
+        span.setAttribute('id', pInfo.id)
+
+        div.insertBefore(span, img);
+    }
+    else{
 
     if(newHashtag.value !== ''){
-        const p = document.createElement('p')
-        p.textContent = '#' + newHashtag.value
-        p.classList.add("hashtag")
+        const span = document.createElement('span')
+        span.textContent = '#' + newHashtag.value
+        span.classList.add("hashtag")
 
         const data2 = new FormData();
         data2.append('ticket_id', id_ticket)
@@ -317,12 +352,11 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
 
         const pInfo = await response2.json()
 
-        console.log(pInfo.id)
+        span.setAttribute('id', pInfo.id)
 
-        p.setAttribute('id', pInfo.id)
-
-        span.insertBefore(p, img);
+        div.insertBefore(span, img);
     }
+}
 
     const hashtags = document.querySelectorAll('.hashtag');
 
@@ -336,6 +370,8 @@ async function checkHashtag(id_ticket, arrayHashtagId) {
     data1.append('ticket_id', id_ticket)
     data1.append('hashtagsIds', JSON.stringify(arrayHashtagId))
 
+    if(select)
+        select.remove()
 
     newHashtag.remove()
 

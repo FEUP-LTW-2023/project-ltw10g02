@@ -158,11 +158,11 @@ INSERT INTO departments (name, description) VALUES
 
 -- Insert users
 INSERT INTO users (name, username, pass, email, category) VALUES
-  ('Maria Rabelo', 'mariaarabelo', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'maria@example.com', 'client'),
-  ('Matheus Utino', 'utino', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'matheus@example.com', 'client'),
-  ('Sofia Sousa', 'ssousa', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'sofia@example.com', 'agent'),
-  ('Devezas', 'devezas', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'devezas@example.com', 'agent'),
-  ('Andre Restivo', 'arestivo', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 'restivo@example.com', 'admin');
+  ('Maria Rabelo', 'mariaarabelo', '$2y$10$W7ohksgUA9VA3t.0s72TwOfoPcXBgJkKdQO3dnXF/EJ5Pxr7MZ/jO', 'maria@example.com', 'client'),
+  ('Matheus Utino', 'utino', '$2y$10$Y3f3NGEOzdOlDU2Xdqa.Ve6H5iglAOz73Ncbjy2h7BiCVPOOmhBZO', 'matheus@example.com', 'client'),
+  ('Sofia Sousa', 'ssousa', '$2y$10$PPhZnOq6BWwWzjxnreus0ebM5OL4lex6o4hhAjc8yudy2AwgMhLwK', 'sofia@example.com', 'agent'),
+  ('Devezas', 'devezas', '$2y$10$GeH80VA.nE5fBIup8z0yn.hhv/6aGpfzkKwTJoP1IL5dE.tGLtRIm', 'devezas@example.com', 'agent'),
+  ('Andre Restivo', 'arestivo', '$2y$10$GmEwMtS.bW4TWcZ7s11C0.y3CABbl07mSQhZ9XEvKF3Nej0a.RnT2', 'restivo@example.com', 'admin');
 
 INSERT INTO user_department (user_id, department_id) VALUES
   (3, 1), --Sofia
@@ -186,7 +186,13 @@ VALUES
     ('Jeans sizing', 'Are these jeans true to size?', 1, 3, 3, NULL, 2),
     ('How do I change my password?', 'I would like to change my password but I don''t know how', 1, 3, NULL, 1, NULL),
     ('Wrong size product', 'My shirt does not fit me',  3, 4, 1, 3, 4),
-    ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2);
+    ('Refund request', 'I would like to request a refund for my recent purchase', 2, 4, 1, NULL, 2),
+    ('Account Access Issue', 'I am unable to log into my account. It says my password is incorrect.', 2, 1, 5, NULL, NULL),
+    ('Product Return Request', 'I would like to return a product I recently purchased as it arrived damaged.', 3, 4, 5, NULL, 4),
+    ('Order Modification', 'I need to update the shipping address for my order #123456.', 1, 2, 5, NULL, 3),
+    ('Technical Issue', 'Im experiencing an error message when trying to submit a form on the website.', 2, 3, 5, NULL, NULL),
+    ('Product Availability Inquiry', 'Is the XYZ product currently in stock? I would like to place an order.', 3, 4, 5, NULL, 5);
+    
 
 
 -- Insert hashtags

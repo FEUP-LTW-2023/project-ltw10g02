@@ -4,8 +4,10 @@
   require_once(__DIR__ . '/../utils/session.php');
   $session = new Session();
 
-  if(!$session->isLoggedIn())
+  if(!$session->isLoggedIn()){
         header("Location: ../index.php");
+        exit();
+  }
 
   require_once(__DIR__ . '/../database/database_connection.php');
   require_once(__DIR__ . '/../database/classes/ticket.php');
@@ -30,8 +32,14 @@
     
   }
   else if($_GET['option'] === '2'){
-    $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
-    $search_tickets = Ticket::searchTickets($db, $session->getId(), '', $departments_agent, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+    if($session->getCategory() === "agent"){
+      $departments_agent = UserDepartment::getDeparmentsByAgent($db, $session->getId());
+      $search_tickets = Ticket::searchTickets($db, $session->getId(), '', $departments_agent, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+    }
+    else{
+      $departments_admin = Department::getAllDepartments($db);
+      $search_tickets = Ticket::searchTickets($db, $session->getId(), $session->getCategory(), $departments_admin, $_GET['search'], $_GET['department'], $_GET['status'], $_GET['priority']);
+    }
   }
 
   

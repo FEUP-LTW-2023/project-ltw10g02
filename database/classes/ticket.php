@@ -239,11 +239,12 @@ class Ticket implements JsonSerializable{
       $sql = "SELECT * FROM tickets WHERE department_id = ?";
       $params[] = $department;
     }
+    
     if($category === 'client'){
       $sql .= ' AND client_id = ?';
       $params[] = $id;  
     }
-    else if($category === 'agent'){
+    else{
       $sql .= ' AND agent_id = ?'; 
       $params[] = $id;
     }
@@ -298,12 +299,15 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function getTicketsByDepartments(PDO $db, $user_department): array {
+  public static function getTicketsByDepartments(PDO $db, $user_department, $class): array {
     $tickets = array();
 
     $user_department_ids = array();
     foreach ($user_department as $department) {
-        $user_department_ids[] = $department->getDepartmentId();
+        if($class === 'agent')
+          $user_department_ids[] = $department->getDepartmentId();
+        else
+          $user_department_ids[] = $department->getId();
     }
 
     $placeholders = implode(',', array_fill(0, count($user_department_ids), '?'));

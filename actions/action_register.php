@@ -48,7 +48,7 @@
     }
     
     try {
-        $user = User::addUser($db, $session, $_POST['name'], $_POST['username'], $_POST['password'], $_POST['email'], "client");
+        $user = User::addUser($db, $_POST['name'], $_POST['username'], $_POST['password'], $_POST['email'], "client");
         $session->addMessage('success', 'New user created.');
         header('Location: /../pages/login.php'); 
 
