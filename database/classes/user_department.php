@@ -31,7 +31,7 @@ class UserDepartment implements JsonSerializable {
       $this->department_id = $department_id;
     }
 
-    public static function getDeparmentsByAgent(PDO $db, $id): ?array{
+    public static function getDepartmentsByAgent(PDO $db, $id): ?array{
       $departments = array();
 
       $stmt = $db->prepare('SELECT * FROM user_department WHERE user_id = ?');

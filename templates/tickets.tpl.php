@@ -4,8 +4,22 @@
 ?>
 
 <?php 
-function drawTickets($tickets, $div_id){ 
+function drawTickets($session, $tickets, $div_id){ 
 ?>
+  <?php if ($session->getMessages()[0]['type'] === 'error'): ?>
+    <div class="error">
+      <?php
+        $messages = $session->getMessages(); 
+        foreach ($messages as $message) {
+            if ($message['type'] === 'error') { 
+              ?>
+              <p><?= $message['text'] ?></p>
+            <?php
+            }
+        }
+      ?>
+    </div>
+  <?php endif; ?>
   <div id = <?=$div_id?>>
     <?php foreach ($tickets as $ticket): ?>
       <article class = "ticketResume">
@@ -37,7 +51,6 @@ function drawTickets($tickets, $div_id){
             ?>
               <p>Department: <?=$department->getName()?></p>
             <p>Status: <?=$history->getStatus()?></p>
-              <!-- create a link to show faq -->
             <?php
               $faqId = $history->getFaqId();
               if ($faqId === null):?>
@@ -174,7 +187,7 @@ function drawTickets($tickets, $div_id){
       <h1>My Tickets</h1>
 
       <?php drawSearchFormInput('form_my_tickets', 'search_tickets_client', $departments) ?>
-      <?php drawTickets($tickets, 'my_tickets') ?>
+      <?php drawTickets($session, $tickets, 'my_tickets') ?>
 
       <a href="../pages/create_ticket.php">Create a new ticket</a>
   </section>
@@ -186,7 +199,7 @@ function drawTickets($tickets, $div_id){
     <h1>My Tickets</h1>
 
     <?php drawSearchFormInput('form_my_tickets', 'search_tickets_agent', $departments_agent_tickets) ?>
-    <?php drawTickets($tickets_agent, 'my_tickets') ?>
+    <?php drawTickets($session, $tickets_agent, 'my_tickets') ?>
 </section>
 
 <section id = "department_tickets_section">
@@ -194,7 +207,7 @@ function drawTickets($tickets, $div_id){
     <!-- <input id="search_tickets" type="text" placeholder="Search your ticket"> -->
 
     <?php drawSearchFormInput('form_department_tickets', 'search_deparment_tickets', $departments) ?>
-    <?php drawTickets($tickets_departments, 'department_tickets') ?>
+    <?php drawTickets($session, $tickets_departments, 'department_tickets') ?>
 </section>
 <?php } ?>
 

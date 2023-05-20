@@ -93,6 +93,68 @@ class User implements JsonSerializable{
     return $users;
   }
   
+  static function getAllClients(PDO $db): ?array {
+    $users = array();
+    $stmt = $db->prepare('SELECT * FROM users WHERE category = "client"');
+    $stmt->execute();
+
+    foreach ($stmt as $row){
+      $user = new User(
+        (int) $row['id'],
+        $row['name'],
+        $row['username'],
+        $row['pass'],
+        $row['email'],
+        $row['category']
+      );
+
+      $users[] = $user;
+    }
+
+    return $users;
+  }
+
+  static function getAllAgents(PDO $db): ?array {
+    $users = array();
+    $stmt = $db->prepare('SELECT * FROM users WHERE category = "agent"');
+    $stmt->execute();
+
+    foreach ($stmt as $row){
+      $user = new User(
+        (int) $row['id'],
+        $row['name'],
+        $row['username'],
+        $row['pass'],
+        $row['email'],
+        $row['category']
+      );
+
+      $users[] = $user;
+    }
+
+    return $users;
+  }
+
+  static function getAllAdmins(PDO $db): ?array {
+    $users = array();
+    $stmt = $db->prepare('SELECT * FROM users WHERE category = "admin"');
+    $stmt->execute();
+
+    foreach ($stmt as $row){
+      $user = new User(
+        (int) $row['id'],
+        $row['name'],
+        $row['username'],
+        $row['pass'],
+        $row['email'],
+        $row['category']
+      );
+
+      $users[] = $user;
+    }
+
+    return $users;
+  }
 
   static function getUser(PDO $db, $login, $password): ?User {
     if (filter_var($login, FILTER_VALIDATE_EMAIL)) { 
