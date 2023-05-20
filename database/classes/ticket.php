@@ -217,7 +217,7 @@ class Ticket implements JsonSerializable{
     return $tickets;
   }
 
-  public static function searchTickets(PDO $db, $id, $category = '', $user_department = '', $search = '', $department = '', $status = '', $priority = ''): array {
+  public static function searchTickets(PDO $db, $id, $category = '', $user_department = '', $search = '', $department = '', $status = '', $priority = '', $option = ''): array {
     $tickets = array();
 
     if($department === "my_departments" || $department  === "") {
@@ -240,13 +240,15 @@ class Ticket implements JsonSerializable{
       $params[] = $department;
     }
     
-    if($category === 'client'){
-      $sql .= ' AND client_id = ?';
-      $params[] = $id;  
-    }
-    else{
-      $sql .= ' AND agent_id = ?'; 
-      $params[] = $id;
+    if($option !== '2'){
+      if($category === 'client'){
+        $sql .= ' AND client_id = ?';
+        $params[] = $id;  
+      }
+      else{
+        $sql .= ' AND agent_id = ?'; 
+        $params[] = $id;
+      }
     }
 
   
@@ -286,8 +288,6 @@ class Ticket implements JsonSerializable{
     }
     return $tickets;
   }
-
-
   public static function getAll(PDO $db): array {
 
     $tickets = array();

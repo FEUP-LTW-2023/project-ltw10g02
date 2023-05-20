@@ -13,6 +13,7 @@
     require_once(__DIR__ . '/../database/classes/user.php');
     require_once(__DIR__ . '/../database/classes/ticket.php');
     require_once(__DIR__ . '/../database/classes/department.php');
+    require_once(__DIR__ . '/../database/classes/user.php');
     require_once(__DIR__ . '/../database/classes/user_department.php');
     require_once(__DIR__ . '/../database/classes/hashtag.php');
     require_once(__DIR__ . '/../database/classes/ticket_hashtag.php');
@@ -28,11 +29,11 @@
 
         $agents_id = UserDepartment::getAllAgents($db);
 
-        $agents = array();
-        foreach ($agents_id as $agent_id) {
-            $agent = User::getUserById($db, $agent_id->getUserId());
-            $agents[] = $agent;
-        }
+        $agents = User::getAllAgents($db);
+
+        $admins = User::getAllAdmins($db);
+
+        $agents_admins = array_merge($agents, $admins);
 
         $priority = array('Low', 'Medium', 'High');
 
@@ -46,7 +47,7 @@
 
         $allHashtags = Hashtag::getAllHashtags($db);
 
-        echo json_encode(array('status' => $status, 'department' => $departments, 'agent' => $agents, 'priority' => $priority, 'hashtags' => $hashtags, 'allHashtags' => $allHashtags));
+        echo json_encode(array('status' => $status, 'department' => $departments, 'agent' => $agents_admins, 'priority' => $priority, 'hashtags' => $hashtags, 'allHashtags' => $allHashtags));
         http_response_code(200);
         $session->addMessage('success', 'Edited ticket.');
     }
