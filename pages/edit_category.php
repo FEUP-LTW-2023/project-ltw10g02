@@ -9,18 +9,31 @@
         exit();
     }
 
-    require_once __DIR__ . '/../database/database_connection.php';
-    require_once __DIR__ . '/../database/classes/user.php';
-
-    require_once(__DIR__ . '/../templates/profile.tpl.php');
+    require_once (__DIR__ . '/../database/database_connection.php');
+    require_once (__DIR__ . '/../database/classes/user.php');
+    require_once (__DIR__ . '/../database/classes/user_department.php');
+    require_once (__DIR__ . '/../database/classes/department.php');
     require_once(__DIR__ . '/../templates/common.tpl.php');
+    require_once(__DIR__ . '/../templates/admin.tpl.php');
 
     $db = getDatabaseConnection();
 
-    $user = User::getUserById($db, $session->getId());
-
+    // Retrieve clients, agents and admins from the database
+    $clients = User::getAllClients($db);
+    $agents = User::getAllAgents($db);
+    $admins = User::getAllAdmins($db);
+    
+    $userId = isset($_GET['userId']) ? $_GET['userId'] : null;
+ 
+    // Display all users
     drawHeader($session);
-    drawEditCategoryForm($session, $user);
+
+    if ($userId) {
+        $user = User::getUserById($db, $userId);
+        drawUsersEditCategory($db, $session, $clients, $agents, $admins, $user);
+    }
+
+    
     drawFooter();
 
 ?>

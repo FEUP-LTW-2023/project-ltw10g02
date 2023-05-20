@@ -27,7 +27,7 @@
 
 
     if ($session->getId() !== $ticket->getClientId()){
-        $session->addMessage('error', 'SessionId !== $ticket->getClientId()');
+        // $session->addMessage('error', 'SessionId !== $ticket->getClientId()');
         if ($session->getCategory() === "client"){
             $session->addMessage('error', 'You dont have permissions');
             die(header("Location: ../index.php"));

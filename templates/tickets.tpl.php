@@ -1,6 +1,7 @@
 <?php 
   declare(strict_types = 1); 
-  require_once(__DIR__ . '/../database/classes/ticket.php')
+  require_once(__DIR__ . '/../database/classes/ticket.php');
+  require_once(__DIR__ . '/../database/classes/faq.php');
 ?>
 
 <?php 
@@ -54,8 +55,9 @@ function drawTickets($session, $tickets, $div_id){
               <!-- create a link to show faq -->
             <?php
               $faqId = $history->getFaqId();
-              if ($faqId === null):?>
-                <p>FAQ: none associated</p>
+
+              if ($faqId === 0):?>
+            <p>FAQ: none associated</p>
             <?php 
               else: 
                 $faq= FAQ::getById($db, $faqId);
