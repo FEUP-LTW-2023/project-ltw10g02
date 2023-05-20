@@ -21,7 +21,7 @@
 
     // Display the tickets in an HTML table
     drawHeader($session);
-    drawTickets($tickets, 'index');
+    drawTickets($session, $tickets, 'index');
     drawFooter();
 
 ?>
