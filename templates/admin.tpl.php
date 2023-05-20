@@ -43,7 +43,7 @@
                             <p>Name: <?= $client->getName(); ?></p>
                             <p>Username: <?= $client->getUsername(); ?></p>
                             <p>Category: <?= $client->getCategory(); ?> 
-                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?userId=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/action_edit_category.php?userId=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
                             </p>
                         </div>
                     </li>
@@ -62,7 +62,7 @@
                             <p>Name: <?= $agent->getName(); ?></p>
                             <p>Username: <?= $agent->getUsername(); ?></p>
                             <p>Category: <?= $agent->getCategory(); ?>
-                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?userId=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/action_edit_category.php?userId=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
                             </p>
                             
                             <!-- Display departments -->
@@ -156,7 +156,7 @@
                             
                             <?php if ($userId == $user->getId()): ?>
                             
-                            <form action="/../actions/edit_category.php?userId=<?= $userId ?>" method="post">
+                            <form action="/../actions/action_edit_category.php?userId=<?= $userId ?>" method="post">
                                 <label for="category">Category: </label>
                                 <select id="category" name="category">
                                     <option value="client" <?php if ($user->getCategory() === 'client') echo 'selected'; ?>>Client</option>
@@ -168,7 +168,7 @@
                             
                             <?php else: ?>
                             <p>Category: <?= $client->getCategory(); ?>
-                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/edit_category.php?user=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
+                            <img id="edit_category_img" onclick ="redirectToPage('/../pages/action_edit_category.php?user=<?= $userId ?>')" src="../images/icons/8666681_edit_icon.svg" alt="Edit category icon" />
                             </p>                        
                             <?php endif; ?>
 
