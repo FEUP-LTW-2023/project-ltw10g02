@@ -11,7 +11,7 @@
         <?php if (!empty($tickets)): ?>
             <article id = "user_tickets">
                 <h2>Last Tickets</h2>
-                <?php drawTickets($tickets, 'profile_tickets') ?>
+                <?php drawTickets($session, $tickets, 'profile_tickets') ?>
                 <button onclick="redirectToPage('../pages/my_tickets.php')">Show all tickets</button>
             </article>
         <?php endif; ?>
