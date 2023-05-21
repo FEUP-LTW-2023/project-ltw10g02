@@ -2,25 +2,38 @@
 
 User access info (all passwords: 1234)
 
+
 Clients:
 
+
 username: mariaarabelo
+
 email: maria@example.com
 
+
 username: utino 
+
 email: matheus@example.com
+
 
 
 Agents:
 
+
 username: ssousa
+
 email: sofia@example.com
 
+
 username: devezas
+
 email: devezas@example.com
+
 
 
 Admin:
 
+
 username: arestivo
+
 email: restivo@example.com
